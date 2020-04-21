@@ -16,8 +16,7 @@ const injectContext = PassedComponent =>{
             })
         )
         useEffect(()=>{
-            state.actions.getAll("http://localhost:5000/api/todos")
-            state.actions.getNames("http://localhost:5000/api/todos/names")
+            
             
         },[])
         return (
