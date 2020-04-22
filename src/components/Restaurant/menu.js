@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
-import { Context } from '../store/appContext'
+import { Context } from '../../../src/store/appContext'
+import { Link } from 'react-router-dom'
 
 export default function RestaurantCard() {
     const { store, actions } = useContext(Context)
@@ -9,7 +10,9 @@ export default function RestaurantCard() {
                     <div class="card-body">
                         <h5 class="card-title">Here will go Restaurants</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-secondary">to restaurant display</a>
+                        <Link to="/restaurant">
+                                <h5>know more</h5>
+                            </Link>
                     </div>
             </div>
         </>

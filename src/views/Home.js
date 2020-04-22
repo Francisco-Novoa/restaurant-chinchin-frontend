@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
 import ModalLogin from '../components/modal_login'
 import ModalRegister from '../components/modal_register'
-import RestaurantList from '../components/restaurant_list'
+import RestaurantList from '../components/Restaurant/restaurant_list'
 
 const Home = props => {
     const { store, actions } = useContext(Context)

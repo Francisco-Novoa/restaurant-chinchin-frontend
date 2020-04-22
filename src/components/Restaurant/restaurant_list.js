@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Context } from '../store/appContext'
+import { Context } from '../../../src/store/appContext'
 import RestaurantCard from "./restaurant_card"
 
 export default function RestaurantList() {
