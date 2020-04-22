@@ -4,7 +4,7 @@ import NotFound from './views/Notfound'
 import Home from './views/Home'
 import injectContext from './store/appContext'
 import Restaurant from './views/HomeBusiness'
-import RestaurantDisplay from "./components/Restaurant/restaurant_display"
+import ClientSideRestaurant from "./components/Restaurant/clientsidemenu"
 import Admin from './views/HomeAdmin'
 
 const Layout = props => {
@@ -14,7 +14,7 @@ const Layout = props => {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/business" component={Restaurant} />
                 <Route exact path="/admin" component={Restaurant} />
-                <Route path="/restaurant" render={props=><RestaurantDisplay {...props} />} />
+                <Route path="/restaurant" render={props=><ClientSideRestaurant {...props} />} />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>

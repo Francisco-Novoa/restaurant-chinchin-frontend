@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Context } from '../../../src/store/appContext'
 import { Link } from 'react-router-dom'
 
-export default function RestaurantCard() {
+export default function Menu() {
     const { store, actions } = useContext(Context)
     return (
         <>
