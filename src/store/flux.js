@@ -20,6 +20,7 @@ export default function getState({ getStore, getActions, setStore }) {
             currentUser: {},
             currentAdmin: {},
             currentRestaurant: {},
+            allRestaurants:[1,2,3,4,5,6,77,8]
         },
         actions: {
             //actions go here.
@@ -92,7 +93,6 @@ export default function getState({ getStore, getActions, setStore }) {
                         }
                     })
             },
-
             handleChange: e => {
                 let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
                 setStore({ [e.target.name]: value })
@@ -213,7 +213,6 @@ export default function getState({ getStore, getActions, setStore }) {
                         }
                     })
             },
-
             registerAdminPost: () => {
                 const store = getStore();
                 const data = {
@@ -282,6 +281,21 @@ export default function getState({ getStore, getActions, setStore }) {
                             sessionStorage.setItem('isAuthenticatedAdmin', true)
                         }
                     })
+            },
+            getAllRestaurants: async url => {
+                try {
+                    const all = await fetch(url, {
+                        method: "GET",
+                        headers: { "Content-Type": "aplication/json" }
+                    })
+                    const data = await all.json()
+                    setStore({
+                        allRestaurants: data
+                    })
+                }
+                catch (error) {
+                    console.log(error)
+                }
             },
 
         }

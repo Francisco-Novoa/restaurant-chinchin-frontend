@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
 import ModalLogin from '../components/modal_login'
 import ModalRegister from '../components/modal_register'
+import RestaurantList from '../components/restaurant_list'
 
 const Home = props => {
     const { store, actions } = useContext(Context)
@@ -29,8 +30,7 @@ const Home = props => {
                                     <h5>Restaurants</h5>
                                     <hr></hr>
                                     <ul className='pl-3 pr-3 pt-2'>
-                                        <li>First restaurant</li>
-                                        <li>Secons restaurant</li>
+                                    <RestaurantList/>
                                     </ul>
                                 </div>
                             </div>
