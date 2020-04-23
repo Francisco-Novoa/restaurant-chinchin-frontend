@@ -6,6 +6,8 @@ import injectContext from './store/appContext'
 import Restaurant from './views/HomeBusiness'
 import ClientSideRestaurant from "./components/Restaurant/clientsidemenu"
 import Admin from './views/HomeAdmin'
+import New_Product from './components/modal_new_product'
+import New_Ingredient from './components/modal_new_ingredient'
 
 
 const Layout = props => {
@@ -13,6 +15,8 @@ const Layout = props => {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Home} />
+                <Route exact path="/product" component={New_Product} />
+                <Route exact path="/ingredient" component={New_Ingredient} />
                 <Route exact path="/business" component={Restaurant} />
                 <Route exact path="/admin" component={Restaurant} />
                 <Route path="/restaurant" render={props=><ClientSideRestaurant {...props} />} />
