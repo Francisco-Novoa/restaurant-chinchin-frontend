@@ -20,7 +20,7 @@ export default function getState({ getStore, getActions, setStore }) {
             currentUser: {},
             currentAdmin: {},
             currentRestaurant: {},
-            allRestaurants:[1,2,3,4,5,6,77,8]
+            allRestaurants:[]
         },
         actions: {
             //actions go here.
@@ -297,6 +297,19 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
+            updateRestaurant: async (url , body) =>{
+                try {
+                    const all = await fetch( url, {
+                        method: "POST",
+                        headers: { "Content-Type": "aplication/json" },
+                        body:JSON.stringify(body)
+                    })
+                    return "ok"
+                }
+                catch (error){
+                    console.log(error)
+                }
+            }
 
         }
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import ModalRegisterRestaurant from "../components/modal_register_restaurant"
 import ModalLoginRestaurant from "../components/modal_login_restaurant"
+import ControlPanel from "../components/Restaurant/onwercontrolpanel";
 
 const Restaurant = (props) => {
     const { store, actions } = useContext(Context);
@@ -57,7 +58,7 @@ const Restaurant = (props) => {
                                 <div className="hand" onClick={() => actions.Logout()}>Logout</div>
                                 <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.LogoutRestaurant()}></i>
                             </div>
-                            <h3>You authenticated</h3>
+                            <ControlPanel/>
                         </div>
                     </div>
                 )}
