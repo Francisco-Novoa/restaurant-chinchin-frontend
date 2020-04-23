@@ -19,17 +19,9 @@ export default function getState({ getStore, getActions, setStore }) {
             errorsLoginAdmin: '',
             currentUser: {},
             currentAdmin: {},
+            isfinished:false,
             currentRestaurant: {},
-<<<<<<< HEAD
-            allRestaurants:[]
-=======
-            allRestaurants: [1, 2, 3, 4, 5, 6, 77, 8],
-            // variables Product
-            name_product: '',
-            description_product: '',
-            price_product: '',
-            errors_product: ''
->>>>>>> c4f6317c608f16c4b1540dca5f5c6f58596e378c
+            allRestaurants: []
         },
         actions: {
             //actions go here.
@@ -183,9 +175,10 @@ export default function getState({ getStore, getActions, setStore }) {
                                 currentRestaurant: data,
                                 isAuthenticatedRestorauntUser: true,
                             })
-                            console.log(data)
+                            //console.log(data)
                             sessionStorage.setItem('currentRestaurant', JSON.stringify(data))
                             sessionStorage.setItem('isAuthenticatedRestorauntUser', true)
+
                         }
                     })
             },
@@ -298,6 +291,9 @@ export default function getState({ getStore, getActions, setStore }) {
                         headers: { "Content-Type": "aplication/json" }
                     })
                     const data = await all.json()
+                    if (data.msg){
+                        console.log(data.msg)
+                    }
                     setStore({
                         allRestaurants: data
                     })
@@ -306,49 +302,47 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-<<<<<<< HEAD
-            updateRestaurant: async (url , body) =>{
+            updateRestaurant: async (url, body) => {
                 try {
-                    const all = await fetch( url, {
+                    const all = await fetch(url, {
                         method: "POST",
                         headers: { "Content-Type": "aplication/json" },
-                        body:JSON.stringify(body)
+                        body: JSON.stringify(body)
                     })
                     return "ok"
                 }
-                catch (error){
+                catch (error) {
                     console.log(error)
                 }
-=======
-            //Action POST Product
-            handleChangeProduct: e => {
-                setStore({ [e.target.name]: e.target.value })
             },
-            registerProduct: e => {
-
-                e.preventDefault();
-
-                const store = getStore();
-
-                console.log('hola')
-
-                const data = {
-                    _name_product: store.name_product,
-                    _description_product: store.description_product,
-                    _price_product: store.price_product
+            newProduct: async (url,body) =>{
+                try {
+                    const all = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json"},
+                        body: JSON.stringify(body)
+                    })
+                    const result=await all.json() 
+                    console.log(result)
+                    return result
                 }
-                fetch(store.path + '/product', {
-                    method: "POST",
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-Type":"application/json",
-                    }
-                }).then(resp => resp.json())
-                .then( data => console.log(data))
->>>>>>> c4f6317c608f16c4b1540dca5f5c6f58596e378c
+                catch (error) {
+                    console.log(error)
+                }
+            },
+            getAllProductsOf:async (url,id) =>{
+                try {
+                    const all = await fetch(url+"/"+id, {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json"},
+                    })
+                    const result=await all.json()
+                    return result
+                }
+                catch (error) {
+                    console.log(error)
+                }
             }
-
         }
-
     }
 }

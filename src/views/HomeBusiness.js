@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import ModalRegisterRestaurant from "../components/modal_register_restaurant"
 import ModalLoginRestaurant from "../components/modal_login_restaurant"
 import ControlPanel from "../components/Restaurant/onwercontrolpanel";
+import OwnerSideMenu from "../components/Restaurant/ownersidemenu";
 
 const Restaurant = (props) => {
     const { store, actions } = useContext(Context);
@@ -47,7 +48,7 @@ const Restaurant = (props) => {
                     <ModalLoginRestaurant />
                 </div>
             ) : (
-                    <div className="container">
+                    <div className="container mb-5">
                         <div className="row pt-3">
                             <div className="col-md-9">
                                 <Link to="/">
@@ -58,7 +59,24 @@ const Restaurant = (props) => {
                                 <div className="hand" onClick={() => actions.Logout()}>Logout</div>
                                 <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.LogoutRestaurant()}></i>
                             </div>
-                            <ControlPanel/>
+                            {
+                                store.currentRestaurant.hasOwnProperty("restaurantuser") ?
+                                    <>
+                                        <ControlPanel a={true} />
+                                        <OwnerSideMenu a={true}/>
+                                    </>
+                                    : <h1>Loading</h1>
+                            }
+                            {
+                                store.currentUser.hasOwnProperty("restaurantuser") ?
+                                    <>
+                                        <ControlPanel a={false} />
+                                        <OwnerSideMenu a={false}/>
+                                    </>
+                                    : <h1>Loading</h1>
+                            }
+                        }
+
                         </div>
                     </div>
                 )}

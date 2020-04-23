@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Context } from '../../store/appContext'
 
-export default function ClientSideRestaurant(props) {
+export default function ClientSideMenu(props) {
 
     const { store, actions } = useContext(Context)
     return (

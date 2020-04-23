@@ -16,11 +16,7 @@ const injectContext = PassedComponent =>{
             })
         )
         useEffect(()=>{
-<<<<<<< HEAD
             state.actions.getAllRestaurants("http://localhost:5000/restaurantusers")
-=======
-            state.actions.getAllRestaurants("http://localhost:5000/product")
->>>>>>> c4f6317c608f16c4b1540dca5f5c6f58596e378c
             
         },[])
         return (
