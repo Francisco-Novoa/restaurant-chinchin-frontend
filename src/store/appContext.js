@@ -16,7 +16,7 @@ const injectContext = PassedComponent =>{
             })
         )
         useEffect(()=>{
-            
+            state.actions.getAllRestaurants("http://localhost:5000/product")
             
         },[])
         return (

@@ -20,7 +20,12 @@ export default function getState({ getStore, getActions, setStore }) {
             currentUser: {},
             currentAdmin: {},
             currentRestaurant: {},
-            allRestaurants:[1,2,3,4,5,6,77,8]
+            allRestaurants: [1, 2, 3, 4, 5, 6, 77, 8],
+            // variables Product
+            name_product: '',
+            description_product: '',
+            price_product: '',
+            errors_product: ''
         },
         actions: {
             //actions go here.
@@ -297,6 +302,32 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
+            //Action POST Product
+            handleChangeProduct: e => {
+                setStore({ [e.target.name]: e.target.value })
+            },
+            registerProduct: e => {
+
+                e.preventDefault();
+
+                const store = getStore();
+
+                console.log('hola')
+
+                const data = {
+                    _name_product: store.name_product,
+                    _description_product: store.description_product,
+                    _price_product: store.price_product
+                }
+                fetch(store.path + '/product', {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Content-Type":"application/json",
+                    }
+                }).then(resp => resp.json())
+                .then( data => console.log(data))
+            }
 
         }
 
