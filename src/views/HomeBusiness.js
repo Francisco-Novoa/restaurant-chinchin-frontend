@@ -5,7 +5,7 @@ import ModalRegisterRestaurant from "../components/modal_register_restaurant"
 import ModalLoginRestaurant from "../components/modal_login_restaurant"
 import ControlPanel from "../components/Restaurant/onwercontrolpanel";
 import OwnerSideMenu from "../components/Restaurant/ownersidemenu";
-
+import NewProduct from "../components/modal_new_product"
 const Restaurant = (props) => {
     const { store, actions } = useContext(Context);
     useEffect(() => {
@@ -64,18 +64,24 @@ const Restaurant = (props) => {
                                     <>
                                         <ControlPanel a={true} />
                                         <OwnerSideMenu a={true}/>
+                                        <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_new_product">New Product</button>
+                                        <NewProduct a={true}/>
                                     </>
-                                    : <h1>Loading</h1>
+                                    : ""
                             }
                             {
                                 store.currentUser.hasOwnProperty("restaurantuser") ?
                                     <>
                                         <ControlPanel a={false} />
                                         <OwnerSideMenu a={false}/>
+                                        <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_new_product">New Product</button>
+                                        <NewProduct a={false}/>
                                     </>
-                                    : <h1>Loading</h1>
+                                    : ""
                             }
-                        }
+
+                            <h1>Orders will go Here</h1>
+                        
 
                         </div>
                     </div>

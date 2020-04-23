@@ -19,9 +19,9 @@ export default function getState({ getStore, getActions, setStore }) {
             errorsLoginAdmin: '',
             currentUser: {},
             currentAdmin: {},
-            isfinished:false,
             currentRestaurant: {},
-            allRestaurants: []
+            allRestaurants: [],
+            allProducts:[]
         },
         actions: {
             //actions go here.
@@ -305,8 +305,8 @@ export default function getState({ getStore, getActions, setStore }) {
             updateRestaurant: async (url, body) => {
                 try {
                     const all = await fetch(url, {
-                        method: "POST",
-                        headers: { "Content-Type": "aplication/json" },
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(body)
                     })
                     return "ok"
@@ -330,14 +330,17 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-            getAllProductsOf:async (url,id) =>{
+            getAllProductsOf:async (url) =>{
                 try {
-                    const all = await fetch(url+"/"+id, {
+                    const all = await fetch(url, {
                         method: "GET",
                         headers: { "Content-Type": "application/json"},
                     })
-                    const result=await all.json()
-                    return result
+                    const data=await all.json()
+                    setStore({
+                        allProducts: data
+                    })
+                    return "ok"
                 }
                 catch (error) {
                     console.log(error)

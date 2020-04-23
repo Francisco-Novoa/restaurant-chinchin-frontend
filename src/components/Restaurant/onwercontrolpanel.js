@@ -47,7 +47,7 @@ export default function ControlPanel(props) {
     return (
         <>{
             <div className="container-fluid">
-                <div className="row bg-secondary p-3 border border-dark">
+                <div className="row bg-secondary p-3 border border-dark mb-3">
                     <div className="col-3"><i className="fas fa-cogs fa-3x"></i></div>
                     <div className="col-9"><h3>Control Panel</h3></div>
                 </div>
@@ -59,7 +59,7 @@ export default function ControlPanel(props) {
                     <div className="col-3 bg-secondary border-bottom">Nombre</div>
                     {
                         local.name ? <div className="col-8"><input type="text" name="name" value={local.user.name}
-                            onChange={(e) => { handleChange(e) }} id="inputname" />
+                        className="form-control"    onChange={(e) => { handleChange(e) }} id="inputname" />
                         </div>
                             : <div className="col-8">{local.user.name}</div>
 
@@ -71,7 +71,7 @@ export default function ControlPanel(props) {
                     <div className="col-3 bg-secondary border-bottom">Email</div>
                     {
                         local.email ? <div className="col-8"><input type="text" name="email" value={local.user.email}
-                            onChange={(e) => { handleChange(e) }} id="inputemail" /></div>
+                        className="form-control"    onChange={(e) => { handleChange(e) }} id="inputemail" /></div>
                             : <div className="col-8">{local.user.email}</div>
 
                     }
@@ -82,7 +82,7 @@ export default function ControlPanel(props) {
                     <div className="col-3 bg-secondary border-bottom">Telefono</div>
                     {
                         local.phone ? <div className="col-8"><input type="text" name="phone" value={local.user.phone}
-                            onChange={(e) => { handleChange(e) }} id="inputphone" /></div>
+                        className="form-control"    onChange={(e) => { handleChange(e) }} id="inputphone" /></div>
                             : <div className="col-8">{local.user.phone}</div>
 
                     }
@@ -93,7 +93,7 @@ export default function ControlPanel(props) {
                     <div className="col-3 bg-secondary border-bottom">Direccion</div>
                     {
                         local.address ? <div className="col-8"><input type="text" name="address" value={local.user.address}
-                            onChange={(e) => { handleChange(e) }} id="inputaddress" /></div>
+                        className="form-control"  onChange={(e) => { handleChange(e) }} id="inputaddress" /></div>
                             : <div className="col-8">{local.user.address}</div>
 
                     }

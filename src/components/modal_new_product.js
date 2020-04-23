@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect} from 'react';
 import { Context } from '../store/appContext';
 
 export default function NewProduct(props) {
@@ -26,28 +26,43 @@ export default function NewProduct(props) {
         console.log(local.body)
         if (!local.body.name_product
             && !local.body.description
-            && !local.body.price) {
+            && !local.body.price&&!local.body.id_restaurant) {
             const newlocal = { ...local }
             newlocal.error = !local.error
             setLocal(newlocal)
         }
         else {
             if(actions.newProduct("http://localhost:5000/product", local.body)){
-                
-                const newlocal = { ...local }
-                newlocal.success = !local.success
-                setLocal(newlocal)
             }
         }
     }
 
+    useEffect(()=>{
+        const newlocal = { ...local }
+        if(props.a){
+            newlocal.body.id_restaurant=store.currentRestaurant.restaurantuser.id
+            
+        }
+        else{
+            newlocal.body.id_restaurant=store.currentUser.restaurantuser.id
+        }
+        setLocal(newlocal)
+    },[])
+
     return (
-        <>{!local.success?
+        <>
             <div className="wrapper wrapper--w960">
-                <div className="card card-2">
-                    <div className="card-heading"></div>
-                    <div className="card-body">
+                <div className="modal fade" id="modal_new_product" tabIndex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog" role="document"></div>
+                <div className="modal-content">
+                <div className="modal-header">
                         <h2 className="title">New Product</h2>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div className="form-group modal-body">
                         {
                             local.error ? (
                                 <div className="row">
@@ -78,24 +93,10 @@ export default function NewProduct(props) {
                         <div className="p-t-30 d-flex justify-content-end">
                             <button className="btn btn--radius btn--green" onClick={() => { handleSubmit() }} >Send</button>
                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            :
-            <div className="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div className="toast-header">
-                    <img src="..." className="rounded mr-2" alt="..." />
-                    <strong className="mr-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                    <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div className="toast-body">
-                    Hello, world! This is a toast message.
-            </div>
-            </div>
-        }
         </>
     )
 }
