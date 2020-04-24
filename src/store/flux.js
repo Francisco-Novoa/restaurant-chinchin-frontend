@@ -422,9 +422,6 @@ export default function getState({ getStore, getActions, setStore }) {
             handleRestaurantFocus: (restaurant )=>{
                 setStore({restaurantFocus:restaurant})
             },
-<<<<<<< HEAD
-
-=======
             getConfirmation: () =>{
                 const store =getStore()
                 const data = {
@@ -567,8 +564,6 @@ export default function getState({ getStore, getActions, setStore }) {
                     })
                     
             },
->>>>>>> fddd233d2c9dffa5f301dcafe9307de6882a73cf
-
         }
     }
 }
