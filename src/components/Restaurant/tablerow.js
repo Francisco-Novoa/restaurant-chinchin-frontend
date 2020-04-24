@@ -31,6 +31,7 @@ export default function TableRow(props) {
     }
 
     return (
+        
         <tr>
             {
                 local.edit ?
@@ -65,6 +66,6 @@ export default function TableRow(props) {
                     </>
             }
 
-        </tr >
+        </tr>
     )
 }
