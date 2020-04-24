@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import ModalRegisterRestaurant from "../components/modal_register_restaurant"
@@ -7,6 +7,35 @@ import ControlPanel from "../components/Restaurant/onwercontrolpanel";
 import OwnerSideMenu from "../components/Restaurant/ownersidemenu";
 import NewProduct from "../components/modal_new_product"
 const Restaurant = (props) => {
+
+    const [local, setLocal] = useState(
+        {
+            user: true,
+            product: false,
+            orders: false
+        }
+    )
+
+    const handleClick = (name) => {
+        const newlocal = { ...local }
+        if (name=="user"){
+            newlocal["product"]=false
+            newlocal["orders"]=false
+            newlocal["user"]=true
+        }
+        else if (name=="product"){
+            newlocal["user"]=false
+            newlocal["orders"]=false
+            newlocal["product"]=true
+        }
+        else if (name=="orders"){
+            newlocal["user"]=false
+            newlocal["orders"]=true
+            newlocal["product"]=false
+        }
+        setLocal(newlocal)
+    }
+
     const { store, actions } = useContext(Context);
     useEffect(() => {
         actions.isAuthenticatedRestorauntUser();
@@ -55,6 +84,11 @@ const Restaurant = (props) => {
                                     <h1>Logo</h1>
                                 </Link>
                             </div>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" className="btn btn-secondary" onClick={() => { handleClick("user") }} >User</button>
+                                <button type="button" className="btn btn-secondary" onClick={() => { handleClick("product") }} >Products</button>
+                                <button type="button" className="btn btn-secondary" onClick={() => { handleClick("orders") }}>Orders</button>
+                            </div>
                             <div className='d-flex justify-content-between text-muted pt-1 btn' onClick={() => actions.LogoutRestaurant()}>
                                 <div className="hand" onClick={() => actions.Logout()}>Logout</div>
                                 <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.LogoutRestaurant()}></i>
@@ -62,28 +96,49 @@ const Restaurant = (props) => {
                             {
                                 store.currentRestaurant.hasOwnProperty("restaurantuser") ?
                                     <>
-                                        <ControlPanel a={true} />
-                                        <OwnerSideMenu a={true}/>
-                                        
-                                        <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_new_product">New Product</button>
-                                        <NewProduct a={true}/>
+                                        {
+                                            local.user ? <ControlPanel a={true} /> : ""
+                                        }
+                                        {
+                                            local.product ?
+                                                <>
+                                                    <OwnerSideMenu a={true} />
+                                                    <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_new_product">New Product</button>
+                                                    <NewProduct a={true} />
+                                                </>
+                                                : ""
+                                        }
+                                        {
+                                            local.orders ? <h1>orders!!</h1> : ""
+                                        }
+
+
                                     </>
                                     : ""
                             }
                             {
                                 store.currentUser.hasOwnProperty("restaurantuser") ?
                                     <>
-                                        <ControlPanel a={false} />
-                                        <OwnerSideMenu a={false}/>
-                                        <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_new_product">New Product</button>
-                                        <NewProduct a={false}/>
+                                        {
+                                            local.user ? <ControlPanel a={false} /> : ""
+                                        }
+                                        {
+                                            local.product ?
+                                                <>
+                                                    <OwnerSideMenu a={false} />
+                                                    <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_new_product">New Product</button>
+                                                    <NewProduct a={false} />
+                                                </>
+                                                : ""
+                                        }
+                                        {
+                                            local.orders ? <h1>orders!!</h1> : ""
+                                        }
+
+
                                     </>
                                     : ""
                             }
-
-                            <h1>Orders will go Here</h1>
-                        
-
                         </div>
                     </div>
                 )}
