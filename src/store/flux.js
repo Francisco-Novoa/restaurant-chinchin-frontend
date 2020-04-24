@@ -334,7 +334,8 @@ export default function getState({ getStore, getActions, setStore }) {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(body)
                     })
-                    return "ok"
+                    const response= await all.json()
+                    console.log(response)
                 }
                 catch (error) {
                     console.log(error)

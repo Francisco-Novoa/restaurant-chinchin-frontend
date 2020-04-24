@@ -6,9 +6,9 @@ export default function NewProduct(props) {
     const [local, setLocal] = useState(
         {
             body: {
-                name_product: false,
-                description: false,
-                price: false,
+                name_product: "",
+                description: "",
+                price: "",
                 id_restaurant: false
             },
             error: false,
@@ -22,7 +22,6 @@ export default function NewProduct(props) {
         setLocal(newlocal)
     }
 
-
     const handleSubmit = () => {
         console.log(local.body)
         if (!local.body.name_product
@@ -35,6 +34,17 @@ export default function NewProduct(props) {
         else {
             actions.newProduct("http://localhost:5000/product", local.body)
             actions.getAllProductsOf("http://localhost:5000/product/from/" + local.body.id_restaurant)
+            const newlocal= {
+                body: {
+                    name_product: "",
+                    description: "",
+                    price: "",
+                    id_restaurant: local.body.id_restaurant
+                },
+                error: false,
+                success: false
+            }
+            setLocal(newlocal)
         }
     }
 
@@ -82,19 +92,25 @@ export default function NewProduct(props) {
                                
                                 <div className="input-group">
                                     <input className="form-control" type="text" placeholder="Ingrese nombre del producto" name="name_product"
-                                        onChange={(e) => { handleChange(e) }} />
+                                        onChange={(e) => { handleChange(e) }} value={local.body.name_product}/>
                                 </div>
                                 <div className="input-group">
                                     <input className="form-control" type="text" placeholder="Ingrese una descripcion" name="description"
-                                        onChange={(e) => { handleChange(e) }} />
+                                        onChange={(e) => { handleChange(e) }} value={local.body.description}/>
                                 </div>
                                 <div className="input-group">
                                     <input className="form-control" type="number" placeholder="Ingrese valor del producto $" name="price"
-                                        onChange={(e) => { handleChange(e) }} />
+                                        onChange={(e) => { handleChange(e) }} value={local.body.price} />
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button className="btn btn-primary" data-dismiss="modal" onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
+                                {
+                                    local.error? <button className="btn btn-primary" 
+                                    onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
+                                    : <button className="btn btn-primary" 
+                                    data-dismiss="modal" onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
+                                }
+                               
                             </div>
                             </form>
                         </div>
