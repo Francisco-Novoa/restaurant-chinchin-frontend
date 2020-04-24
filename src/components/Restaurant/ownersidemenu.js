@@ -31,27 +31,34 @@ export default function OwnerSideMenu(props) {
     return (
         <>
             <div className="container-fluid">
-                <div className="row bg-secondary p-3 border border-dark mb-3">
-                    <div className="col-3"><i className="fas fa-cogs fa-3x"></i></div>
-                    <div className="col-9"><h3>Tabla de Productos</h3></div>
+                {/* Titulo block */}
+                <div className="row mb-3 alert alert-primary text-center">
+                    <div className="col-md-12">                    
+                        <h3><i className="fas fa-cogs text-white"></i>  Product Table</h3>
+                    </div>
                 </div>
+
+                {/* Text block */}
                 <div className="row">
-                    <div className="alert alert-primary" role="alert">
-                        Esta pagina es para editar y actualizar los detalles de los productos disponibles para la venta
-                     </div>
+                    <div className="col-md-12">
+                        <div className="alert alert-primary" role="alert">
+                            Esta pagina es para editar y actualizar los detalles de los productos disponibles para la venta
+                        </div>
+                    </div>
                 </div>
-                <table className="table">
-                    <thead className="thead-dark">
-                        <tr>
+
+                {/* Product Table */}
+                <table className="table table-hover text-center">
+
+                    {/* Header */}
+                    <thead className="text-primary">
                             <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col">
-                                Edit
-                            </th>
-                        </tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Description</th>
                     </thead>
+
+                    {/* Body */}
                     <tbody>
                         {   
                          !!store.allProducts&&
@@ -65,6 +72,14 @@ export default function OwnerSideMenu(props) {
                         }
                         
                     </tbody>
+                        {/* Modal New Product */}
+                        <button 
+                            className="btn btn-primary" 
+                            data-toggle="modal" 
+                            data-target="#modal_new_product"
+                        >
+                            <i className="fas fa-plus"> </i>
+                        </button>
                 </table>
             </div>
         </>

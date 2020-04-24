@@ -30,13 +30,26 @@ export default function TableRow(props) {
     }
 
     return (
+        
         <tr>
+            {/* Product Table */}
             <th scope="row">{props.i+1}</th>
             <td>{props.elem.name_product}</td>
             <td>{props.elem.price}</td>
             <td>{props.elem.description}</td>
+
+            {/* Edit Button Product*/}
             <td scope="col">
-                <i className="fas fa-edit" onClick={(e) => { handleEditButton("name", e) }} ></i>
+                <button
+                    type="button"
+                    className="btn btn-primary  ml-2"
+                    onClick={(e) => { 
+                        handleEditButton("name", e) 
+                    }} 
+                >
+                <i className="fas fa-edit"></i>
+              </button>
+                
             </td>
         </tr>
     )
