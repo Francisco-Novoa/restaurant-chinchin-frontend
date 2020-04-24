@@ -361,7 +361,32 @@ export default function getState({ getStore, getActions, setStore }) {
                 setStore({currentRestaurant:aux})
                 sessionStorage.setItem('currentUser', JSON.stringify(aux))
                 sessionStorage.setItem('currentRestaurant', JSON.stringify(aux))
-            }
+            },
+            updateProduct: async (url, body) => {
+                try {
+                    const all = await fetch(url, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(body)
+                    })
+                    return "ok"
+                }
+                catch (error) {
+                    console.log(error)
+                }
+            },
+            deleteProduct: async (url) => {
+                try {
+                    const all = await fetch(url, {
+                        method: "DELETE",
+                        headers: { "Content-Type": "application/json" },
+                    })
+                    return "ok"
+                }
+                catch (error) {
+                    console.log(error)
+                }
+            },
         }
     }
 }

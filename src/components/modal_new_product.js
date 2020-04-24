@@ -32,8 +32,8 @@ export default function NewProduct(props) {
             setLocal(newlocal)
         }
         else {
-            if(actions.newProduct("http://localhost:5000/product", local.body)){
-            }
+            actions.newProduct("http://localhost:5000/product", local.body)
+            actions.getAllProductsOf("http://localhost:5000/product/from/"+local.body.id_restaurant)
         }
     }
 
@@ -91,7 +91,7 @@ export default function NewProduct(props) {
                                 onChange={(e) => { handleChange(e) }} />
                         </div>
                         <div className="p-t-30 d-flex justify-content-end">
-                            <button className="btn btn--radius btn--green" onClick={() => { handleSubmit() }} >Send</button>
+                            <button className="btn btn--radius btn--green " data-dismiss="modal" onClick={() => { handleSubmit() }} >Send</button>
                         </div>
                         </div>
                     </div>

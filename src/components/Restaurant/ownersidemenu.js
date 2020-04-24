@@ -9,7 +9,6 @@ export default function OwnerSideMenu(props) {
     const [local, setLocal] = useState(
         {
             user: false,
-            productos:false
         }
     )
 
@@ -47,9 +46,9 @@ export default function OwnerSideMenu(props) {
                             <th scope="col">Nombre</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Descripcion</th>
-                            <th scope="col">
-                                Edit
-                            </th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Save</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,7 +56,7 @@ export default function OwnerSideMenu(props) {
                          !!store.allProducts&&
                          store.allProducts.map((element,i)=>{
                              return (<>
-                                    <TableRow elem={element} i={i} key={element.id} />
+                                    <TableRow elem={element} i={i} key={i}/>
                                  </>
                              )
                          })
