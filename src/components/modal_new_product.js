@@ -35,14 +35,6 @@ export default function NewProduct(props) {
         else {
             actions.newProduct("http://localhost:5000/product", local.body)
             actions.getAllProductsOf("http://localhost:5000/product/from/" + local.body.id_restaurant)
-            const newlocal = { ...local }
-            newlocal.body = {
-                name_product: false,
-                description: false,
-                price: false,
-                id_restaurant: false
-            }
-            setLocal(newlocal)
         }
     }
 
@@ -72,6 +64,7 @@ export default function NewProduct(props) {
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+                            <form>
                             <div className="modal-body mb-4">
                                 {
                                     local.error ? (
@@ -86,6 +79,7 @@ export default function NewProduct(props) {
                                     )
                                         : ""
                                 }
+                               
                                 <div className="input-group">
                                     <input className="form-control" type="text" placeholder="Ingrese nombre del producto" name="name_product"
                                         onChange={(e) => { handleChange(e) }} />
@@ -99,9 +93,10 @@ export default function NewProduct(props) {
                                         onChange={(e) => { handleChange(e) }} />
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button className="btn btn-primary" onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
+                            <div className="modal-footer">
+                                <button className="btn btn-primary" data-dismiss="modal" onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>

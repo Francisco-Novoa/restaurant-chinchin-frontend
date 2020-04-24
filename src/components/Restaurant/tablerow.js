@@ -20,8 +20,7 @@ export default function TableRow(props) {
         setLocal(newlocal)
     }
     const handleDeleteButton = () => {
-        actions.deleteProduct("http://localhost:5000/product/"+local.user.id_product)
-        actions.getAllProductsOf("http://localhost:5000/product/from/"+local.user.id_restaurant)
+        actions.deleteProduct("http://localhost:5000/product/"+local.user.id_product, actions.getAllProductsOf, "http://localhost:5000/product/from/"+local.user.id_restaurant)
     }
     const handleSaveButton = () => {
         actions.updateProduct("http://localhost:5000/product/"+local.user.id_product,local.user)

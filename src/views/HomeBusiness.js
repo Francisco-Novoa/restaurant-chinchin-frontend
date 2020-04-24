@@ -39,6 +39,7 @@ const Restaurant = (props) => {
     const { store, actions } = useContext(Context);
     useEffect(() => {
         actions.isAuthenticatedRestorauntUser();
+        actions.getAllRestaurants("http://localhost:5000/restaurantusers")
     }, [])
     return (
         <>
@@ -126,9 +127,9 @@ const Restaurant = (props) => {
                                     >
                                     <div className="container-fluid">
                                         <div className="navbar-wrapper">
-                                        <a className="navbar-brand" href="javascript:void(0)">
-                                            
-                                        </a>
+                                        <Link to="/">
+                                <h1>Logo</h1>
+                            </Link>
                                         </div>
                                         <button
                                         className="navbar-toggler"
@@ -157,7 +158,7 @@ const Restaurant = (props) => {
                                                 type="submit"
                                                 className="btn btn-default btn-round btn-just-icon"
                                             >
-                                                <i class="fas fa-search"></i>
+                                                <i className="fas fa-search"></i>
                                                 <div className="ripple-container"></div>
                                             </button>
                                             </div>
@@ -172,7 +173,7 @@ const Restaurant = (props) => {
                                                 aria-haspopup="true"
                                                 aria-expanded="false"
                                             >
-                                                <i class="fas fa-bell fa-3x"></i>
+                                                <i className="fas fa-bell fa-3x"></i>
                                                 <span className="notification">5</span>
                                                 <p className="d-lg-none d-md-block">Some Actions</p>
                                             </a>
@@ -223,8 +224,7 @@ const Restaurant = (props) => {
                                                         local.product ?
                                                             <>
                                                                 <OwnerSideMenu a={true} />
-                                                                <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_new_product">New Product</button>
-                                                                <NewProduct a={true} />
+                                                               
                                                             </>
                                                             : ""
                                                     }
@@ -246,7 +246,6 @@ const Restaurant = (props) => {
                                                         local.product ?
                                                             <>
                                                                 <OwnerSideMenu a={false} />                                                    
-                                                                <NewProduct a={false} />
                                                             </>
                                                             : ""
                                                     }

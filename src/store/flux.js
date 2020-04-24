@@ -351,6 +351,9 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             getAllProductsOf:async (url) =>{
                 try {
+                    setStore({
+                        allProducts: []
+                    })
                     const all = await fetch(url, {
                         method: "GET",
                         headers: { "Content-Type": "application/json"},
@@ -359,7 +362,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     setStore({
                         allProducts: data
                     })
-                    return "ok"
+                    return("all products fetched")
                 }
                 catch (error) {
                     console.log(error)
@@ -394,13 +397,17 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-            deleteProduct: async (url) => {
+            deleteProduct: async (url, reload, url2) => {
                 try {
                     const all = await fetch(url, {
                         method: "DELETE",
                         headers: { "Content-Type": "application/json" },
                     })
-                    return "ok"
+                    const result = await all.json() 
+                    console.log(result)
+                    const re = await reload(url2)
+                    const result2 =await re
+                    console.log(result2)
                 }
                 catch (error) {
                     console.log(error)
@@ -408,7 +415,9 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             handleRestaurantFocus: (restaurant )=>{
                 setStore({restaurantFocus:restaurant})
-            }
+            },
+
+
         }
     }
 }

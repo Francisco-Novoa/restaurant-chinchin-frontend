@@ -30,31 +30,39 @@ const Home = props => {
                                     <h5>Restaurants</h5>
                                     <hr></hr>
                                     <ul className='pl-3 pr-3 pt-2'>
-                                    <RestaurantList/>
+                                        <RestaurantList />
                                     </ul>
                                 </div>
                             </div>
                             <ModalLogin />
                             <ModalRegister />
                             <nav className="navbar fixed-bottom navbar-light justify-content-end">
-                            <Link to='/business' >Create business account</Link>
+                                <Link to='/business' >Create business account</Link>
                             </nav>
                         </div>
                     )
                     :
                     (
                         <div className="container">
-                                <div className="row pt-3">
-                                    <div className="col-md-9">
-                                        <Link to='/'><h1>Logo</h1></Link>
-                                    </div>
-                                    <div className='d-flex justify-content-between text-muted pt-1 btn' onClick={() => actions.Logout()}>
-                                        <div className="hand" onClick={() => actions.Logout()}>Logout</div>
-                                        <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.Logout()}></i>
-                                    </div>
+                            <div className="row pt-3">
+                                <div className="col-md-9">
+                                    <Link to='/'><h1>Logo</h1></Link>
                                 </div>
-                                <div>Here you login</div>
+                                <div className='d-flex justify-content-between text-muted pt-1 btn' onClick={() => actions.Logout()}>
+                                    <div className="hand" onClick={() => actions.Logout()}>Logout</div>
+                                    <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.Logout()}></i>
+                                </div>
                             </div>
+                            <div className="row pt-3">
+                                <div className="col-md-12 p-3">
+                                    <h5>Restaurants</h5>
+                                    <hr></hr>
+                                    <ul className='pl-3 pr-3 pt-2'>
+                                        <RestaurantList />
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
 
 
 

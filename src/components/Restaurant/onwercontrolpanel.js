@@ -167,7 +167,7 @@ export default function ControlPanel(props) {
                 <div className="col-md-8">
                     <div className="form-group">
 
-                        <label className="bmd-label-floating text-primary">Adress</label>
+                        <label className="bmd-label-floating text-primary">Address</label>
                         {
                             local.address ? (
                                 
@@ -208,36 +208,12 @@ export default function ControlPanel(props) {
                             <div className="form-group">
                                     <label className="bmd-label-floating text-primary">Email</label>
                                         {
-                                            local.email ? (
-                                                
-                                                <input
-                                                    type="text"
-                                                    name="email"
-                                                    value={local.user.email}
-                                                    className="form-control mb-2"
-                                                    onChange={(e) => {
-                                                        handleChange(e);
-                                                    }}
-                                                    id="inputemail"
-                                                />
-                                                
-                                        ) : (
                                                 
                                             <div className="form-control mb-2">
                                                 {local.user.email}
                                             </div>
-                                        )
                                     }
                             </div>
-                        </div>
-                        <div className="col-md-3 pt-5"> 
-                            <i
-                                className="fas fa-edit"
-                                onClick={(e) => {
-                                    handleEditButton("email", e);
-                                }}
-                            >                  
-                            </i>
                         </div>
                 </div>
 
