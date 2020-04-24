@@ -97,15 +97,6 @@ export default function ControlPanel(props) {
                 </div>
 
                 <div className="row ">
-                    <div className="col-3 bg-secondary border-bottom">Email</div>
-                    {
-                        <div className="col-8">{local.user.email}</div>
-
-                    }
-                    <div className="col-1"><i className="fas fa-edit" onClick={(e) => { handleEditButton("phone", e) }} ></i></div>
-                </div>
-
-                <div className="row ">
                     <div className="col-3 bg-secondary border-bottom">Direccion</div>
                     {
                         local.address ? <div className="col-8"><input type="text" name="address" value={local.user.address}
@@ -114,6 +105,15 @@ export default function ControlPanel(props) {
 
                     }
                     <div className="col-1"><i className="fas fa-edit" onClick={(e) => { handleEditButton("address", e) }} ></i></div>
+                </div>
+
+
+                <div className="row ">
+                    <div className="col-3 bg-secondary border-bottom">Email</div>
+                    {
+                        <div className="col-8">{local.user.email}</div>
+
+                    }
                 </div>
 
                 <div className="row d-flex justify-content-end">
