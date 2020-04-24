@@ -57,7 +57,7 @@ export default function OwnerSideMenu(props) {
                          !!store.allProducts&&
                          store.allProducts.map((element,i)=>{
                              return (<>
-                                    <TableRow elem={element} i={i} />
+                                    <TableRow elem={element} i={i} key={element.id} />
                                  </>
                              )
                          })

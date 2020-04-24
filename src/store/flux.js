@@ -345,6 +345,22 @@ export default function getState({ getStore, getActions, setStore }) {
                 catch (error) {
                     console.log(error)
                 }
+            },
+            updateCurrUser: (newUser,oldUser)=>{
+                let aux={...oldUser}
+                aux.restaurantuser=newUser
+                console.log(aux)
+                setStore({currentUser:aux})
+                sessionStorage.setItem('currentUser', JSON.stringify(aux))
+                sessionStorage.setItem('currentRestaurant', JSON.stringify(aux))
+            },
+            updateCurrRest: (newUser,oldUser)=>{
+                let aux={...oldUser}
+                aux.restaurantuser=newUser
+                console.log(aux)
+                setStore({currentRestaurant:aux})
+                sessionStorage.setItem('currentUser', JSON.stringify(aux))
+                sessionStorage.setItem('currentRestaurant', JSON.stringify(aux))
             }
         }
     }

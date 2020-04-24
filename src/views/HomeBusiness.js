@@ -64,6 +64,7 @@ const Restaurant = (props) => {
                                     <>
                                         <ControlPanel a={true} />
                                         <OwnerSideMenu a={true}/>
+                                        
                                         <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_new_product">New Product</button>
                                         <NewProduct a={true}/>
                                     </>

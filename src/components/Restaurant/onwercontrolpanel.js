@@ -1,24 +1,23 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Context } from '../../../src/store/appContext'
-import { Link } from 'react-router-dom'
 
 export default function ControlPanel(props) {
-    const { store, actions } = useContext(Context)
 
+    const { store, actions } = useContext(Context)
     const [local, setLocal] = useState(
         {
             name: false,
-            email: false,
             phone: false,
             address: false,
-            user:{
-                address:"",
-                email:"",
-                name:"",
-                phone:""
+            email:false,
+            user: {
+                address: "",
+                name: "",
+                phone: ""
             }
         }
     )
+
     const handleEditButton = (nombre, e) => {
         const newlocal = { ...local }
         newlocal[nombre] = !local[nombre]
@@ -31,18 +30,37 @@ export default function ControlPanel(props) {
         setLocal(newlocal)
     }
 
-    useEffect(()=>{
+    const handleSave = () => {
+        actions.updateRestaurant("http://localhost:5000/restaurantusers/" + local.user["id"], local.user)
         const newlocal = { ...local }
-        if(props.a){
-            newlocal.user=store.currentRestaurant.restaurantuser
-            
+        if (props.a) {
+            newlocal.user = store.currentRestaurant.restaurantuser
+            newlocal.name = false
+            newlocal.phone = false
+            newlocal.address = false
+            actions.updateCurrRest(newlocal.user,store.currentRestaurant)
         }
-        else{
-            newlocal.user=store.currentUser.restaurantuser
+        else {
+            newlocal.user = store.currentUser.restaurantuser
+            newlocal.name = false
+            newlocal.phone = false
+            newlocal.address = false
+            actions.updateCurrUser(newlocal.user,store.currentUser)
         }
         setLocal(newlocal)
-        
-    },[])
+    }
+
+    useEffect(() => {
+        const newlocal = { ...local }
+        if (props.a) {
+            newlocal.user = store.currentRestaurant.restaurantuser
+        }
+        else {
+            newlocal.user = store.currentUser.restaurantuser
+        }
+        setLocal(newlocal)
+
+    }, [])
 
     return (
         <>{
@@ -59,7 +77,7 @@ export default function ControlPanel(props) {
                     <div className="col-3 bg-secondary border-bottom">Nombre</div>
                     {
                         local.name ? <div className="col-8"><input type="text" name="name" value={local.user.name}
-                        className="form-control"    onChange={(e) => { handleChange(e) }} id="inputname" />
+                            className="form-control" onChange={(e) => { handleChange(e) }} id="inputname" />
                         </div>
                             : <div className="col-8">{local.user.name}</div>
 
@@ -68,22 +86,20 @@ export default function ControlPanel(props) {
                 </div>
 
                 <div className="row ">
-                    <div className="col-3 bg-secondary border-bottom">Email</div>
-                    {
-                        local.email ? <div className="col-8"><input type="text" name="email" value={local.user.email}
-                        className="form-control"    onChange={(e) => { handleChange(e) }} id="inputemail" /></div>
-                            : <div className="col-8">{local.user.email}</div>
-
-                    }
-                    <div className="col-1"><i className="fas fa-edit" onClick={(e) => { handleEditButton("email", e) }} ></i></div>
-                </div>
-
-                <div className="row ">
                     <div className="col-3 bg-secondary border-bottom">Telefono</div>
                     {
                         local.phone ? <div className="col-8"><input type="text" name="phone" value={local.user.phone}
-                        className="form-control"    onChange={(e) => { handleChange(e) }} id="inputphone" /></div>
+                            className="form-control" onChange={(e) => { handleChange(e) }} id="inputphone" /></div>
                             : <div className="col-8">{local.user.phone}</div>
+
+                    }
+                    <div className="col-1"><i className="fas fa-edit" onClick={(e) => { handleEditButton("phone", e) }} ></i></div>
+                </div>
+
+                <div className="row ">
+                    <div className="col-3 bg-secondary border-bottom">Email</div>
+                    {
+                        <div className="col-8">{local.user.email}</div>
 
                     }
                     <div className="col-1"><i className="fas fa-edit" onClick={(e) => { handleEditButton("phone", e) }} ></i></div>
@@ -93,7 +109,7 @@ export default function ControlPanel(props) {
                     <div className="col-3 bg-secondary border-bottom">Direccion</div>
                     {
                         local.address ? <div className="col-8"><input type="text" name="address" value={local.user.address}
-                        className="form-control"  onChange={(e) => { handleChange(e) }} id="inputaddress" /></div>
+                            className="form-control" onChange={(e) => { handleChange(e) }} id="inputaddress" /></div>
                             : <div className="col-8">{local.user.address}</div>
 
                     }
@@ -102,9 +118,7 @@ export default function ControlPanel(props) {
 
                 <div className="row d-flex justify-content-end">
                     <div className="col-2 mr-2">
-                        <button type="button" className="btn btn-primary" onClick={() => {
-                            actions.updateRestaurant("http://localhost:5000/restaurantusers/" + local.user["id"], local.user)
-                        }} >
+                        <button type="button" className="btn btn-primary" onClick={() => { handleSave() }} >
                             Guardar</button>
                     </div>
                 </div>

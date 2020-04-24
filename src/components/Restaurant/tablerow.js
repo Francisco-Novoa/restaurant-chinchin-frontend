@@ -25,6 +25,10 @@ export default function TableRow(props) {
         setLocal(newlocal)
     }
 
+    const handleDelete = (e) =>{
+        
+    }
+
     return (
         <tr>
             <th scope="row">{props.i+1}</th>
