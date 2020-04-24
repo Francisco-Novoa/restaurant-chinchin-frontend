@@ -21,7 +21,8 @@ export default function getState({ getStore, getActions, setStore }) {
             currentAdmin: {},
             currentRestaurant: {},
             allRestaurants: [],
-            allProducts:[]
+            allProducts:[],
+            restaurantFocus:""
         },
         actions: {
             //actions go here.
@@ -124,23 +125,41 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             Logout: () => {
                 sessionStorage.removeItem('currentUser')
+                sessionStorage.removeItem('currentRestaurant')
+                sessionStorage.removeItem('currentAdmin')
                 setStore({
+                    isAuthenticatedRestorauntUser: false,
                     isAuthenticatedUser: false,
+                    isAuthenticatedAdmin:false,
                     currentUser: {},
+                    currentRestaurant: {},
+                    currentAdmin:{}
                 })
             },
             LogoutRestaurant: () => {
+                sessionStorage.removeItem('currentUser')
                 sessionStorage.removeItem('currentRestaurant')
+                sessionStorage.removeItem('currentAdmin')
                 setStore({
                     isAuthenticatedRestorauntUser: false,
+                    isAuthenticatedUser: false,
+                    isAuthenticatedAdmin:false,
+                    currentUser: {},
                     currentRestaurant: {},
+                    currentAdmin:{}
                 })
             },
             LogoutAdmin: () => {
+                sessionStorage.removeItem('currentUser')
+                sessionStorage.removeItem('currentRestaurant')
                 sessionStorage.removeItem('currentAdmin')
                 setStore({
-                    isAuthenticatedAdmin: false,
-                    currentAdmin: {},
+                    isAuthenticatedRestorauntUser: false,
+                    isAuthenticatedUser: false,
+                    isAuthenticatedAdmin:false,
+                    currentUser: {},
+                    currentRestaurant: {},
+                    currentAdmin:{}
                 })
             },
             registerRestaurantPost: () => {
@@ -387,6 +406,9 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
+            handleRestaurantFocus: (restaurant )=>{
+                setStore({restaurantFocus:restaurant})
+            }
         }
     }
 }

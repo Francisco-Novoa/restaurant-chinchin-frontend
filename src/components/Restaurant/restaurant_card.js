@@ -4,15 +4,20 @@ import { Link } from 'react-router-dom'
 
 export default function RestaurantCard(props) {
     const { store, actions } = useContext(Context)
-    console.log(props)
+    
+    const handleClick = ()=>{
+        actions.handleRestaurantFocus(props.restaurant)
+
+    }
+
     return (
         <>
             <div class="card" style={{width : "18rem"}}>
                     <div class="card-body">
                         <h5 class="card-title">{props.restaurant.name}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <img src="https://picsum.photos/200/200?random=1"/>
                         <Link to="/restaurant">
-                                <h5>go to {props.restaurant.name} page. </h5>
+                                <h5 onClick={()=>{handleClick()}}>go to {props.restaurant.name} page. </h5>
                             </Link>
                     </div>
             </div>
