@@ -22,7 +22,13 @@ export default function getState({ getStore, getActions, setStore }) {
             currentRestaurant: {},
             allRestaurants: [],
             allProducts:[],
-            restaurantFocus:""
+            restaurantFocus:"",
+            email_confirm_success: null,
+            email_confirm_msg: null,
+            email_confirm_success_res: null,
+            email_confirm_msg_res: null,
+            email_confirm_success_admin: null,
+            email_confirm_msg_admin: null,
         },
         actions: {
             //actions go here.
@@ -416,7 +422,152 @@ export default function getState({ getStore, getActions, setStore }) {
             handleRestaurantFocus: (restaurant )=>{
                 setStore({restaurantFocus:restaurant})
             },
+<<<<<<< HEAD
 
+=======
+            getConfirmation: () =>{
+                const store =getStore()
+                const data = {
+                    email: store.email
+                }
+                fetch(store.path + '/change-password/',{
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                        if (data.success){
+                            setStore({
+                                email_confirm_success: data.success
+                            })
+                        }else{
+                            setStore({
+                                email_confirm_msg: data.msg,
+                                
+                            })
+                        }
+                    })
+            },
+            getPasswordChange: (token, history) =>{
+                const store =getStore()
+                const data = {
+                    password_hash: store.password_hash
+                }
+                fetch(store.path + '/change-password-confirm/'+ token,{
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Your password was change successfully")
+                    history.push("/")
+                    setStore({
+                        email: ''
+                    })
+                })
+                    
+            },
+            getConfirmationRestaurant: () =>{
+                const store =getStore()
+                const data = {
+                    email: store.email
+                }
+                fetch(store.path + '/restchange-password/',{
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                        if (data.success){
+                            setStore({
+                                email_confirm_success_res: data.success
+                            })
+                        }else{
+                            setStore({
+                                email_confirm_msg_res: data.msg
+                            })
+                        }
+                    })
+            },
+            getPasswordChangeRestaurant: (token, history) =>{
+                const store =getStore()
+                const data = {
+                    password_hash: store.password_hash
+                }
+                fetch(store.path + '/restchange-password-confirm/'+ token,{
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Your password was change successfully")
+                    history.push("/")
+                    setStore({
+                        email: ''
+                    })
+                    })
+                    
+            },
+            getConfirmationAdmin: () =>{
+                const store =getStore()
+                const data = {
+                    email: store.email
+                }
+                fetch(store.path + '/adminchange-password/',{
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                        if (data.success){
+                            setStore({
+                                email_confirm_success_admin: data.success
+                            })
+                        }else{
+                            setStore({
+                                email_confirm_msg_admin: data.msg
+                            })
+                        }
+                    })
+            },
+            getPasswordChangeAdmin: (token, history) =>{
+                const store =getStore()
+                const data = {
+                    password_hash: store.password_hash
+                }
+                fetch(store.path + '/adminchange-password-confirm/'+ token,{
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Your password was change successfully")
+                    history.push("/")
+                    setStore({
+                        email: ''
+                    })
+                    })
+                    
+            },
+>>>>>>> fddd233d2c9dffa5f301dcafe9307de6882a73cf
 
         }
     }

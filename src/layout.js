@@ -9,17 +9,23 @@ import Admin from './views/HomeAdmin'
 import New_Product from './components/modal_new_product'
 import New_Ingredient from './components/modal_new_ingredient'
 import ControlPanel from './components/Restaurant/onwercontrolpanel'
+import Confirmation from './views/UserConfirmationPass'
+import ConfirmationRestaurant from './views/RestaurantConfirmationPass'
+import ConfirmationAdmin from './views/AdminConfirmationPass'
 
 
 const Layout = props => {
     return (
         <BrowserRouter>
             <Switch>
+            <Route exact path="/confirmation/:token" component={Confirmation} />
+            <Route exact path="/confirmationrestaurant/:token" component={ConfirmationRestaurant} />
+            <Route exact path="/confirmationadmin/:token" component={ConfirmationAdmin} />
                 <Route exact path="/" component={Home} />
                 <Route exact path="/product" component={New_Product} />
                 <Route exact path="/business" component={Restaurant} />
-                <Route exact path="/admin" component={Restaurant} />
                 <Route path="/restaurant" render={props=><RestaurantDisplay {...props} />} />
+                <Route exact path="/admin" component={Admin} />
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>
