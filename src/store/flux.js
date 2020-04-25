@@ -5,7 +5,7 @@ export default function getState({ getStore, getActions, setStore }) {
             //store variables goes here
             path: 'http://localhost:5000',
             isAuthenticatedUser: false,
-            isAuthenticatedRestorauntUser: false,
+            isAuthenticatedRestaurantUser: false,
             isAuthenticatedAdmin: false,
             name: '',
             email: '',
@@ -51,6 +51,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(data => {
                         console.log(data)
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsRegisterUser: data })
                         }
                         else {
@@ -84,6 +85,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsLoginUser: data })
                             console.log(getStore().errorsLoginUser)
                         }
@@ -110,15 +112,29 @@ export default function getState({ getStore, getActions, setStore }) {
                     setStore({
                         isAuthenticatedUser: sessionStorage.getItem('isAuthenticatedUser'),
                         currentUser: JSON.parse(sessionStorage.getItem('currentUser')),
+                        isAuthenticatedRestaurantUser: false,
+                        isAuthenticatedAdmin:false,
+                        currentRestaurant: {},
+                        currentAdmin:{}
                     })
+                    sessionStorage.removeItem('currentRestaurant')
+                    sessionStorage.removeItem('currentAdmin')    
                 }
             },
-            isAuthenticatedRestorauntUser: () => {
-                if (sessionStorage.getItem('currentRestaurant') && sessionStorage.getItem('isAuthenticatedRestorauntUser')) {
+            isAuthenticatedRestaurantUser: () => {
+                if (sessionStorage.getItem('currentRestaurant') && sessionStorage.getItem('isAuthenticatedRestaurantUser')) {
                     setStore({
-                        isAuthenticatedRestorauntUser: sessionStorage.getItem('isAuthenticatedRestorauntUser'),
-                        currentUser: JSON.parse(sessionStorage.getItem('currentRestaurant')),
+                        isAuthenticatedRestaurantUser: sessionStorage.getItem('isAuthenticatedRestaurantUser'),
+                        currentRestaurant: JSON.parse(sessionStorage.getItem('currentRestaurant')),
+                        isAuthenticatedUser: false,
+                        isAuthenticatedAdmin: false,
+                        currentUser: {},
+                        currentAdmin:{}
                     })
+                    sessionStorage.removeItem('currentUser')
+                    sessionStorage.removeItem('currentAdmin')  
+                    sessionStorage.removeItem('isAuthenticatedUser')
+                    sessionStorage.removeItem('isAuthenticatedAdmin')  
                 }
             },
             isAuthenticatedAdmin: () => {
@@ -126,7 +142,15 @@ export default function getState({ getStore, getActions, setStore }) {
                     setStore({
                         isAuthenticatedAdmin: sessionStorage.getItem('isAuthenticatedAdmin'),
                         currentAdmin: JSON.parse(sessionStorage.getItem('currentAdmin')),
+                        isAuthenticatedUser: false,
+                        isAuthenticatedRestaurantUser:false,
+                        currentRestaurant: {},
+                        currentUser:{}
                     })
+                    sessionStorage.removeItem('currentUser')
+                    sessionStorage.removeItem('isAuthenticatedUser')
+                    sessionStorage.removeItem('isAuthenticatedRestaurantUser')
+                    sessionStorage.removeItem('currentRestaurant')    
                 }
             },
             Logout: () => {
@@ -134,7 +158,7 @@ export default function getState({ getStore, getActions, setStore }) {
                 sessionStorage.removeItem('currentRestaurant')
                 sessionStorage.removeItem('currentAdmin')
                 setStore({
-                    isAuthenticatedRestorauntUser: false,
+                    isAuthenticatedRestaurantUser: false,
                     isAuthenticatedUser: false,
                     isAuthenticatedAdmin:false,
                     currentUser: {},
@@ -147,7 +171,7 @@ export default function getState({ getStore, getActions, setStore }) {
                 sessionStorage.removeItem('currentRestaurant')
                 sessionStorage.removeItem('currentAdmin')
                 setStore({
-                    isAuthenticatedRestorauntUser: false,
+                    isAuthenticatedRestaurantUser: false,
                     isAuthenticatedUser: false,
                     isAuthenticatedAdmin:false,
                     currentUser: {},
@@ -160,7 +184,7 @@ export default function getState({ getStore, getActions, setStore }) {
                 sessionStorage.removeItem('currentRestaurant')
                 sessionStorage.removeItem('currentAdmin')
                 setStore({
-                    isAuthenticatedRestorauntUser: false,
+                    isAuthenticatedRestaurantUser: false,
                     isAuthenticatedUser: false,
                     isAuthenticatedAdmin:false,
                     currentUser: {},
@@ -187,6 +211,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(data => {
                         console.log(data)
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsRegisterRestaurant: data })
                             console.log(getStore().errorsRegisterRestaurant)
                         }
@@ -198,11 +223,11 @@ export default function getState({ getStore, getActions, setStore }) {
                                 phone: '',
                                 email: '',
                                 currentRestaurant: data,
-                                isAuthenticatedRestorauntUser: true,
+                                isAuthenticatedRestaurantUser: true,
                             })
                             //console.log(data)
                             sessionStorage.setItem('currentRestaurant', JSON.stringify(data))
-                            sessionStorage.setItem('isAuthenticatedRestorauntUser', true)
+                            sessionStorage.setItem('isAuthenticatedRestaurantUser', true)
 
                         }
                     })
@@ -223,6 +248,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsLoginRestaurant: data })
                             console.log(getStore().errorsLoginRestaurant)
                         }
@@ -232,11 +258,13 @@ export default function getState({ getStore, getActions, setStore }) {
                                 password_hash: '',
                                 email: '',
                                 currentRestaurant: data,
-                                isAuthenticatedRestorauntUser: true,
+                                isAuthenticatedRestaurantUser: true,
                             })
                             console.log(data)
                             sessionStorage.setItem('currentRestaurant', JSON.stringify(data))
-                            sessionStorage.setItem('isAuthenticatedRestorauntUser', true)
+                            sessionStorage.setItem('isAuthenticatedRestaurantUser', true)
+                            console.log(sessionStorage.getItem('currentRestaurant'))
+                            console.log(sessionStorage.getItem('isAuthenticatedRestaurantUser'))
                         }
                     })
             },
@@ -258,6 +286,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(data => {
                         console.log(data)
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsRegisterAdmin: data })
                             console.log(getStore().errorsRegisterAdmin)
                         }
@@ -292,6 +321,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsLoginAdmin: data })
                             console.log(getStore().errorsLoginAdmin)
                         }

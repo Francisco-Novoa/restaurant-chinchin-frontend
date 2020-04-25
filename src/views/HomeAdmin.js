@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import ModalRegisterAdmin from "../components/modal_register_admin"
 import ModalLoginAdmin from "../components/modal_login_admin"
+import ChinChin from "../components/chinchin";
 
 const Admin = (props) => {
     const { store, actions } = useContext(Context);
@@ -15,11 +16,9 @@ const Admin = (props) => {
                 /* conditional rendering for show the consumers buttons of login and register */
                 <div className="container">
                     <div className="row pt-3">
-                        <div className="col-md-9">
-                            <Link to="/">
-                                <h1>Logo</h1>
-                            </Link>
-                        </div>
+                    <div className="logo">
+                                <ChinChin/>
+                            </div>
                         <div className="col-md-3 d-flex justify-content-end">
                             <button className="btn btn-primary form-control mr-2" data-toggle="modal" data-target="#modal_login_admin">login</button>
                             <button className="btn btn-primary form-control" data-toggle="modal" data-target="#modal_register_admin">register</button>

@@ -13,19 +13,13 @@ export default function OwnerSideMenu(props) {
         }
     )
 
+
+
     useEffect(() => {
         const newlocal = { ...local }
-        if (store.currentRestaurant.hasOwnProperty("restaurantuser")) {
-            newlocal.user = store.currentRestaurant.restaurantuser
-            actions.getAllProductsOf("http://localhost:5000/product/from/" + newlocal.user.id)
-
-
-        }
-        else {
-            newlocal.user = store.currentUser.restaurantuser
-            actions.getAllProductsOf("http://localhost:5000/product/from/" + newlocal.user.id)
-        }
+        newlocal.user = store.currentRestaurant.restaurantuser
         setLocal(newlocal)
+        actions.getAllProductsOf("http://localhost:5000/product/from/" + newlocal.user.id)
     }, [])
 
     return (
@@ -71,28 +65,20 @@ export default function OwnerSideMenu(props) {
                             })
 
                         }
-                       
+
                     </tbody>
-                    
+
                 </table>
                 <button
-                        className="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#modal_new_product"
-
-                    >
-                        <i className="fas fa-plus"> </i>
+                    className="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#modal_new_product"
+                    
+                >
+                    <i className="fas fa-plus"> </i>
                 </button>
-                {
-                            store.currentRestaurant.hasOwnProperty("restaurantuser") ?
-                                <NewProduct a={true} />
-                                : ""
-                        }
-                        {
-                            store.currentUser.hasOwnProperty("restaurantuser") ?
-                                <NewProduct a={false} />
-                                : ""
-                        }
+                <NewProduct visible={false}/>
+
             </div>
         </>
     )

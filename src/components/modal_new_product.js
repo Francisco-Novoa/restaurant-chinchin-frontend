@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Context } from '../store/appContext';
 
 export default function NewProduct(props) {
@@ -12,7 +12,7 @@ export default function NewProduct(props) {
                 id_restaurant: false
             },
             error: false,
-            success: false
+            modal: props.visible
         }
     )
 
@@ -21,7 +21,6 @@ export default function NewProduct(props) {
         newlocal.body[e.target.name] = e.target.value
         setLocal(newlocal)
     }
-
     const handleSubmit = () => {
         console.log(local.body)
         if (!local.body.name_product
@@ -34,7 +33,7 @@ export default function NewProduct(props) {
         else {
             actions.newProduct("http://localhost:5000/product", local.body)
             actions.getAllProductsOf("http://localhost:5000/product/from/" + local.body.id_restaurant)
-            const newlocal= {
+            const newlocal = {
                 body: {
                     name_product: "",
                     description: "",
@@ -42,7 +41,7 @@ export default function NewProduct(props) {
                     id_restaurant: local.body.id_restaurant
                 },
                 error: false,
-                success: false
+                modal: false
             }
             setLocal(newlocal)
         }
@@ -50,15 +49,8 @@ export default function NewProduct(props) {
 
     useEffect(() => {
         const newlocal = { ...local }
-        if (store.currentRestaurant.hasOwnProperty("restaurantuser")) {
-            newlocal.body.id_restaurant = store.currentRestaurant.restaurantuser.id
-
-        }
-        else {
-            newlocal.body.id_restaurant = store.currentUser.restaurantuser.id
-        }
+        newlocal.body.id_restaurant = store.currentRestaurant.restaurantuser.id
         setLocal(newlocal)
-
     }, [])
 
     return (
@@ -75,43 +67,52 @@ export default function NewProduct(props) {
                                 </button>
                             </div>
                             <form>
-                            <div className="modal-body mb-4">
-                                {
-                                    local.error ? (
-                                        <div className="row">                                            
-                                            <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                                                <strong>Error!</strong> todos los campos deben ser incluidos
+                                <div className="modal-body mb-4">
+                                    {
+                                        local.error ? (
+                                            <div className="row">
+                                                <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                                                    <strong>Error!</strong> todos los campos deben ser incluidos
                                                 <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>                                            
-                                        </div>
-                                    )
-                                        : ""
-                                }
-                               
-                                <div className="input-group">
-                                    <input className="form-control" type="text" placeholder="Ingrese nombre del producto" name="name_product"
-                                        onChange={(e) => { handleChange(e) }} value={local.body.name_product}/>
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )
+                                            : ""
+                                    }
+
+                                    <div className="input-group">
+                                        <input className="form-control"
+                                            type="text"
+                                            placeholder="Ingrese nombre del producto"
+                                            name="name_product"
+                                            onChange={(e) => { handleChange(e) }} value={local.body.name_product} />
+                                    </div>
+                                    <div className="input-group">
+                                        <input className="form-control"
+                                            type="text"
+                                            placeholder="Ingrese una descripcion"
+                                            name="description"
+                                            onChange={(e) => { handleChange(e) }} value={local.body.description} />
+                                    </div>
+                                    <div className="input-group">
+                                        <input className="form-control"
+                                            type="number"
+                                            placeholder="Ingrese valor del producto $"
+                                            name="price"
+                                            onChange={(e) => { handleChange(e) }} value={local.body.price} />
+                                    </div>
                                 </div>
-                                <div className="input-group">
-                                    <input className="form-control" type="text" placeholder="Ingrese una descripcion" name="description"
-                                        onChange={(e) => { handleChange(e) }} value={local.body.description}/>
+                                <div className="modal-footer">
+                                    {
+                                        local.error ? <button className="btn btn-primary"
+                                            onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
+                                            : <button className="btn btn-primary"
+                                                data-dismiss="modal" onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
+                                    }
+
                                 </div>
-                                <div className="input-group">
-                                    <input className="form-control" type="number" placeholder="Ingrese valor del producto $" name="price"
-                                        onChange={(e) => { handleChange(e) }} value={local.body.price} />
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                {
-                                    local.error? <button className="btn btn-primary" 
-                                    onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
-                                    : <button className="btn btn-primary" 
-                                    data-dismiss="modal" onClick={() => { handleSubmit() }} ><i class="far fa-paper-plane fa-2x"></i></button>
-                                }
-                               
-                            </div>
                             </form>
                         </div>
                     </div>
