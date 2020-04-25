@@ -12,7 +12,7 @@ export default function OwnerSideMenu(props) {
             user: false,
         }
     )
-
+    const [modal,setModal]=useState(false)
 
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export default function OwnerSideMenu(props) {
                 {/* Titulo block */}
                 <div className="row mb-3 alert alert-primary text-center">
                     <div className="col-md-12">
-                        <h3><i className="fas fa-cogs text-white"></i>  Product Table</h3>
+                        <h3><i className="fas fa-cogs text-white"></i>  Productos</h3>
                     </div>
                 </div>
 
@@ -47,9 +47,9 @@ export default function OwnerSideMenu(props) {
                     {/* Header */}
                     <thead className="text-primary">
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Descripcion</th>
                     </thead>
 
                     {/* Body */}
@@ -73,11 +73,11 @@ export default function OwnerSideMenu(props) {
                     className="btn btn-primary"
                     data-toggle="modal"
                     data-target="#modal_new_product"
-                    
+                    onClick={()=>{setModal(!modal)}}
                 >
                     <i className="fas fa-plus"> </i>
                 </button>
-                <NewProduct visible={false}/>
+                <NewProduct modal={modal}/>
 
             </div>
         </>

@@ -21,6 +21,7 @@ export default function TableRow(props) {
     const handleEditButton = () => {
         const newlocal = { ...local }
         newlocal.edit = !local.edit
+        newlocal.user = { ...props.elem }
         setLocal(newlocal)
     }
     const handleDeleteButton = (url, getAllProductsOf, url2) => {
@@ -33,12 +34,12 @@ export default function TableRow(props) {
         setLocal(newlocal)
     }
     const firstInputFocus = (e) => {
-        if(e.key==="Enter"){
+        if (e.key === "Enter") {
             secondInput.current.focus()
         }
     }
     const secondInputFocus = (e) => {
-        if(e.key==="Enter"){
+        if (e.key === "Enter") {
             thirdInput.current.focus()
         }
     }
@@ -47,7 +48,7 @@ export default function TableRow(props) {
             firstInput.current.focus()
         }
     }, [local.edit])
-    
+
     return (
         <>
             <tr>
@@ -55,43 +56,53 @@ export default function TableRow(props) {
                     local.edit ?
                         <>
                             <th scope="row" key={props.i}>{props.i + 1}</th>
-                            <td><input type="text" 
-                                name="name_product" 
+                            <td><input type="text"
+                                name="name_product"
                                 value={local.user.name_product}
                                 className="form-control"
                                 ref={firstInput}
                                 onKeyDown={(e) => { firstInputFocus(e) }}
                                 onChange={(e) => { handleChange(e) }} />
                             </td>
-                            <td><input type="text" 
-                                name="price" 
+                            <td><input type="text"
+                                name="price"
                                 value={local.user.price}
-                                className="form-control" 
-                                ref={secondInput} 
+                                className="form-control"
+                                ref={secondInput}
                                 onKeyDown={(e) => { secondInputFocus(e) }}
                                 onChange={(e) => { handleChange(e) }} />
                             </td>
-                            <td><input type="text" 
-                                name="description" 
+                            <td><input type="text"
+                                name="description"
                                 value={local.user.description}
-                                className="form-control" 
-                                ref={thirdInput} 
-                                onChange={(e) => { handleChange(e) }} /></td>
-                            <td scope="col">
-                                <i className="fas fa-save btn btn-light" onClick={(e) => { handleSaveButton() }} ></i>
+                                className="form-control"
+                                ref={thirdInput}
+                                onChange={(e) => { handleChange(e) }} />
                             </td>
                             <td scope="col">
-                                <i className="fas fa-minus-circle btn btn-light" onClick={(e) => { handleEditButton() }} ></i>
+                                <a className="btn btn-outline-secondary py-1 px-2"
+                                    role="button"
+                                    onClick={() => { handleSaveButton() }} >
+                                    <i className="fas fa-save fa-2x" ></i>
+                                </a>
                             </td>
-                            
                             <td scope="col">
-                                <i className="fas fa-trash btn btn-light"
+                                <a className="btn btn-outline-secondary py-1 px-2"
+                                    role="button"
+                                    onClick={() => { handleEditButton() }} >
+                                    <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                </a>
+                            </td>
+                            <td scope="col">
+                                <a className="btn btn-outline-secondary py-1 px-2"
+                                    role="button"
                                     data-toggle="modal"
                                     data-target="#modal_confirmation_delete"
-                                    onClick={(e) => { handleDeleteButton() }} ></i>
+                                    onClick={(e) => { handleDeleteButton() }}>
+                                    <i className="fas fa-trash text-danger fa-2x" ></i>
+                                </a>
                             </td>
                         </>
-
                         :
                         <>
                             <th scope="row">{props.i + 1}</th>
@@ -99,7 +110,11 @@ export default function TableRow(props) {
                             <td>{local.user.price}</td>
                             <td>{local.user.description}</td>
                             <td scope="col">
-                                <i className="fas fa-edit" onClick={(e) => { handleEditButton() }} ></i>
+                                <a className="btn btn-outline-secondary py-1 px-2"
+                                    role="button"
+                                    onClick={() => { handleEditButton() }} >
+                                    <i className="fas fa-edit fa-2x" ></i>
+                                </a>
                             </td>
                         </>
                 }

@@ -416,7 +416,6 @@ export default function getState({ getStore, getActions, setStore }) {
             updateCurrRest: (newUser,oldUser)=>{
                 let aux={...oldUser}
                 aux.restaurantuser=newUser
-                console.log(aux)
                 setStore({currentRestaurant:aux})
                 sessionStorage.setItem('currentUser', JSON.stringify(aux))
                 sessionStorage.setItem('currentRestaurant', JSON.stringify(aux))

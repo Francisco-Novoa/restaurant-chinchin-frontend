@@ -28,7 +28,7 @@ export default function RestaurantProducts(props) {
                             <th scope="col">Nombre</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Descripcion</th>
-                            <th scope="col"></th>
+                            <th scope="col" style={{textAlign:"center"}}><i className="fas fa-shopping-cart"></i></th>
                         </tr>
                     </thead>
                     <tbody>

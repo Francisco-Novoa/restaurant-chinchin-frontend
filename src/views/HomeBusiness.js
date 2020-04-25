@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import ControlPanel from "../components/Restaurant/onwercontrolpanel";
 import OwnerSideMenu from "../components/Restaurant/ownersidemenu";
@@ -78,19 +77,19 @@ const Restaurant = (props) => {
                                     <li className="nav-item" onClick={() => { handleClick("user") }} >
                                         <a className="nav-link">
                                             <i className="fas fa-user"></i>
-                                            <p>User Profile</p>
+                                            <p>Perfil de Usuario</p>
                                         </a>
                                     </li>
                                     <li className="nav-item" onClick={() => { handleClick("product") }} >
                                         <a className="nav-link">
                                             <i className="fas fa-th-list"></i>
-                                            <p>Product</p>
+                                            <p>Productos</p>
                                         </a>
                                     </li>
                                     <li className="nav-item" onClick={() => { handleClick("orders") }} >
                                         <a className="nav-link">
                                             <i className="far fa-envelope"></i>
-                                            <p>Orders</p>
+                                            <p>Ordenes</p>
                                         </a>
                                     </li>
                                 </ul>

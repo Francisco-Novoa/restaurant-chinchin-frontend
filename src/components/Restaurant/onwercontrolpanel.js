@@ -13,15 +13,16 @@ export default function ControlPanel(props) {
         user: {},
     });
 
-    const handleEditButton = (nombre, e) => {
-        const newlocal = { ...local };
-        newlocal[nombre] = !local[nombre];
-        setLocal(newlocal);
+    const handleEditButton = (nombre, ref) => {
+        const newlocal = { ...local }
+        newlocal[nombre] = !local[nombre]
+        newlocal.user = { ...store.currentRestaurant.restaurantuser }
+        setLocal(newlocal)
     };
     const handleChange = (e) => {
-        const newlocal = { ...local };
-        newlocal.user[e.target.name] = e.target.value;
-        setLocal(newlocal);
+        const newlocal = { ...local }
+        newlocal.user[e.target.name] = e.target.value
+        setLocal(newlocal)
     };
     const handleSave = () => {
         actions.updateRestaurant(
@@ -29,11 +30,10 @@ export default function ControlPanel(props) {
             local.user
         );
         const newlocal = { ...local };
-        newlocal.user = store.currentRestaurant.restaurantuser;
+        actions.updateCurrRest(newlocal.user, store.currentRestaurant);
         newlocal.name = false;
         newlocal.phone = false;
         newlocal.address = false;
-        actions.updateCurrRest(newlocal.user, store.currentRestaurant);
         setLocal(newlocal);
     };
     useEffect(() => {
@@ -66,7 +66,7 @@ export default function ControlPanel(props) {
                     {/* Titulo block */}
                     <div className="row mb-3 alert alert-primary text-center">
                         <div className="col-md-12">
-                            <h3><i className="fas fa-cogs text-white"></i>  Control Panel</h3>
+                            <h3><i className="fas fa-cogs text-white"></i> Panel de Control </h3>
                         </div>
                     </div>
 
@@ -84,7 +84,7 @@ export default function ControlPanel(props) {
                     <div className="row mb-3">
                         <div className="col-md-10">
                             <div className="form-group">
-                                <label className="bmd-label-floating text-primary">Company</label>
+                                <label className="bmd-label-floating text-primary">Compañia</label>
                                 {
                                     local.name ? (
 
@@ -110,24 +110,23 @@ export default function ControlPanel(props) {
                             </div>
                         </div>
                         <div className="col-md-2 pt-5">
-                           { local.name ?
-                            <i
-                                className="fas fa-check"
-                                onClick={(e) => {
-                                    handleEditButton("name", e);
-                                }}
-                            >
-
-                            </i>
-                            :
-                            <i
-                                className="fas fa-edit"
-                                onClick={(e) => {
-                                    handleEditButton("name", e);
-                                }}
-                            >
-
-                            </i>
+                            {local.name ?
+                                <>
+                                    <a className="btn btn-outline-secondary mx-2 py-1 px-2"
+                                        role="button"
+                                        onClick={() => { handleSave() }} >
+                                        <i className="fas fa-save fa-2x" ></i>
+                                    </a>
+                                    <a className="btn btn-outline-secondary py-1 px-2" role="button"
+                                        onClick={(e) => { handleEditButton("name") }} >
+                                        <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                    </a>
+                                </>
+                                :
+                                <a className="btn btn-outline-secondary py-1 px-2"
+                                    role="button" onClick={() => { handleEditButton("name") }} >
+                                    <i className="fas fa-edit fa-2x" ></i>
+                                </a>
                             }
                         </div>
                     </div>
@@ -136,7 +135,7 @@ export default function ControlPanel(props) {
                     <div className="row mb-3">
                         <div className="col-md-5">
                             <div className="form-group">
-                                <label className="bmd-label-floating text-primary">Phone</label>
+                                <label className="bmd-label-floating text-primary">Telefono</label>
                                 {
                                     local.phone ? (
 
@@ -160,22 +159,23 @@ export default function ControlPanel(props) {
                             </div>
                         </div>
                         <div className="col-md-4 pt-5">
-                        { local.phone ?
-                            <i
-                                className="fas fa-check"
-                                onClick={(e) => {
-                                    handleEditButton("phone", e);
-                                }}
-                            >
-                            </i>
-                            :
-                            <i
-                                className="fas fa-edit"
-                                onClick={(e) => {
-                                    handleEditButton("phone", e);
-                                }}
-                            >
-                            </i>
+                            {local.phone ?
+                                <>
+                                    <a className="btn btn-outline-secondary mx-2 py-1 px-2"
+                                        role="button"
+                                        onClick={() => { handleSave() }} >
+                                        <i className="fas fa-save fa-2x" ></i>
+                                    </a>
+                                    <a className="btn btn-outline-secondary py-1 px-2" role="button"
+                                        onClick={(e) => { handleEditButton("phone") }} >
+                                        <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                    </a>
+                                </>
+                                :
+                                <a className="btn btn-outline-secondary py-1 px-2"
+                                    role="button" onClick={() => { handleEditButton("phone") }} >
+                                    <i className="fas fa-edit fa-2x" ></i>
+                                </a>
                             }
                         </div>
                     </div>
@@ -185,7 +185,7 @@ export default function ControlPanel(props) {
                         <div className="col-md-8">
                             <div className="form-group">
 
-                                <label className="bmd-label-floating text-primary">Address</label>
+                                <label className="bmd-label-floating text-primary">Direccion</label>
                                 {
                                     local.address ? (
 
@@ -212,22 +212,23 @@ export default function ControlPanel(props) {
                         </div>
                         <div className="col-md-2 pt-5">
 
-                        { local.address ?
-                            <i
-                                className="fas fa-check"
-                                onClick={(e) => {
-                                    handleEditButton("address", e);
-                                }}
-                            >
-                            </i>
-                            :
-                            <i
-                                className="fas fa-edit"
-                                onClick={(e) => {
-                                    handleEditButton("address", e);
-                                }}
-                            >
-                            </i>
+                            {local.address ?
+                                 <>
+                                 <a className="btn btn-outline-secondary mx-2 py-1 px-2"
+                                     role="button"
+                                     onClick={() => { handleSave() }} >
+                                     <i className="fas fa-save fa-2x" ></i>
+                                 </a>
+                                 <a className="btn btn-outline-secondary py-1 px-2" role="button"
+                                     onClick={(e) => { handleEditButton("address") }} >
+                                     <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                 </a>
+                             </>
+                             :
+                             <a className="btn btn-outline-secondary py-1 px-2"
+                                 role="button" onClick={() => { handleEditButton("address") }} >
+                                 <i className="fas fa-edit fa-2x" ></i>
+                             </a>
                             }
                         </div>
                     </div>
@@ -244,20 +245,6 @@ export default function ControlPanel(props) {
                                     </div>
                                 }
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="row d-flex justify-content-end">
-                        <div className="col-2 mr-2">
-                            <button
-                                type="button"
-                                className="btn btn-primary"
-                                onClick={() => {
-                                    handleSave();
-                                }}
-                            >
-                                Guardar
-                </button>
                         </div>
                     </div>
                 </div>
