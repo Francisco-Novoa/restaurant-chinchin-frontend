@@ -16,17 +16,17 @@ const Restaurant = (props) => {
 
     const handleClick = (name) => {
         const newlocal = { ...local }
-        if (name == "user") {
+        if (name === "user") {
             newlocal["product"] = false
             newlocal["orders"] = false
             newlocal["user"] = true
         }
-        else if (name == "product") {
+        else if (name === "product") {
             newlocal["user"] = false
             newlocal["orders"] = false
             newlocal["product"] = true
         }
-        else if (name == "orders") {
+        else if (name === "orders") {
             newlocal["user"] = false
             newlocal["orders"] = true
             newlocal["product"] = false

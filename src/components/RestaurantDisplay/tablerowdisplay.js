@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-
+import React, { useContext, useState } from 'react'
+import { Context } from '../../../src/store/appContext'
 
 export default function TableRowDisplay(props) {
+    const { store, actions } = useContext(Context)
     const [local, setLocal] = useState(
         {
             amount: 0
@@ -18,6 +19,15 @@ export default function TableRowDisplay(props) {
         let newLocal = { ...local }
         newLocal.amount = local.amount - 1
         setLocal(newLocal)
+    }
+
+    const addItem =()=>{
+        
+        let item={
+            id_product:props.elem.id_product,
+            amount:local.amount
+        }
+        actions.updateShoppingCart(item,store.shoppingCart)
     }
 
     return (
@@ -44,12 +54,22 @@ export default function TableRowDisplay(props) {
                     <i className="fas fa-plus" ></i>
                 </a>
 
-
-                <a className="btn btn-outline-success" role="button"  >
-                    <i className="fas fa-check text-success" ></i>
-                </a>
+            </td>
+            <td>
+                {local.amount > 0 ?
+                    <a className="btn btn-outline-success"
+                     role="button"  
+                     onClick={() => { addItem() }}>
+                        <i className="fas fa-check text-success" ></i>
+                    </a>
+                    :
+                    ""
+                }
 
             </td>
+
+
+
         </tr >
     )
 }

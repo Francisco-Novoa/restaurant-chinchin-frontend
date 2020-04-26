@@ -10,7 +10,7 @@ import New_Product from './components/modal_new_product'
 import Confirmation from './views/UserConfirmationPass'
 import ConfirmationRestaurant from './views/RestaurantConfirmationPass'
 import ConfirmationAdmin from './views/AdminConfirmationPass'
-
+import ShoppingCart from "./views/shoppingcart"
 
 const Layout = props => {
     return (
@@ -24,6 +24,7 @@ const Layout = props => {
                 <Route exact path="/business" component={Restaurant} />
                 <Route path="/restaurant" render={props => <RestaurantDisplay {...props} />} />
                 <Route exact path="/admin" component={Admin} />
+                <Route exact path="/shoppingcart" component={ShoppingCart}/>
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>

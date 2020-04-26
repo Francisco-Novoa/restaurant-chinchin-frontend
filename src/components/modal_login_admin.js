@@ -19,7 +19,7 @@ const ModalLoginAdmin = props => {
     }
     return (
 
-        <div className="modal fade" id="modal_login_admin" tabIndex="-1" role="dialog"
+        <div className="modal" id="modal_login_admin" tabIndex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
@@ -27,7 +27,7 @@ const ModalLoginAdmin = props => {
                         <>
                             <div className="modal-header">
                                 Login
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>BackToLogin()}>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => BackToLogin()}>
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -43,39 +43,39 @@ const ModalLoginAdmin = props => {
                                 </div>
                                 <div className="modal-footer d-flex justify-content-end">
                                     <button type="button" className="btn btn-primary mr-1" data-dismiss="modal" onClick={() => actions.loginAdminPost()}>Access</button>
-                                    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>BackToLogin()}>Cancel</button>
-                                </div>  
+                                    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={() => BackToLogin()}>Cancel</button>
+                                </div>
                             </div>
                         </>
 
                     )}
-                    
-                                {
-                                    state.view === 2 && (
-                                        <>
-                                            <div className="modal-header">
-                                                Login
+
+                    {
+                        state.view === 2 && (
+                            <>
+                                <div className="modal-header">
+                                    Login
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => BackToLogin()}>
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div className="form-group modal-body">
-                                                <label htmlFor="username" className="form-label text-muted">Enter email to reset password</label>
-                                                <input type="text" name="email" id="LoginConsumerEmail" onChange={e => actions.handleChange(e)} className="form-control"></input>
-                                            </div>
-                                            <div className="modal-footer d-flex justify-content-end">
-                                                <button type="button" className="btn btn-primary mr-1" data-dismiss="modal" onClick={() => Confirmation()}>Send</button>
-                                                <button type="button" className="btn btn-danger mr-1" data-dismiss="modal" onClick={() => BackToLogin()}>Cancel</button>
-                                            </div>
-                                        </>
-                                    )
-                                }
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="form-group modal-body">
+                                    <label htmlFor="username" className="form-label text-muted">Enter email to reset password</label>
+                                    <input type="text" name="email" id="LoginConsumerEmail" onChange={e => actions.handleChange(e)} className="form-control"></input>
+                                </div>
+                                <div className="modal-footer d-flex justify-content-end">
+                                    <button type="button" className="btn btn-primary mr-1" data-dismiss="modal" onClick={() => Confirmation()}>Send</button>
+                                    <button type="button" className="btn btn-danger mr-1" data-dismiss="modal" onClick={() => BackToLogin()}>Cancel</button>
+                                </div>
+                            </>
+                        )
+                    }
                             }
 
 
                         </div>
             </div>
-            </div>
+        </div>
     )
 }
 export default ModalLoginAdmin

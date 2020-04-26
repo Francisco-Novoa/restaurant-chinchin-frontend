@@ -56,7 +56,7 @@ export default function NewProduct(props) {
     }
 
     useEffect(()=>{
-        if (firstRef!==null){
+        if (firstRef.current!==null){
         firstRef.current.focus()
         }
     },[props.modal])

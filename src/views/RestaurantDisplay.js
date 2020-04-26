@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { Context } from '../store/appContext'
 import ModalLogin from '../components/modal_login'
 import ModalRegister from '../components/modal_register'
 import RestaurantInfo from "../components/RestaurantDisplay/restaurantInfo"
 import RestaurantProducts from '../components/RestaurantDisplay/restaurantProducts'
-import NavbarHome from '../components/navHome'
+import NavbarDisplay from '../components/RestaurantDisplay/navdisplay'
+
 
 export default function RestaurantDisplay() {
+    const { store, actions } = useContext(Context)
+    useEffect(()=>{
+        actions.updateShoppingCart("",store.shoppingCart)
+    },[])
     return (
         <>
             <div className="container">
-                <NavbarHome />
+                <NavbarDisplay/>
                 <div className="row pt-3">
                     <div className="col-md-12 p-3">
                         <h5>Restaurant</h5>
@@ -23,9 +29,6 @@ export default function RestaurantDisplay() {
                 </div>
                 <ModalLogin />
                 <ModalRegister />
-                <nav className="navbar fixed-bottom navbar-light justify-content-end">
-                    <Link to='/business' >Create business account</Link>
-                </nav>
             </div>
         </>
     )
