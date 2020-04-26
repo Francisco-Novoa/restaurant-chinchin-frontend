@@ -102,7 +102,7 @@ const ModalLoginRestaurant = props => {
                                         className="btn btn-primary mr-1"
                                         data-dismiss="modal"
                                         ref={thirdRef}
-                                        onClick={() => actions.loginUserPost()}>
+                                        onClick={() => actions.loginRestaurantPost()}>
                                         Access
                                     </button>
                                     <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={() => BackToLogin()}>Cancel</button>
@@ -143,7 +143,6 @@ const ModalLoginRestaurant = props => {
                                 <button type="button" className="btn btn-danger mr-1" data-dismiss="modal" onClick={() => BackToLogin()}>Cancel</button>
                             </div>
                         </>
-
                     )}
                 </div>
             </div>

@@ -18,9 +18,11 @@ export default function NavbarHome() {
             {
                 (store.isAuthenticatedUser || store.isAuthenticatedRestorantUser || store.isAuthenticatedAdmin) ?
                     <>
-                        <div className="d-flex justify-content-between text-muted pt-1 btn-group mr-2" role="group">
+                        <div className="d-flex justify-content-between text-muted pt-1 btn-group mr-2" 
+                        role="group"
+                        onClick={() => actions.Logout()}>
                             <div className="hand">Logout</div>
-                            <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.Logout()}></i>
+                            <i className="fas fa-sign-out-alt ml-3" ></i>
                         </div>
                     </>
                     :
