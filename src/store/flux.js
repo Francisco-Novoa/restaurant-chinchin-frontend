@@ -173,32 +173,6 @@ export default function getState({ getStore, getActions, setStore }) {
                     currentAdmin: {}
                 })
             },
-            LogoutRestaurant: () => {
-                sessionStorage.removeItem('currentUser')
-                sessionStorage.removeItem('currentRestaurant')
-                sessionStorage.removeItem('currentAdmin')
-                setStore({
-                    isAuthenticatedRestaurantUser: false,
-                    isAuthenticatedUser: false,
-                    isAuthenticatedAdmin: false,
-                    currentUser: {},
-                    currentRestaurant: {},
-                    currentAdmin: {}
-                })
-            },
-            LogoutAdmin: () => {
-                sessionStorage.removeItem('currentUser')
-                sessionStorage.removeItem('currentRestaurant')
-                sessionStorage.removeItem('currentAdmin')
-                setStore({
-                    isAuthenticatedRestaurantUser: false,
-                    isAuthenticatedUser: false,
-                    isAuthenticatedAdmin: false,
-                    currentUser: {},
-                    currentRestaurant: {},
-                    currentAdmin: {}
-                })
-            },
             registerRestaurantPost: () => {
                 const store = getStore();
                 const data = {

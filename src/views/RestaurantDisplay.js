@@ -27,8 +27,6 @@ export default function RestaurantDisplay() {
                         </ul>
                     </div>
                 </div>
-                <ModalLogin />
-                <ModalRegister />
             </div>
         </>
     )

@@ -20,8 +20,8 @@ const Home = props => {
                         </ul>
                     </div>
                 </div>
-                <nav className="navbar fixed-bottom navbar-light justify-content-end">
-                    <Link to='/business' >Create business account</Link>
+                <nav className="navbar navbar-light justify-content-end">
+                    <Link to='/business'className="mr-3" >Create business account</Link>
                 </nav>
             </div>
 
