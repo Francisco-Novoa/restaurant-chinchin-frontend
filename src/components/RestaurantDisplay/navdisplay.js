@@ -18,8 +18,7 @@ export default function NavbarDisplay() {
             </div>
             {
 
-                (store.isAuthenticatedUser && store.shoppingCart.length > 0
-                    || store.isAuthenticatedRestorantUser && store.shoppingCart.length > 0) ?
+                (store.isAuthenticatedUser && store.shoppingCart.length > 0) ?
 
                         <div className="col-4 d-flex justify-content-end pt-1 btn-group"
                             role="group">
@@ -35,8 +34,7 @@ export default function NavbarDisplay() {
                             </Link>
                             </div>
 
-                    : (store.isAuthenticatedUser && store.shoppingCart.length === 0
-                        || store.isAuthenticatedRestorantUser && store.shoppingCart.length === 0) ?
+                    : (store.isAuthenticatedUser && store.shoppingCart.length === 0) ?
                         <div className="col-4 d-flex justify-content-end pt-1 btn-group"
                             role="group"
                         >

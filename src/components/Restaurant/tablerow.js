@@ -3,7 +3,7 @@ import { Context } from '../../../src/store/appContext'
 import ModalDelete from './modaldelete'
 
 export default function TableRow(props) {
-    const { actions } = useContext(Context)
+    const { store,actions } = useContext(Context)
     const firstInput = useRef(null)
     const secondInput = useRef(null)
     const thirdInput = useRef(null)
@@ -97,7 +97,7 @@ export default function TableRow(props) {
                                 <a className="btn btn-outline-secondary py-1 px-2"
                                     role="button"
                                     data-toggle="modal"
-                                    data-target="#modal_confirmation_delete"
+                                    data-target={"#modal_confirmation_delete_"+local.user.id_product}
                                     onClick={(e) => { handleDeleteButton() }}>
                                     <i className="fas fa-trash text-danger fa-2x" ></i>
                                 </a>
@@ -123,7 +123,8 @@ export default function TableRow(props) {
             <ModalDelete delete={handleDeleteButton}
                 url={"http://localhost:5000/product/" + local.user.id_product}
                 function={actions.getAllProductsOf}
-                url2={"http://localhost:5000/product/from/" + local.user.id_restaurant} />
+                url2={"http://localhost:5000/product/from/" + local.user.id_restaurant}
+                id={local.user.id_product} />
         </>
     )
 }
