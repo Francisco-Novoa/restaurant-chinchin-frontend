@@ -97,10 +97,16 @@ export default function getState({ getStore, getActions, setStore }) {
                                 email: '',
                                 currentUser: data,
                                 isAuthenticatedUser: true,
+                                isAuthenticatedRestaurantUser: false,
+                                isAuthenticatedAdmin: false,
+                                currentRestaurant: {},
+                                currentAdmin: {}
                             })
                             console.log(data)
                             sessionStorage.setItem('currentUser', JSON.stringify(data))
                             sessionStorage.setItem('isAuthenticatedUser', true)
+                            sessionStorage.removeItem('currentRestaurant')
+                            sessionStorage.removeItem('currentAdmin')
                         }
                     })
             },
@@ -260,12 +266,19 @@ export default function getState({ getStore, getActions, setStore }) {
                                 email: '',
                                 currentRestaurant: data,
                                 isAuthenticatedRestaurantUser: true,
+                                isAuthenticatedUser: false,
+                                isAuthenticatedAdmin: false,
+                                currentUser: {},
+                                currentAdmin: {}
                             })
                             console.log(data)
                             sessionStorage.setItem('currentRestaurant', JSON.stringify(data))
                             sessionStorage.setItem('isAuthenticatedRestaurantUser', true)
-                            console.log(sessionStorage.getItem('currentRestaurant'))
-                            console.log(sessionStorage.getItem('isAuthenticatedRestaurantUser'))
+                            sessionStorage.removeItem('currentUser')
+                            sessionStorage.removeItem('currentAdmin')
+                            sessionStorage.removeItem('isAuthenticatedUser')
+                            sessionStorage.removeItem('isAuthenticatedAdmin')
+
                         }
                     })
             },
@@ -333,10 +346,18 @@ export default function getState({ getStore, getActions, setStore }) {
                                 email: '',
                                 currentAdmin: data,
                                 isAuthenticatedAdmin: true,
+                                isAuthenticatedUser: false,
+                                isAuthenticatedRestaurantUser: false,
+                                currentRestaurant: {},
+                                currentUser: {}
                             })
                             console.log(data)
                             sessionStorage.setItem('currentAdmin', JSON.stringify(data))
                             sessionStorage.setItem('isAuthenticatedAdmin', true)
+                            sessionStorage.removeItem('currentUser')
+                            sessionStorage.removeItem('isAuthenticatedUser')
+                            sessionStorage.removeItem('isAuthenticatedRestaurantUser')
+                            sessionStorage.removeItem('currentRestaurant')
                         }
                     })
             },
@@ -421,7 +442,7 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             updateShoppingCart: (newCart, oldCart) => {
                 console.log(newCart)
-                if (newCart ==="") {
+                if (newCart === "") {
                     setStore({ shoppingCart: [] })
                 }
                 else {
