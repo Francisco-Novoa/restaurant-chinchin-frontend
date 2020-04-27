@@ -8,12 +8,12 @@ export default function RestaurantList() {
     return (
         <>
             <div className="container-fluid">
-                <div className="row">
+                <div className="row card-deck">
                     {
                         !!store.allRestaurants&&
                             store.allRestaurants.map((element,i)=>{
                                 return (
-                                    <div className="card-deck col-4 my-1 px-1" key={i}> <RestaurantCard restaurant={element}/> </div>
+                                    <div className="col-4 my-1 px-1" key={i}> <RestaurantCard restaurant={element}/> </div>
                                     
                                 )
                             })
