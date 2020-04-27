@@ -175,8 +175,9 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             registerRestaurantPost: () => {
                 const store = getStore();
+                let localname=store.name.replace(/ /g, '_')
                 const data = {
-                    name: store.name,
+                    name: localname,
                     email: store.email,
                     phone: store.phone,
                     password_hash: store.password_hash
@@ -466,11 +467,13 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             getRestaurant: async (url) => {
                 try {
+                    console.log(url)
                     const all = await fetch(url, {
                         method: "GET",
                         headers: { "Content-Type": "application/json" },
                     })
                     const data = await all.json()
+                    console.log(data)
                     let aux=data.restaurant.name.replace(/_/g, ' ')
                     data.restaurant.name=aux
                     setStore({restaurant:data})

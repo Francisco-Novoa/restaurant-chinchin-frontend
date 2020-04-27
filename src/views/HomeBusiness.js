@@ -37,7 +37,6 @@ const Restaurant = (props) => {
     const { store, actions } = useContext(Context);
     useEffect(() => {
         actions.isAuthenticatedRestaurantUser();
-        actions.getAllRestaurants("http://localhost:5000/restaurantusers")
     }, [])
     return (
         <>
