@@ -15,16 +15,22 @@ export default function RestaurantDisplay({...props}) {
 
     return (
         <>
-            <div className="container">
+            <div className="container fondo">
                 <NavbarDisplay/>
                 <div className="row pt-3">
                     <div className="col-md-12 p-3">
                         <h5>Restaurant</h5>
                         <hr></hr>
-                        <ul className='pl-3 pr-3 pt-2'>
-                            <RestaurantInfo />
-                            <RestaurantProducts />
-                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">                        
+                        <RestaurantInfo />                                                
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">                 
+                        <RestaurantProducts />                        
                     </div>
                 </div>
             </div>
