@@ -1,57 +1,12 @@
 body{
     margin:0;
+    background: url('../../resource/img/restaurant_icons.png');
 }
 
 .fa-edit:hover{
     color:blue;
 
 }
-/* Restaurant-Card */
-
-.blog-entry {
-    background: #fff; }
-@media (min-width: 768px) {
-.blog-entry {
-margin-bottom: 30px; } }
-@media (max-width: 767.98px) {
-.blog-entry {
-margin-bottom: 30px; } }
-.blog-entry .text {
-position: relative;
-border-top: 0;
-border-radius: 2px; }
-.blog-entry .text .heading {
-font-size: 20px;
-margin-bottom: 16px;
-font-weight: 600; }
-.blog-entry .text .heading a {
-color: #000000; }
-.blog-entry .text .meta-chat {
-color: rgba(0, 0, 0, 0.3); }
-.blog-entry .text .read {
-color: #000000;
-font-size: 14px; }
-.blog-entry .meta > div {
-display: inline-block;
-margin-right: 5px;
-margin-bottom: 5px;
-font-size: 14px; }
-.blog-entry .meta > div a {
-color: rgba(0, 0, 0, 0.3);
-font-size: 15px; }
-.blog-entry .meta > div a:hover {
-color: #cccccc; }
-.block-20 {
-  overflow: hidden;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 300px;
-  position: relative;
-  display: block; }
-.col-position{
-    position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px; 
+.fondo{
+  background: rgba(255, 255, 255, .7);
 }

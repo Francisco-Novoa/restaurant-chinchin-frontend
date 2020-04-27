@@ -9,7 +9,7 @@ const Home = props => {
 
     return (
         <>
-            <div className="container">
+            <div className="container fondo">
                 <Navbar />
                 <div className="row pt-3">
                     <div className="col-md-12 p-3">
@@ -20,9 +20,11 @@ const Home = props => {
                         </ul>
                     </div>
                 </div>
-                <nav className="navbar navbar-light justify-content-end">
-                    <Link to='/business'className="mr-3" >Create business account</Link>
-                </nav>
+                <footer className="footer bg-white text-right">
+                    <div className="container">
+                        <Link to='/business'className="mr-3 font-weight-bold font-italic" >Create business account</Link>
+                    </div>
+                </footer>
             </div>
 
 

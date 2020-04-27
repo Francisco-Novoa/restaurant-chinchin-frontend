@@ -25,13 +25,6 @@ export default function OwnerSideMenu(props) {
     return (
         <>
             <div className="container-fluid">
-                {/* Titulo block */}
-                <div className="row mb-3 alert alert-primary text-center">
-                    <div className="col-md-12">
-                        <h3><i className="fas fa-cogs text-white"></i>  Productos</h3>
-                    </div>
-                </div>
-
                 {/* Text block */}
                 <div className="row">
                     <div className="col-md-12">

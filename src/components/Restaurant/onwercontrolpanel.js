@@ -81,10 +81,10 @@ export default function ControlPanel(props) {
                                     </p>
                                 </div>
                                 <div className="card-body">
-                                    <form>
+                                    <form className="col-md-12 ">
                                         {/* Form Group Name */}
                                         <div className="row mb-3">
-                                            <div className="col-md-8">
+                                            <div className="col-md-8 ">
                                                 <div className="form-group">
                                                     <label className="bmd-label-floating text-primary">Compañia</label>
                                                     {
