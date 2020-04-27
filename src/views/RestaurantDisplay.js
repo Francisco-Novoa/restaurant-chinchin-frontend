@@ -1,18 +1,18 @@
-import React, { useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useContext, useState } from 'react'
 import { Context } from '../store/appContext'
-import ModalLogin from '../components/modal_login'
-import ModalRegister from '../components/modal_register'
 import RestaurantInfo from "../components/RestaurantDisplay/restaurantInfo"
 import RestaurantProducts from '../components/RestaurantDisplay/restaurantProducts'
 import NavbarDisplay from '../components/RestaurantDisplay/navdisplay'
 
 
-export default function RestaurantDisplay() {
-    const { store, actions } = useContext(Context)
+export default function RestaurantDisplay({...props}) {
+    const { store,actions } = useContext(Context)
     useEffect(()=>{
-        actions.updateShoppingCart("",store.shoppingCart)
+        actions.getRestaurant("http://localhost:5000/restaurantbyname/"+props.match.params.restaurantname)
     },[])
+
+    
+
     return (
         <>
             <div className="container">

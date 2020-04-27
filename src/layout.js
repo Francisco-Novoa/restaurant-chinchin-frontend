@@ -22,7 +22,7 @@ const Layout = props => {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/product" component={New_Product} />
                 <Route exact path="/business" component={Restaurant} />
-                <Route path="/restaurant" render={props => <RestaurantDisplay {...props} />} />
+                <Route path="/restaurant/:restaurantname" render={props => <RestaurantDisplay {...props} />} />
                 <Route exact path="/admin" component={Admin} />
                 <Route exact path="/shoppingcart" component={ShoppingCart}/>
                 <Route component={NotFound} />

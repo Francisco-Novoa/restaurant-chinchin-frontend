@@ -23,7 +23,7 @@ export default function getState({ getStore, getActions, setStore }) {
             allRestaurants: [],
             allProducts: [],
             shoppingCart: [],
-            restaurantFocus: "",
+            restaurant:"",
             email_confirm_success: null,
             email_confirm_msg: null,
             email_confirm_success_res: null,
@@ -197,6 +197,8 @@ export default function getState({ getStore, getActions, setStore }) {
                             console.log(getStore().errorsRegisterRestaurant)
                         }
                         else {
+                            let aux=data.restaurantuser.name.replace(/_/g, ' ')
+                            data.restaurantuser.name=aux
                             setStore({
                                 errorsRegisterRestaurant: '',
                                 password_hash: '',
@@ -234,6 +236,9 @@ export default function getState({ getStore, getActions, setStore }) {
                             console.log(getStore().errorsLoginRestaurant)
                         }
                         else {
+                            console.log(data)
+                            let aux=data.restaurantuser.name.replace(/_/g, ' ')
+                            data.restaurantuser.name=aux
                             setStore({
                                 errorsLoginRestaurant: '',
                                 password_hash: '',
@@ -245,7 +250,6 @@ export default function getState({ getStore, getActions, setStore }) {
                                 currentUser: {},
                                 currentAdmin: {}
                             })
-                            console.log(data)
                             sessionStorage.setItem('currentRestaurant', JSON.stringify(data))
                             sessionStorage.setItem('isAuthenticatedRestaurantUser', true)
                             sessionStorage.removeItem('currentUser')
@@ -345,8 +349,12 @@ export default function getState({ getStore, getActions, setStore }) {
                     if (data.msg) {
                         console.log(data.msg)
                     }
+                    let result=data.map((elem)=>{
+                    let aux=elem.name.replace(/_/g, ' ')
+                    elem.name=aux
+                    return elem})
                     setStore({
-                        allRestaurants: data
+                        allRestaurants: result
                     })
                 }
                 catch (error) {
@@ -392,10 +400,11 @@ export default function getState({ getStore, getActions, setStore }) {
                         headers: { "Content-Type": "application/json" },
                     })
                     const data = await all.json()
+
                     setStore({
                         allProducts: data
                     })
-                    return ("all products fetched")
+                    return ("ok")
                 }
                 catch (error) {
                     console.log(error)
@@ -455,8 +464,20 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-            handleRestaurantFocus: (restaurant) => {
-                setStore({ restaurantFocus: restaurant })
+            getRestaurant: async (url) => {
+                try {
+                    const all = await fetch(url, {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    })
+                    const data = await all.json()
+                    let aux=data.restaurant.name.replace(/_/g, ' ')
+                    data.restaurant.name=aux
+                    setStore({restaurant:data})
+                }
+                catch (error) {
+                    console.log(error)
+                }
             },
             getConfirmation: () => {
                 const store = getStore()
