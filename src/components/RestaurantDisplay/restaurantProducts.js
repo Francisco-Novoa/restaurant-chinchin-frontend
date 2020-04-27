@@ -8,12 +8,9 @@ export default function RestaurantProducts(props) {
     const [local, setLocal] = useState(
         {   
             contact:false,
-            user:store.restaurantFocus
         }
     )
-    useEffect(()=>{
-        actions.getAllProductsOf("http://localhost:5000/product/from/"+local.user.id)
-    },[])
+    
 
     return (
         <>
@@ -28,13 +25,15 @@ export default function RestaurantProducts(props) {
                             <th scope="col">Nombre</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Descripcion</th>
-                            <th scope="col"></th>
+                            <th scope="col" style={{textAlign:"center"}}><i className="fas fa-shopping-cart"></i></th>
+                            <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         </tr>
                     </thead>
                     <tbody>
                         {   
-                         !!store.allProducts&&
-                         store.allProducts.map((element,i)=>{
+                         !!store.restaurant.products&&
+                         store.restaurant.products.map((element,i)=>{
                              return (<>
                                     <TableRowDisplay elem={element} i={i} key={i}/>
                                  </>

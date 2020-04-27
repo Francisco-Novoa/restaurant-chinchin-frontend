@@ -5,7 +5,7 @@ export default function getState({ getStore, getActions, setStore }) {
             //store variables goes here
             path: 'http://localhost:5000',
             isAuthenticatedUser: false,
-            isAuthenticatedRestorauntUser: false,
+            isAuthenticatedRestaurantUser: false,
             isAuthenticatedAdmin: false,
             name: '',
             email: '',
@@ -21,8 +21,15 @@ export default function getState({ getStore, getActions, setStore }) {
             currentAdmin: {},
             currentRestaurant: {},
             allRestaurants: [],
-            allProducts:[],
-            restaurantFocus:""
+            allProducts: [],
+            shoppingCart: [],
+            restaurant:"",
+            email_confirm_success: null,
+            email_confirm_msg: null,
+            email_confirm_success_res: null,
+            email_confirm_msg_res: null,
+            email_confirm_success_admin: null,
+            email_confirm_msg_admin: null,
         },
         actions: {
             //actions go here.
@@ -45,6 +52,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(data => {
                         console.log(data)
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsRegisterUser: data })
                         }
                         else {
@@ -78,6 +86,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsLoginUser: data })
                             console.log(getStore().errorsLoginUser)
                         }
@@ -88,10 +97,16 @@ export default function getState({ getStore, getActions, setStore }) {
                                 email: '',
                                 currentUser: data,
                                 isAuthenticatedUser: true,
+                                isAuthenticatedRestaurantUser: false,
+                                isAuthenticatedAdmin: false,
+                                currentRestaurant: {},
+                                currentAdmin: {}
                             })
                             console.log(data)
                             sessionStorage.setItem('currentUser', JSON.stringify(data))
                             sessionStorage.setItem('isAuthenticatedUser', true)
+                            sessionStorage.removeItem('currentRestaurant')
+                            sessionStorage.removeItem('currentAdmin')
                         }
                     })
             },
@@ -104,15 +119,29 @@ export default function getState({ getStore, getActions, setStore }) {
                     setStore({
                         isAuthenticatedUser: sessionStorage.getItem('isAuthenticatedUser'),
                         currentUser: JSON.parse(sessionStorage.getItem('currentUser')),
+                        isAuthenticatedRestaurantUser: false,
+                        isAuthenticatedAdmin: false,
+                        currentRestaurant: {},
+                        currentAdmin: {}
                     })
+                    sessionStorage.removeItem('currentRestaurant')
+                    sessionStorage.removeItem('currentAdmin')
                 }
             },
-            isAuthenticatedRestorauntUser: () => {
-                if (sessionStorage.getItem('currentRestaurant') && sessionStorage.getItem('isAuthenticatedRestorauntUser')) {
+            isAuthenticatedRestaurantUser: () => {
+                if (sessionStorage.getItem('currentRestaurant') && sessionStorage.getItem('isAuthenticatedRestaurantUser')) {
                     setStore({
-                        isAuthenticatedRestorauntUser: sessionStorage.getItem('isAuthenticatedRestorauntUser'),
-                        currentUser: JSON.parse(sessionStorage.getItem('currentRestaurant')),
+                        isAuthenticatedRestaurantUser: sessionStorage.getItem('isAuthenticatedRestaurantUser'),
+                        currentRestaurant: JSON.parse(sessionStorage.getItem('currentRestaurant')),
+                        isAuthenticatedUser: false,
+                        isAuthenticatedAdmin: false,
+                        currentUser: {},
+                        currentAdmin: {}
                     })
+                    sessionStorage.removeItem('currentUser')
+                    sessionStorage.removeItem('currentAdmin')
+                    sessionStorage.removeItem('isAuthenticatedUser')
+                    sessionStorage.removeItem('isAuthenticatedAdmin')
                 }
             },
             isAuthenticatedAdmin: () => {
@@ -120,7 +149,15 @@ export default function getState({ getStore, getActions, setStore }) {
                     setStore({
                         isAuthenticatedAdmin: sessionStorage.getItem('isAuthenticatedAdmin'),
                         currentAdmin: JSON.parse(sessionStorage.getItem('currentAdmin')),
+                        isAuthenticatedUser: false,
+                        isAuthenticatedRestaurantUser: false,
+                        currentRestaurant: {},
+                        currentUser: {}
                     })
+                    sessionStorage.removeItem('currentUser')
+                    sessionStorage.removeItem('isAuthenticatedUser')
+                    sessionStorage.removeItem('isAuthenticatedRestaurantUser')
+                    sessionStorage.removeItem('currentRestaurant')
                 }
             },
             Logout: () => {
@@ -128,44 +165,19 @@ export default function getState({ getStore, getActions, setStore }) {
                 sessionStorage.removeItem('currentRestaurant')
                 sessionStorage.removeItem('currentAdmin')
                 setStore({
-                    isAuthenticatedRestorauntUser: false,
+                    isAuthenticatedRestaurantUser: false,
                     isAuthenticatedUser: false,
-                    isAuthenticatedAdmin:false,
+                    isAuthenticatedAdmin: false,
                     currentUser: {},
                     currentRestaurant: {},
-                    currentAdmin:{}
-                })
-            },
-            LogoutRestaurant: () => {
-                sessionStorage.removeItem('currentUser')
-                sessionStorage.removeItem('currentRestaurant')
-                sessionStorage.removeItem('currentAdmin')
-                setStore({
-                    isAuthenticatedRestorauntUser: false,
-                    isAuthenticatedUser: false,
-                    isAuthenticatedAdmin:false,
-                    currentUser: {},
-                    currentRestaurant: {},
-                    currentAdmin:{}
-                })
-            },
-            LogoutAdmin: () => {
-                sessionStorage.removeItem('currentUser')
-                sessionStorage.removeItem('currentRestaurant')
-                sessionStorage.removeItem('currentAdmin')
-                setStore({
-                    isAuthenticatedRestorauntUser: false,
-                    isAuthenticatedUser: false,
-                    isAuthenticatedAdmin:false,
-                    currentUser: {},
-                    currentRestaurant: {},
-                    currentAdmin:{}
+                    currentAdmin: {}
                 })
             },
             registerRestaurantPost: () => {
                 const store = getStore();
+                let localname=store.name.replace(/ /g, '_')
                 const data = {
-                    name: store.name,
+                    name: localname,
                     email: store.email,
                     phone: store.phone,
                     password_hash: store.password_hash
@@ -181,10 +193,13 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(data => {
                         console.log(data)
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsRegisterRestaurant: data })
                             console.log(getStore().errorsRegisterRestaurant)
                         }
                         else {
+                            let aux=data.restaurantuser.name.replace(/_/g, ' ')
+                            data.restaurantuser.name=aux
                             setStore({
                                 errorsRegisterRestaurant: '',
                                 password_hash: '',
@@ -192,11 +207,11 @@ export default function getState({ getStore, getActions, setStore }) {
                                 phone: '',
                                 email: '',
                                 currentRestaurant: data,
-                                isAuthenticatedRestorauntUser: true,
+                                isAuthenticatedRestaurantUser: true,
                             })
                             //console.log(data)
                             sessionStorage.setItem('currentRestaurant', JSON.stringify(data))
-                            sessionStorage.setItem('isAuthenticatedRestorauntUser', true)
+                            sessionStorage.setItem('isAuthenticatedRestaurantUser', true)
 
                         }
                     })
@@ -217,20 +232,32 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsLoginRestaurant: data })
                             console.log(getStore().errorsLoginRestaurant)
                         }
                         else {
+                            console.log(data)
+                            let aux=data.restaurantuser.name.replace(/_/g, ' ')
+                            data.restaurantuser.name=aux
                             setStore({
                                 errorsLoginRestaurant: '',
                                 password_hash: '',
                                 email: '',
                                 currentRestaurant: data,
-                                isAuthenticatedRestorauntUser: true,
+                                isAuthenticatedRestaurantUser: true,
+                                isAuthenticatedUser: false,
+                                isAuthenticatedAdmin: false,
+                                currentUser: {},
+                                currentAdmin: {}
                             })
-                            console.log(data)
                             sessionStorage.setItem('currentRestaurant', JSON.stringify(data))
-                            sessionStorage.setItem('isAuthenticatedRestorauntUser', true)
+                            sessionStorage.setItem('isAuthenticatedRestaurantUser', true)
+                            sessionStorage.removeItem('currentUser')
+                            sessionStorage.removeItem('currentAdmin')
+                            sessionStorage.removeItem('isAuthenticatedUser')
+                            sessionStorage.removeItem('isAuthenticatedAdmin')
+
                         }
                     })
             },
@@ -252,6 +279,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(data => {
                         console.log(data)
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsRegisterAdmin: data })
                             console.log(getStore().errorsRegisterAdmin)
                         }
@@ -286,6 +314,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(resp => resp.json())
                     .then(data => {
                         if (data.msg) {
+                            alert(data.msg)
                             setStore({ errorsLoginAdmin: data })
                             console.log(getStore().errorsLoginAdmin)
                         }
@@ -296,10 +325,18 @@ export default function getState({ getStore, getActions, setStore }) {
                                 email: '',
                                 currentAdmin: data,
                                 isAuthenticatedAdmin: true,
+                                isAuthenticatedUser: false,
+                                isAuthenticatedRestaurantUser: false,
+                                currentRestaurant: {},
+                                currentUser: {}
                             })
                             console.log(data)
                             sessionStorage.setItem('currentAdmin', JSON.stringify(data))
                             sessionStorage.setItem('isAuthenticatedAdmin', true)
+                            sessionStorage.removeItem('currentUser')
+                            sessionStorage.removeItem('isAuthenticatedUser')
+                            sessionStorage.removeItem('isAuthenticatedRestaurantUser')
+                            sessionStorage.removeItem('currentRestaurant')
                         }
                     })
             },
@@ -310,11 +347,15 @@ export default function getState({ getStore, getActions, setStore }) {
                         headers: { "Content-Type": "aplication/json" }
                     })
                     const data = await all.json()
-                    if (data.msg){
+                    if (data.msg) {
                         console.log(data.msg)
                     }
+                    let result=data.map((elem)=>{
+                    let aux=elem.name.replace(/_/g, ' ')
+                    elem.name=aux
+                    return elem})
                     setStore({
-                        allRestaurants: data
+                        allRestaurants: result
                     })
                 }
                 catch (error) {
@@ -328,20 +369,21 @@ export default function getState({ getStore, getActions, setStore }) {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(body)
                     })
-                    return "ok"
+                    const response = await all.json()
+                    console.log(response)
                 }
                 catch (error) {
                     console.log(error)
                 }
             },
-            newProduct: async (url,body) =>{
+            newProduct: async (url, body) => {
                 try {
                     const all = await fetch(url, {
                         method: "POST",
-                        headers: { "Content-Type": "application/json"},
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(body)
                     })
-                    const result=await all.json() 
+                    const result = await all.json()
                     console.log(result)
                     return result
                 }
@@ -349,37 +391,50 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-            getAllProductsOf:async (url) =>{
+            getAllProductsOf: async (url) => {
                 try {
+                    setStore({
+                        allProducts: []
+                    })
                     const all = await fetch(url, {
                         method: "GET",
-                        headers: { "Content-Type": "application/json"},
+                        headers: { "Content-Type": "application/json" },
                     })
-                    const data=await all.json()
+                    const data = await all.json()
+
                     setStore({
                         allProducts: data
                     })
-                    return "ok"
+                    return ("ok")
                 }
                 catch (error) {
                     console.log(error)
                 }
             },
-            updateCurrUser: (newUser,oldUser)=>{
-                let aux={...oldUser}
-                aux.restaurantuser=newUser
+            updateCurrUser: (newUser, oldUser) => {
+                let aux = { ...oldUser }
+                aux.user = newUser
                 console.log(aux)
-                setStore({currentUser:aux})
+                setStore({ currentUser: aux })
                 sessionStorage.setItem('currentUser', JSON.stringify(aux))
+            },
+            updateCurrRest: (newUser, oldUser) => {
+                let aux = { ...oldUser }
+                aux.restaurantuser = newUser
+                setStore({ currentRestaurant: aux })
                 sessionStorage.setItem('currentRestaurant', JSON.stringify(aux))
             },
-            updateCurrRest: (newUser,oldUser)=>{
-                let aux={...oldUser}
-                aux.restaurantuser=newUser
-                console.log(aux)
-                setStore({currentRestaurant:aux})
-                sessionStorage.setItem('currentUser', JSON.stringify(aux))
-                sessionStorage.setItem('currentRestaurant', JSON.stringify(aux))
+            updateShoppingCart: (newCart, oldCart) => {
+                console.log(newCart)
+                if (newCart === "") {
+                    setStore({ shoppingCart: [] })
+                }
+                else {
+                    let aux = [...oldCart]
+                    aux.push(newCart)
+                    console.log(aux)
+                    setStore({ shoppingCart: aux })
+                }
             },
             updateProduct: async (url, body) => {
                 try {
@@ -394,21 +449,181 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-            deleteProduct: async (url) => {
+            deleteProduct: async (url, reload, url2) => {
                 try {
                     const all = await fetch(url, {
                         method: "DELETE",
                         headers: { "Content-Type": "application/json" },
                     })
-                    return "ok"
+                    const result = await all.json()
+                    console.log(result)
+                    const re = await reload(url2)
+                    const result2 = await re
+                    console.log(result2)
                 }
                 catch (error) {
                     console.log(error)
                 }
             },
-            handleRestaurantFocus: (restaurant )=>{
-                setStore({restaurantFocus:restaurant})
-            }
+            getRestaurant: async (url) => {
+                try {
+                    console.log(url)
+                    const all = await fetch(url, {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    })
+                    const data = await all.json()
+                    console.log(data)
+                    let aux=data.restaurant.name.replace(/_/g, ' ')
+                    data.restaurant.name=aux
+                    setStore({restaurant:data})
+                }
+                catch (error) {
+                    console.log(error)
+                }
+            },
+            getConfirmation: () => {
+                const store = getStore()
+                const data = {
+                    email: store.email
+                }
+                fetch(store.path + '/change-password/', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            setStore({
+                                email_confirm_success: data.success
+                            })
+                        } else {
+                            setStore({
+                                email_confirm_msg: data.msg,
+
+                            })
+                        }
+                    })
+            },
+            getPasswordChange: (token, history) => {
+                const store = getStore()
+                const data = {
+                    password_hash: store.password_hash
+                }
+                fetch(store.path + '/change-password-confirm/' + token, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("Your password was change successfully")
+                        history.push("/")
+                        setStore({
+                            email: ''
+                        })
+                    })
+
+            },
+            getConfirmationRestaurant: () => {
+                const store = getStore()
+                const data = {
+                    email: store.email
+                }
+                fetch(store.path + '/restchange-password/', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            setStore({
+                                email_confirm_success_res: data.success
+                            })
+                        } else {
+                            setStore({
+                                email_confirm_msg_res: data.msg
+                            })
+                        }
+                    })
+            },
+            getPasswordChangeRestaurant: (token, history) => {
+                const store = getStore()
+                const data = {
+                    password_hash: store.password_hash
+                }
+                fetch(store.path + '/restchange-password-confirm/' + token, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("Your password was change successfully")
+                        history.push("/")
+                        setStore({
+                            email: ''
+                        })
+                    })
+
+            },
+            getConfirmationAdmin: () => {
+                const store = getStore()
+                const data = {
+                    email: store.email
+                }
+                fetch(store.path + '/adminchange-password/', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            setStore({
+                                email_confirm_success_admin: data.success
+                            })
+                        } else {
+                            setStore({
+                                email_confirm_msg_admin: data.msg
+                            })
+                        }
+                    })
+            },
+            getPasswordChangeAdmin: (token, history) => {
+                const store = getStore()
+                const data = {
+                    password_hash: store.password_hash
+                }
+                fetch(store.path + '/adminchange-password-confirm/' + token, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("Your password was change successfully")
+                        history.push("/")
+                        setStore({
+                            email: ''
+                        })
+                    })
+
+            },
         }
     }
 }
