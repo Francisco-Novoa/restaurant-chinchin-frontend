@@ -10,93 +10,109 @@ export default function NavbarDisplay() {
     const [login, setLogin] = useState(false)
     const { store, actions } = useContext(Context)
     return (
-        < div className="row pt-3" >
-            <div className="col-md-7">
-                <div className="logo">
-                    <ChinChin />
-                </div>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand"><ChinChin /></a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse d-flex justify-content-end " id="navbarNav">
+                <ul className="navbar-nav mr-2">
+                    {
+
+                        (store.isAuthenticatedUser && store.shoppingCart.length > 0) ?
+                            <>
+                                <li className="nav-item">
+                                    <a className='nav-link btn btn-secondary bg-light text-danger'
+                                        onClick={() => actions.Logout()}>
+                                        Logout <i className="fas fa-sign-out-alt ml-3" ></i>
+                                    </a>
+
+                                    <Link
+                                        to="/shoppingcart"
+                                        className="nav-link btn btn-primary text-white"
+                                        role="button">
+                                        <i className="fas fa-shopping-cart mr-2" >{store.shoppingCart.length}</i>
+                                    </Link>
+                                </li>
+                            </>
+                            : 
+                            
+                            (store.isAuthenticatedUser && store.shoppingCart.length === 0) ?
+                                <>
+                                    <li className="nav-item">
+                                        <a  className='nav-link btn btn-secondary bg-light text-danger'
+                                            onClick={() => actions.Logout()}>
+                                            Logout<i className="fas fa-sign-out-alt ml-3" ></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            to="/shoppingcart"
+                                            className="nav-link btn btn-primary text-white"
+                                            role="button">
+                                            <i className="fas fa-shopping-cart mr-2" >{store.shoppingCart.length}</i>
+                                        </Link>
+                                    </li>
+                                </>
+                                : 
+                                store.shoppingCart.length > 0 ?
+                                    
+                                <>
+                                    <li className="nav-item">
+                                        <a  className='nav-link btn btn-primary text-white'
+                                            data-toggle="modal"
+                                            data-target="#modal_login"
+                                            onClick={() => { setLogin(!login) }}>
+                                            Login
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a  className='nav-link btn btn-primary text-white'
+                                            data-toggle="modal"
+                                            data-target="#modal_register"
+                                            onClick={() => { setRegister(!register) }}>
+                                            Register
+                                         </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link
+                                            to="/shoppingcart"
+                                            className='nav-link btn btn-primary text-white'
+                                            role="button">  
+                                            <i className="fas fa-shopping-cart mr-2">{store.shoppingCart.length}</i>
+                                        </Link>
+                                    </li>
+                                </>
+                                    :
+                                <>
+                                    <li className="nav-item">
+                                        <a  className='nav-link btn btn-primary text-white'
+                                            data-toggle="modal"
+                                            data-target="#modal_login"
+                                            onClick={() => { setLogin(!login) }}>
+                                            Login
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a  className='nav-link btn btn-primary text-white'
+                                            data-toggle="modal"
+                                            data-target="#modal_register"
+                                            onClick={() => { setRegister(!register) }}>
+                                            Register
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a  className='nav-link btn btn-primary text-white disabled'>
+                                            <i className="fas fa-shopping-cart mr-2"></i>
+                                        </a>
+                                    </li>
+                                </>
+                    }
+                </ul>
             </div>
-            {
-
-                (store.isAuthenticatedUser && store.shoppingCart.length > 0) ?
-
-                        <div className="col-4 d-flex justify-content-end pt-1 btn-group"
-                            role="group">
-                            <button className='btn btn-secondary form-control mr-2'
-                                onClick={() => actions.Logout()}>
-                                Logout<i className="fas fa-sign-out-alt ml-3" ></i>
-                            </button>
-                            <Link
-                                to="/shoppingcart"
-                                className="btn btn-primary form-control"
-                                role="button">
-                                <i className="fas fa-shopping-cart mr-2" >{store.shoppingCart.length}</i>
-                            </Link>
-                            </div>
-
-                    : (store.isAuthenticatedUser && store.shoppingCart.length === 0) ?
-                        <div className="col-4 d-flex justify-content-end pt-1 btn-group"
-                            role="group"
-                        >
-                            <button className='btn btn-muted form-control mr-2'
-                                onClick={() => actions.Logout()}>>
-                                Logout<i className="fas fa-sign-out-alt ml-3" ></i>
-                            </button>
-                            <Link
-                                to="/shoppingcart"
-                                className="btn btn-primary form-control"
-                                role="button">
-                                <i className="fas fa-shopping-cart mr-2" >{store.shoppingCart.length}</i>
-                            </Link>
-
-
-
-                        </div>
-                        : store.shoppingCart.length > 0 ?
-                            <div className="col-md-4 d-flex justify-content-end btn-group" role="group">
-                                <button className='btn btn-primary form-control mr-2'
-                                    data-toggle="modal"
-                                    data-target="#modal_login"
-                                    onClick={() => { setLogin(!login) }}>
-                                    Login
-                         </button>
-                                <button className='btn btn-primary form-control mr-2'
-                                    data-toggle="modal"
-                                    data-target="#modal_register"
-                                    onClick={() => { setRegister(!register) }}>
-                                    Register
-                         </button>
-                                <Link
-                                    to="/shoppingcart"
-                                    className='btn btn-primary form-control'
-                                    role="button">  
-                                    <i className="fas fa-shopping-cart mr-2">{store.shoppingCart.length}</i>
-                                </Link>
-                            </div>
-                            :
-                            <div className="col-md-4 d-flex justify-content-end btn-group" role="group">
-                                <button className='btn btn-primary form-control mr-2'
-                                    data-toggle="modal"
-                                    data-target="#modal_login"
-                                    onClick={() => { setLogin(!login) }}>
-                                    Login
-                                 </button>
-                                <button className='btn btn-primary form-control mr-2'
-                                    data-toggle="modal"
-                                    data-target="#modal_register"
-                                    onClick={() => { setRegister(!register) }}>
-                                    Register
-                                 </button>
-                                <button
-                                    className='btn btn-primary form-control mr-2 disabled'>
-                                    <i className="fas fa-shopping-cart mr-2"></i>
-                                </button>
-                            </div>
-
-            }
 
             <ModalLogin login={login} />
             <ModalRegister register={register} />
-        </div >
+        </nav >
     )
 }

@@ -7,15 +7,15 @@ export default function RestaurantCard(props) {
 
     return (
         <>
-            <div className="card" style={{width : "18rem"}}>
-                    <div className="card-body">
-                        <h5 className="card-title">{props.restaurant.name}</h5>
+            <Link to={"/restaurant/"+props.restaurant.name.replace(/\s+/g, '_')}>
+                <div className="card">
                         <img src="https://picsum.photos/200/200?random=1"/>
-                        <Link to={"/restaurant/"+props.restaurant.name.replace(/\s+/g, '_')}>
-                                <h5>go to {props.restaurant.name} page. </h5>
-                            </Link>
+                        <div className="card-body">
+                            <h5 className="card-title">{props.restaurant.name}</h5>
+                            <a className="btn btn-primary text-white">go to {props.restaurant.name} page. </a>
+                        </div>
                     </div>
-                </div>
+            </Link>
             
         </>
     )

@@ -9,44 +9,51 @@ export default function NavbarHome() {
     const [login, setLogin] = useState(false)
     const { store, actions } = useContext(Context)
     return (
-        < div className="row pt-3 mr-2" >
-            <div className="col">
-                <div className="logo">
-                    <ChinChin />
-                </div>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand"><ChinChin /></a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+                <ul className="navbar-nav mr-2">
+                    {
+                        (store.isAuthenticatedUser || store.isAuthenticatedRestorantUser) ?
+                            <>
+                            <li className="nav-item">
+                                <a
+                                    className='nav-link btn btn-secondary bg-light text-danger'
+                                    onClick={() => actions.Logout()}>
+                                    Logout<i className="fas fa-sign-out-alt ml-3" ></i>
+                                </a>
+                            </li>
+                            </>
+                            :
+                            <>
+                                <li className="nav-item">
+                                    <a  className='nav-link btn btn-primary text-white'
+                                        data-toggle="modal"
+                                        data-target="#modal_login"
+                                        onClick={() => { setLogin(!login) }}
+                                    >
+                                        Login
+                                    </a>
+                                </li>
+                                <li className="nav-item">
+                                    <a  className='nav-link btn btn-primary text-white'
+                                        data-toggle="modal"
+                                        data-target="#modal_register"
+                                        onClick={() => { setRegister(!register) }}>
+                                        Register
+                                    </a>
+                                </li>
+                            </>
+
+                    }
+                </ul>
             </div>
-            {
-                (store.isAuthenticatedUser || store.isAuthenticatedRestorantUser) ?
-                    <div className="col-4 d-flex justify-content-end pt-1 btn-group" role="group">
-                        <button
-                            className='btn btn-secondary form-control mr-2'
-                            onClick={() => actions.Logout()}>
-                            Logout<i className="fas fa-sign-out-alt ml-3" ></i>
-                        </button>
-                    </div>
-                    :
-
-                    <div className="col-md-4 d-flex justify-content-end btn-group" role="group">
-                        <button className='btn btn-primary form-control mr-2'
-                            data-toggle="modal"
-                            data-target="#modal_login"
-                            onClick={() => { setLogin(!login) }}
-                        >
-                            Login
-                            </button>
-                        <button className='btn btn-primary form-control mr-2'
-                            data-toggle="modal"
-                            data-target="#modal_register"
-                            onClick={() => { setRegister(!register) }}>
-                            Register
-                            </button>
-                    </div>
-
-            }
-
+            
             <ModalLogin login={login} />
             <ModalRegister register={register} />
-        </div >
+        </nav >
     )
 }
-
