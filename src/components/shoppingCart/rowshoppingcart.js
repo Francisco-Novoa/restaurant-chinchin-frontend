@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react'
-import { Context } from '../../../src/store/appContext'
+import React, { useContext, useState, useEffect } from 'react'
+import { Context } from "../../store/appContext"
 
-export default function TableRowDisplay(props) {
+export default function TableRowShopping(props) {
     const { store, actions } = useContext(Context)
     const [local, setLocal] = useState(
         {
-            amount: 0
+            amount: store.shoppingCart[props.i].amount
+            
         }
     )
 
@@ -21,24 +22,15 @@ export default function TableRowDisplay(props) {
         setLocal(newLocal)
     }
 
-    const addItem =()=>{
-        
-        let item={
-            id_product:props.elem.id_product,
-            name_product:props.elem.name_product,
-            price:props.elem.price,
-            description:props.elem.description,
-            amount:local.amount}
-        
-        actions.updateShoppingCart(item,store.shoppingCart)
-    }
+    useEffect(()=>{},[props.ready])
 
     return (
         <tr>
             <th scope="row">{props.i + 1}</th>
-            <td>{props.elem.name_product}</td>
-            <td>{props.elem.price}</td>
-            <td>{props.elem.description}</td>
+            <td>{store.shoppingCart[props.i].name_product}</td>
+            <td>{store.shoppingCart[props.i].price}</td>
+            <td>{store.shoppingCart[props.i].description}</td>
+            <td style={{ textAlign: "center" }}>
             <td style={{ textAlign: "center" }}>
                 {
                     local.amount <= 0 ?
@@ -58,18 +50,7 @@ export default function TableRowDisplay(props) {
                 </a>
 
             </td>
-            <td>
-                {local.amount > 0 ?
-                    <a className="btn btn-outline-success"
-                     role="button"  
-                     onClick={() => { addItem() }}>
-                        <i className="fas fa-check text-success" ></i>
-                    </a>
-                    :
-                    ""
-                }
-
             </td>
         </tr >
     )
-            }
+}

@@ -5,18 +5,16 @@ import RestaurantProducts from '../components/RestaurantDisplay/restaurantProduc
 import NavbarDisplay from '../components/RestaurantDisplay/navdisplay'
 
 
-export default function RestaurantDisplay({...props}) {
-    const { store,actions } = useContext(Context)
-    useEffect(()=>{
-        actions.getRestaurant("http://localhost:5000/restaurantbyname/"+props.match.params.restaurantname)
-    },[])
-
-    
+export default function RestaurantDisplay({ ...props }) {
+    const { store, actions } = useContext(Context)
+    useEffect(() => {
+        actions.getRestaurant("http://localhost:5000/restaurantbyname/" + props.match.params.restaurantname)
+    }, [])
 
     return (
         <>
             <div className="container">
-                <NavbarDisplay/>
+                <NavbarDisplay />
                 <div className="row pt-3">
                     <div className="col-md-12 p-3">
                         <h5>Restaurant</h5>
@@ -25,6 +23,11 @@ export default function RestaurantDisplay({...props}) {
                             <RestaurantInfo />
                             <RestaurantProducts />
                         </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col" style={{ height: "250px" }}>
+                        footer
                     </div>
                 </div>
             </div>

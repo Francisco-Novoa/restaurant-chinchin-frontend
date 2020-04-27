@@ -425,16 +425,18 @@ export default function getState({ getStore, getActions, setStore }) {
                 sessionStorage.setItem('currentRestaurant', JSON.stringify(aux))
             },
             updateShoppingCart: (newCart, oldCart) => {
-                console.log(newCart)
                 if (newCart === "") {
                     setStore({ shoppingCart: [] })
                 }
                 else {
                     let aux = [...oldCart]
                     aux.push(newCart)
-                    console.log(aux)
                     setStore({ shoppingCart: aux })
                 }
+            },
+            amountShoppingCart: (newCart) => {
+                console.log(newCart)
+                setStore({ shoppingCart: newCart })
             },
             updateProduct: async (url, body) => {
                 try {
@@ -467,13 +469,11 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             getRestaurant: async (url) => {
                 try {
-                    console.log(url)
                     const all = await fetch(url, {
                         method: "GET",
                         headers: { "Content-Type": "application/json" },
                     })
                     const data = await all.json()
-                    console.log(data)
                     let aux=data.restaurant.name.replace(/_/g, ' ')
                     data.restaurant.name=aux
                     setStore({restaurant:data})
@@ -501,6 +501,7 @@ export default function getState({ getStore, getActions, setStore }) {
                                 email_confirm_success: data.success
                             })
                         } else {
+                            alert(data.msg)
                             setStore({
                                 email_confirm_msg: data.msg,
 
