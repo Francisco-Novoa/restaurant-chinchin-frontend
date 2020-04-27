@@ -103,80 +103,15 @@ const Restaurant = (props) => {
                                             className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top "
                                             id="navigation-example"
                                         >
-                                            <div className="container-fluid">
-                                                <button
-                                                    className="navbar-toggler"
-                                                    type="button"
-                                                    data-toggle="collapse"
-                                                    aria-controls="navigation-index"
-                                                    aria-expanded="false"
-                                                    aria-label="Toggle navigation"
-                                                    data-target="#navigation-example"
-                                                >
-                                                    <span className="sr-only">Toggle navigation</span>
-                                                    <span className="navbar-toggler-icon icon-bar"></span>
-                                                    <span className="navbar-toggler-icon icon-bar"></span>
-                                                    <span className="navbar-toggler-icon icon-bar"></span>
-                                                </button>
-                                                <div className="collapse navbar-collapse justify-content-end">
-                                                    <form className="navbar-form justify-content-center">
-                                                        <div className="input-group no-border">
-                                                            <input
-                                                                type="text"
-                                                                value=""
-                                                                className="form-control"
-                                                                placeholder="Search..."
-                                                            />
-                                                            <button
-                                                                type="submit"
-                                                                className="btn btn-default btn-round btn-just-icon"
-                                                            >
-                                                                <i className="fas fa-search"></i>
-                                                                <div className="ripple-container"></div>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                    <ul className="navbar-nav">
-                                                        <li className="nav-item dropdown">
-                                                            <a
-                                                                className="nav-link"
-                                                                href="javscript:void(0)"
-                                                                id="navbarDropdownMenuLink"
-                                                                data-toggle="dropdown"
-                                                                aria-haspopup="true"
-                                                                aria-expanded="false"
-                                                            >
-                                                                <i className="fas fa-bell fa-3x"></i>
-                                                                <span className="notification">5</span>
-                                                                <p className="d-lg-none d-md-block">Some Actions</p>
-                                                            </a>
-                                                            <div
-                                                                className="dropdown-menu dropdown-menu-right"
-                                                                aria-labelledby="navbarDropdownMenuLink"
-                                                            >
-                                                                <a className="dropdown-item" href="javascript:void(0)">
-                                                                    Mike John responded to your email
-                                                </a>
-                                                                <a className="dropdown-item" href="javascript:void(0)">
-                                                                    You have 5 new tasks
-                                                </a>
-                                                                <a className="dropdown-item" href="javascript:void(0)">
-                                                                    You're now friend with Andrew
-                                                </a>
-                                                                <a className="dropdown-item" href="javascript:void(0)">
-                                                                    Another Notification
-                                                </a>
-                                                                <a className="dropdown-item" href="javascript:void(0)">
-                                                                    Another One
-                                                </a>
-                                                            </div>
-                                                        </li>
+                                            <div className="container-fluid">                                              
+                                                <div className="collapse navbar-collapse justify-content-end">                                                    
+                                                    <ul className="navbar-nav">                                                        
                                                         <li className="nav-item" onClick={() => actions.LogoutRestaurant()}>
-                                                            <a className="nav-link" href="" onClick={() => actions.Logout()}>
+                                                            <a className="nav-link btn bg-light text-danger" href="" onClick={() => actions.Logout()}>
                                                                 Logout
-                                                    <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.LogoutRestaurant()}></i>
+                                                                <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.LogoutRestaurant()}></i>
                                                             </a>
-                                                        </li>
+                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -184,7 +119,7 @@ const Restaurant = (props) => {
                                         {
                                             <>
                                                 {
-                                                    local.user ? <ControlPanel/> : ""
+                                                    local.user ? <ControlPanel /> : ""
                                                 }
                                                 {
                                                     local.product ?
