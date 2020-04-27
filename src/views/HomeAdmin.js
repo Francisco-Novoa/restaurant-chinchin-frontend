@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import ModalRegisterAdmin from "../components/modal_register_admin"
@@ -7,6 +7,33 @@ import ChinChin from "../components/chinchin";
 
 const Admin = (props) => {
     const { store, actions } = useContext(Context);
+    const [local, setLocal] = useState(
+        {
+            user: true,
+            product: false,
+            orders: false
+        }
+    )
+
+    const handleClick = (name) => {
+        const newlocal = { ...local }
+        if (name == "user") {
+            newlocal["product"] = false
+            newlocal["orders"] = false
+            newlocal["user"] = true
+        }
+        else if (name == "product") {
+            newlocal["user"] = false
+            newlocal["orders"] = false
+            newlocal["product"] = true
+        }
+        else if (name == "orders") {
+            newlocal["user"] = false
+            newlocal["orders"] = true
+            newlocal["product"] = false
+        }
+        setLocal(newlocal)
+    }
     useEffect(() => {
         actions.isAuthenticatedAdmin();
     }, [])
@@ -45,20 +72,40 @@ const Admin = (props) => {
                     <ModalLoginAdmin />
                 </div>
             ) : (
-                    <div className="container">
-                        <div className="row pt-3">
-                            <div className="col-md-9">
-                                <Link to="/">
-                                    <h1>Logo</h1>
-                                </Link>
-                            </div>
-                            <div className='d-flex justify-content-between text-muted pt-1 btn' onClick={() => actions.LogoutAdmin()}>
-                                <div className="hand" onClick={() => actions.Logout()}>Logout</div>
-                                <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.LogoutAdmin()}></i>
-                            </div>
-                            <h3>You authenticated</h3>
+                    <div className="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
+
+                        {/* Sidebar LOGO */}
+                        <div className="logo">
+                            <Link to="/" className="simple-text logo-normal">
+                                <i className="fas fa-utensils">  App ChinChin</i>
+                            </Link>
                         </div>
+                        {/* Sidebar Body */}
+                        <div className="sidebar-wrapper">
+                            <ul className="nav">
+                                <li className="nav-item" onClick={() => { handleClick("user") }} >
+                                    <a className="nav-link">
+                                        <i class="fas fa-utensils"></i>
+                                        <p>View restaurant</p>
+                                    </a>
+                                </li>
+                                <li className="nav-item" onClick={() => { handleClick("product") }} >
+                                    <a className="nav-link">
+                                        <i className="fas fa-th-list"></i>
+                                        <p>View menue</p>
+                                    </a>
+                                </li>
+                                <li className="nav-item" onClick={() => { handleClick("orders") }} >
+                                    <a className="nav-link">
+                                        <i className="fas fa-user"></i>
+                                        <p>View user</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
+                    
                 )}
         </>
     );

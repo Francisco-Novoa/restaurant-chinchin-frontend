@@ -10,6 +10,7 @@ export default function ControlPanel(props) {
         name: false,
         phone: false,
         address: false,
+        email: false,
         user: {},
     });
 
@@ -34,6 +35,7 @@ export default function ControlPanel(props) {
         newlocal.name = false;
         newlocal.phone = false;
         newlocal.address = false;
+        newlocal.email = false;
         setLocal(newlocal);
     };
     useEffect(() => {
@@ -53,6 +55,12 @@ export default function ControlPanel(props) {
     }, [local.address])
 
     useEffect(() => {
+        if (thirdInput.current !== null) {
+            thirdInput.current.focus()
+        }
+    }, [local.email])
+
+    useEffect(() => {
         const newlocal = { ...local };
         newlocal.user = store.currentRestaurant.restaurantuser;
         setLocal(newlocal);
@@ -62,188 +70,224 @@ export default function ControlPanel(props) {
         <>
             {
                 <div className="container-fluid">
+                    <div className= "row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                {/* Titulo block */}
+                                <div className="card-header card-header-primary">                                    
+                                    <h3 className="card-title"><i className="fas fa-user text-white"></i> Panel de Control</h3>                          
+                                    <p class="card-category">Esta pagina es para editar y actualizar los detalles de tu
+                                            restaurant que seran mostrados al los clientes
+                                    </p>
+                                </div>
+                                <div className="card-body">
+                                    <form className="col-md-12 ">
+                                        {/* Form Group Name */}
+                                        <div className="row mb-3">
+                                            <div className="col-md-8 ">
+                                                <div className="form-group">
+                                                    <label className="bmd-label-floating text-primary">Compañia</label>
+                                                    {
+                                                        local.name ? (
 
-                    {/* Titulo block */}
-                    <div className="row mb-3 alert alert-primary text-center">
-                        <div className="col-md-12">
-                            <h3><i className="fas fa-cogs text-white"></i> Panel de Control </h3>
-                        </div>
-                    </div>
+                                                            <input
+                                                                type="text"
+                                                                name="name"
+                                                                ref={firstInput}
+                                                                value={local.user.name}
+                                                                className="form-control"
+                                                                onChange={(e) => {
+                                                                    handleChange(e);
+                                                                }}
+                                                                id="inputname"
+                                                            />
 
-                    {/* Text block */}
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="alert alert-primary" role="alert">
-                                Esta pagina es para editar y actualizar los detalles de tu
-                                restaurant que seran mostrados al los clientes
-                    </div>
-                        </div>
-                    </div>
+                                                        ) : (
 
-                    {/* Form Group Name */}
-                    <div className="row mb-3">
-                        <div className="col-md-10">
-                            <div className="form-group">
-                                <label className="bmd-label-floating text-primary">Compañia</label>
-                                {
-                                    local.name ? (
-
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            ref={firstInput}
-                                            value={local.user.name}
-                                            className="form-control"
-                                            onChange={(e) => {
-                                                handleChange(e);
-                                            }}
-                                            id="inputname"
-                                        />
-
-                                    ) : (
-
-                                            <div className="form-control">
-                                                {local.user.name}
+                                                                <div className="form-control">
+                                                                    {local.user.name}
+                                                                </div>
+                                                            )
+                                                    }
+                                                </div>
                                             </div>
-                                        )
-                                }
-                            </div>
-                        </div>
-                        <div className="col-md-2 pt-5">
-                            {local.name ?
-                                <>
-                                    <a className="btn btn-outline-secondary mx-2 py-1 px-2"
-                                        role="button"
-                                        onClick={() => { handleSave() }} >
-                                        <i className="fas fa-save fa-2x" ></i>
-                                    </a>
-                                    <a className="btn btn-outline-secondary py-1 px-2" role="button"
-                                        onClick={(e) => { handleEditButton("name") }} >
-                                        <i className="fas fa-minus-circle text-warning fa-2x" ></i>
-                                    </a>
-                                </>
-                                :
-                                <a className="btn btn-outline-secondary py-1 px-2"
-                                    role="button" onClick={() => { handleEditButton("name") }} >
-                                    <i className="fas fa-edit fa-2x" ></i>
-                                </a>
-                            }
-                        </div>
-                    </div>
-
-                    {/* Form Group Phone */}
-                    <div className="row mb-3">
-                        <div className="col-md-5">
-                            <div className="form-group">
-                                <label className="bmd-label-floating text-primary">Telefono</label>
-                                {
-                                    local.phone ? (
-
-                                        <input
-                                            type="text"
-                                            name="phone"
-                                            ref={secondInput}
-                                            value={local.user.phone}
-                                            className="form-control"
-                                            onChange={(e) => {
-                                                handleChange(e);
-                                            }}
-                                            id="inputphone"
-                                        />
-                                    ) : (
-                                            <div className="form-control">
-                                                {local.user.phone}
+                                            <div className="col-md-4">
+                                                {local.name ?
+                                                    <>
+                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                            role="button"
+                                                            onClick={() => { handleSave() }} >
+                                                            <i className="fas fa-save fa-2x" ></i>
+                                                        </a>
+                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
+                                                            onClick={(e) => { handleEditButton("name") }} >
+                                                            <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                                        </a>
+                                                    </>
+                                                    :
+                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                        role="button" onClick={() => { handleEditButton("name") }} >
+                                                        <i className="fas fa-edit fa-2x" ></i>
+                                                    </a>
+                                                }
                                             </div>
-                                        )
-                                }
-                            </div>
-                        </div>
-                        <div className="col-md-4 pt-5">
-                            {local.phone ?
-                                <>
-                                    <a className="btn btn-outline-secondary mx-2 py-1 px-2"
-                                        role="button"
-                                        onClick={() => { handleSave() }} >
-                                        <i className="fas fa-save fa-2x" ></i>
-                                    </a>
-                                    <a className="btn btn-outline-secondary py-1 px-2" role="button"
-                                        onClick={(e) => { handleEditButton("phone") }} >
-                                        <i className="fas fa-minus-circle text-warning fa-2x" ></i>
-                                    </a>
-                                </>
-                                :
-                                <a className="btn btn-outline-secondary py-1 px-2"
-                                    role="button" onClick={() => { handleEditButton("phone") }} >
-                                    <i className="fas fa-edit fa-2x" ></i>
-                                </a>
-                            }
-                        </div>
-                    </div>
+                                        </div>
 
-                    {/* Form Group Address */}
-                    <div className="row mb-3">
-                        <div className="col-md-8">
-                            <div className="form-group">
+                                        {/* Form Group Phone */}
+                                        <div className="row mb-3">
+                                            <div className="col-md-5">
+                                                <div className="form-group">
+                                                    <label className="bmd-label-floating text-primary">Telefono</label>
+                                                    {
+                                                        local.phone ? (
 
-                                <label className="bmd-label-floating text-primary">Direccion</label>
-                                {
-                                    local.address ? (
-
-                                        <input
-                                            type="text"
-                                            name="address"
-                                            ref={thirdInput}
-                                            value={local.user.address}
-                                            className="form-control"
-                                            onChange={(e) => {
-                                                handleChange(e);
-                                            }}
-                                            id="inputaddress"
-                                        />
-
-                                    ) : (
-
-                                            <div className="form-control">
-                                                {local.user.address}
+                                                            <input
+                                                                type="text"
+                                                                name="phone"
+                                                                ref={secondInput}
+                                                                value={local.user.phone}
+                                                                className="form-control"
+                                                                onChange={(e) => {
+                                                                    handleChange(e);
+                                                                }}
+                                                                id="inputphone"
+                                                            />
+                                                        ) : (
+                                                                <div className="form-control">
+                                                                    {local.user.phone}
+                                                                </div>
+                                                            )
+                                                    }
+                                                </div>
                                             </div>
-                                        )
-                                }
-                            </div>
-                        </div>
-                        <div className="col-md-2 pt-5">
+                                            <div className="col-md-4">
+                                                {local.phone ?
+                                                   <>
+                                                   <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                       role="button"
+                                                       onClick={() => { handleSave() }} >
+                                                       <i className="fas fa-save fa-2x" ></i>
+                                                   </a>
+                                                   <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
+                                                       onClick={(e) => { handleEditButton("phone") }} >
+                                                       <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                                   </a>
+                                               </>
+                                               :
+                                               <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                   role="button" onClick={() => { handleEditButton("phone") }} >
+                                                   <i className="fas fa-edit fa-2x" ></i>
+                                               </a>
+                                                }
+                                            </div>
+                                        </div>
 
-                            {local.address ?
-                                 <>
-                                 <a className="btn btn-outline-secondary mx-2 py-1 px-2"
-                                     role="button"
-                                     onClick={() => { handleSave() }} >
-                                     <i className="fas fa-save fa-2x" ></i>
-                                 </a>
-                                 <a className="btn btn-outline-secondary py-1 px-2" role="button"
-                                     onClick={(e) => { handleEditButton("address") }} >
-                                     <i className="fas fa-minus-circle text-warning fa-2x" ></i>
-                                 </a>
-                             </>
-                             :
-                             <a className="btn btn-outline-secondary py-1 px-2"
-                                 role="button" onClick={() => { handleEditButton("address") }} >
-                                 <i className="fas fa-edit fa-2x" ></i>
-                             </a>
-                            }
-                        </div>
-                    </div>
+                                        {/* Form Group Address */}
+                                        <div className="row mb-3">
+                                            <div className="col-md-8">
+                                                <div className="form-group">
 
-                    {/* Form Group Email */}
-                    <div className="row mb-3">
-                        <div className="col-md-7">
-                            <div className="form-group">
-                                <label className="bmd-label-floating text-primary">Email</label>
-                                {
+                                                    <label className="bmd-label-floating text-primary">Direccion</label>
+                                                    {
+                                                        local.address ? (
 
-                                    <div className="form-control mb-2">
-                                        {local.user.email}
-                                    </div>
-                                }
+                                                            <input
+                                                                type="text"
+                                                                name="address"
+                                                                ref={thirdInput}
+                                                                value={local.user.address}
+                                                                className="form-control"
+                                                                onChange={(e) => {
+                                                                    handleChange(e);
+                                                                }}
+                                                                id="inputaddress"
+                                                            />
+
+                                                        ) : (
+
+                                                                <div className="form-control">
+                                                                    {local.user.address}
+                                                                </div>
+                                                            )
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="col-md-4">
+
+                                                {local.address ?
+                                                    <>
+                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                        role="button"
+                                                        onClick={() => { handleSave() }} >
+                                                        <i className="fas fa-save fa-2x" ></i>
+                                                    </a>
+                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
+                                                        onClick={(e) => { handleEditButton("address") }} >
+                                                        <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                                    </a>
+                                                </>
+                                                :
+                                                <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                    role="button" onClick={() => { handleEditButton("address") }} >
+                                                    <i className="fas fa-edit fa-2x" ></i>
+                                                </a>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        {/* Form Group Email */}
+                                        <div className="row mb-3">
+                                            <div className="col-md-7">
+                                                <div className="form-group">
+                                                    <label className="bmd-label-floating text-primary">Email</label>
+                                                        {
+                                                            local.email ? (
+
+                                                                <input
+                                                                    type="text"
+                                                                    name="email"
+                                                                    ref={thirdInput}
+                                                                    value={local.user.email}
+                                                                    className="form-control"
+                                                                    onChange={(e) => {
+                                                                        handleChange(e);
+                                                                    }}
+                                                                    id="inputemail"
+                                                                />
+
+                                                            ) : (
+
+                                                                    <div className="form-control">
+                                                                        {local.user.email}
+                                                                    </div>
+                                                                )
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="col-md-5">
+
+                                                {local.email ?
+                                                    <>
+                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                        role="button"
+                                                        onClick={() => { handleSave() }} >
+                                                        <i className="fas fa-save fa-2x" ></i>
+                                                    </a>
+                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
+                                                        onClick={(e) => { handleEditButton("email") }} >
+                                                        <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                                    </a>
+                                                </>
+                                                :
+                                                <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                    role="button" onClick={() => { handleEditButton("email") }} >
+                                                    <i className="fas fa-edit fa-2x" ></i>
+                                                </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>

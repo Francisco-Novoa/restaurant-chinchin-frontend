@@ -1,0 +1,12 @@
+body{
+    margin:0;
+    background: url('../../resource/img/restaurant_icons.png');
+}
+
+.fa-edit:hover{
+    color:blue;
+
+}
+.fondo{
+  background: rgba(255, 255, 255, .7);
+}
