@@ -12,15 +12,15 @@ export default function RestaurantCard(props) {
 
     return (
         <>
-            <div class="card" style={{width : "18rem"}}>
-                    <div class="card-body">
-                        <h5 class="card-title">{props.restaurant.name}</h5>
-                        <img src="https://picsum.photos/200/200?random=1"/>
-                        <Link to="/restaurant">
-                                <h5 onClick={()=>{handleClick()}}>go to {props.restaurant.name} page. </h5>
-                            </Link>
+            <Link to="/restaurant" onClick={()=>{handleClick()}}>
+                <div className="card mb-3">
+                    <img src="https://picsum.photos/200/200?random=1"/>
+                    <div className="card-body">
+                        <h5 className="card-title">{props.restaurant.name}</h5>
+                            <a className= "btn btn-primary text-white"  >go to {props.restaurant.name} page. </a>
                     </div>
-            </div>
+                </div>
+            </Link>
         </>
     )
 }
