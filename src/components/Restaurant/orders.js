@@ -23,7 +23,7 @@ export default function OwnerOrders(props) {
                         <div className="card">
                             {/* Titulo block */}
                             <div className="card-header card-header-primary">
-                                <h3 className="card-title "><i className="fas fa-cogs text-white"></i> Tabla de Ordenes</h3>
+                                <h3 className="card-title "><i className="fas fa-clipboard-list"></i> Tabla de Ordenes</h3>
                                 <p className="card-category"> Esta pagina es para ver y actualizar las ordenes desde los usuarios</p>
                             </div>
                             <div className="card-body">
