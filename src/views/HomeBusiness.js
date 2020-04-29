@@ -38,7 +38,6 @@ const Restaurant = (props) => {
     const { store, actions } = useContext(Context);
     useEffect(() => {
         actions.isAuthenticatedRestaurantUser();
-
     }, [])
     return (
         <>

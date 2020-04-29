@@ -24,6 +24,7 @@ export default function getState({ getStore, getActions, setStore }) {
             allProducts: [],
             shoppingCart: [],
             orders: [],
+            enviado:false,
             restaurant: "",
             email_confirm_success: null,
             email_confirm_msg: null,
@@ -365,11 +366,13 @@ export default function getState({ getStore, getActions, setStore }) {
                 }
             },
             updateUser: async (url, body) => {
+                let newbody={...body}
+                newbody.name=body.name.replace(/ /g, '_')
                 try {
                     const all = await fetch(url, {
                         method: "PUT",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(body)
+                        body: JSON.stringify(newbody)
                     })
                     const response = await all.json()
                     console.log(response)
@@ -649,7 +652,12 @@ export default function getState({ getStore, getActions, setStore }) {
                         body: JSON.stringify(body)
                     })
                     const data = await all.json()
-                    console.log(data)
+                    if (data.msg){
+                        alert(data.msg)
+                    }
+                    else{
+                        setStore({enviado:true})
+                    }
                 }
                 catch (error) {
                     console.log(error)
@@ -685,7 +693,10 @@ export default function getState({ getStore, getActions, setStore }) {
                 } catch (error) {
                     console.log(error)
                 }
-            }
+            },
+            enviadoCleanup:()=>{
+                setStore({enviado:false})
+            },
         }
     }
 }

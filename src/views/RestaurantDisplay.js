@@ -11,6 +11,7 @@ export default function RestaurantDisplay({ ...props }) {
         actions.getRestaurant("http://localhost:5000/restaurantbyname/" + props.match.params.restaurantname)
         console.log(store.shoppingCart)
         actions.addShoppingCart("",store.shoppingCart)
+        actions.enviadoCleanup()
     }, [])
 
     return (
