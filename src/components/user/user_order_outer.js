@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import OrderInner from "./order_inner"
+import OrderInner from "./user_order_inner"
 import { Context } from '../../../src/store/appContext'
 
 export default function Order(props) {
     const { store, actions } = useContext(Context)
     const completeOrder = () => {
-        actions.completeOrder(store.path + "/finish/" + props.elem.id_order, props.i, store.orders)
+        actions.completeOrder(store.path + "/cancel/" + props.elem.id_order, props.i, store.orders)
     }
     return (
         <>
@@ -23,12 +23,12 @@ export default function Order(props) {
                         <td> <span style={{ fontWeight: "bold" }} >Estado de la orden: </span>
                             {
                                 props.elem.done === true ?
-                                <span > hecho</span>
-                                :
-                                props.elem.done === null ?
-                                    <span > cancelado por usuario</span>
+                                    <span > hecho</span>
                                     :
-                                    <span> en espera</span>
+                                    props.elem.done === null ?
+                                        <span > cancelado por usuario</span>
+                                        :
+                                        <span> en espera</span>
                             }
                         </td>
                         <td>
@@ -68,20 +68,24 @@ export default function Order(props) {
                     </tr>
                     <tr>
                         <th> <span style={{ fontWeight: "bold" }}> Comentarios: </span>
-                    </th>
+                        </th>
                         <td colSpan="4">
                             {" " + props.elem.comment}
                         </td>
                     </tr>
                     <tr >
-                        <td colSpan="5" className="text-right " >
-                            <a
-                                class="btn btn-primary text-white"
-                                role="button"
-                                onClick={() => { completeOrder() }}>
-                                Completado
-                        </a>
-                        </td>
+                        {(props.done === false && props.elem.done === false) &&
+                            <td colSpan="5" className="text-right " >
+                                <a
+                                    class="btn btn-danger text-white"
+                                    role="button"
+                                    onClick={() => { completeOrder() }}>
+                                    Cancelar
+                                </a>  
+                            </td>
+                        }
+
+
                     </tr>
                 </table>
                 : ""

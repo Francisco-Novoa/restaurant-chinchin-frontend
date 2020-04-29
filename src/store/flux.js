@@ -364,7 +364,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-            updateRestaurant: async (url, body) => {
+            updateUser: async (url, body) => {
                 try {
                     const all = await fetch(url, {
                         method: "PUT",

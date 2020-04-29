@@ -41,7 +41,6 @@ export default function TableRowDisplay(props) {
                     {/* Titulo block */}
                     <div className="card-header card-header-primary">
                         <h3 className="card-title">{props.elem.name_product}</h3>
-                        <p className="card-category">{props.i + 1}</p>
                     </div>
                     <div className="card-body">
                         <p className="card-text d-flex justify-content-between"><span style={{ fontWeight: "bold" }}> Descripcion: </span>

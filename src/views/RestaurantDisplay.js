@@ -9,14 +9,15 @@ export default function RestaurantDisplay({ ...props }) {
     const { store, actions } = useContext(Context)
     useEffect(() => {
         actions.getRestaurant("http://localhost:5000/restaurantbyname/" + props.match.params.restaurantname)
-        actions.addShoppingCart("",store.shoppingCart)
         console.log(store.shoppingCart)
+        actions.addShoppingCart("",store.shoppingCart)
     }, [])
 
     return (
         <>
+         <NavbarDisplay/>
             <div className="container fondo">
-                <NavbarDisplay/>
+               
                 <div className="row pt-3">
                     <div className="col-md-12 p-3">
                         <h5>Restaurant</h5>

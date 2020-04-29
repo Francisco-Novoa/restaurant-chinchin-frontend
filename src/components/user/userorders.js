@@ -1,17 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Context } from '../../../src/store/appContext'
-import Order from "./order_outer"
+import Order from "./user_order_outer"
 
 
 
-export default function OwnerOrders(props) {
+export default function UserOrders(props) {
     const { store, actions } = useContext(Context)
-    const [local, setLocal] = useState(false)
+    const [local, setLocal] = useState(true)
 
 
 
     useEffect(() => {
-        actions.getOrders(store.path + "/orderof/" + store.currentRestaurant.restaurantuser.id)
+        actions.getOrders(store.path + "/orderby/" + store.currentUser.user.id)
     }, [local])
 
     return (
@@ -23,7 +23,7 @@ export default function OwnerOrders(props) {
                         <div className="card">
                             {/* Titulo block */}
                             <div className="card-header card-header-primary">
-                                <h3 className="card-title "><i className="fas fa-clipboard-list"></i> Tabla de Ordenes</h3>
+                                <h3 className="card-title "><i className="fas fa-cogs text-white"></i> Tabla de Ordenes</h3>
                                 <p className="card-category"> Esta pagina es para ver y actualizar las ordenes desde los usuarios</p>
                             </div>
                             <div className="card-body">
@@ -37,7 +37,7 @@ export default function OwnerOrders(props) {
                                             <th scope="col">Ordenes</th>
                                         </thead>
                                         {
-                                                local === false ?
+                                            local === false ?
                                                 <div className="btn-group" role="group">
                                                     <a className="btn btn-primary text-white disabled"
                                                         role="button">
@@ -88,12 +88,13 @@ export default function OwnerOrders(props) {
                                                         Ordenes completadas
                                                     </a>
                                                 </div>
+
                                             }
 
                                         {/* Body */}
                                         <tbody>
                                             {
-                                                !!store.orders.length>0 &&
+                                                !!store.orders.length > 0 &&
                                                 store.orders.map((element, i) => {
                                                     return (<>
                                                         <Order elem={element} i={i} key={i} done={local} />

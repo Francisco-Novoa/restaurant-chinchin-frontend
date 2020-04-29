@@ -54,10 +54,11 @@ export default function ShoppingCart() {
     }, store.shoppingCart)
 
     return (
-
+        <>
+         <NavbarDisplay />
         <div className="container">
 
-            <NavbarDisplay />
+           
             {
                 store.isAuthenticatedUser ?
                     <>
@@ -162,5 +163,6 @@ export default function ShoppingCart() {
                     </>
             }
         </div>
+        </>
     )
 }
