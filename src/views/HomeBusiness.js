@@ -9,9 +9,9 @@ const Restaurant = (props) => {
 
     const [local, setLocal] = useState(
         {
-            user: false,
+            user: true,
             product: false,
-            orders: true
+            orders: false
         }
     )
 
