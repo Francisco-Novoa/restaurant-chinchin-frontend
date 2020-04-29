@@ -11,7 +11,7 @@ import Confirmation from './views/UserConfirmationPass'
 import ConfirmationRestaurant from './views/RestaurantConfirmationPass'
 import ConfirmationAdmin from './views/AdminConfirmationPass'
 import ShoppingCart from "./views/shoppingcart"
-
+import UserPage from "./views/userpage"
 const Layout = props => {
     return (
         <BrowserRouter>
@@ -25,6 +25,7 @@ const Layout = props => {
                 <Route path="/restaurant/:restaurantname" render={props => <RestaurantDisplay {...props} />} />
                 <Route exact path="/admin" component={Admin} />
                 <Route exact path="/shoppingcart" component={ShoppingCart}/>
+                <Route exact path="/user" component={UserPage}/>
                 <Route component={NotFound} />
             </Switch>
         </BrowserRouter>

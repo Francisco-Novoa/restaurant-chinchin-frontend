@@ -6,7 +6,10 @@ import Navbar from '../components/navHome'
 
 const Home = props => {
     const { store, actions } = useContext(Context)
-
+    useEffect(() => {
+        actions.isAuthenticatedUser()
+        
+    }, []);
     return (
         <>
             <div className="container fondo">

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../store/appContext'
 import ModalLogin from './modal_login'
+import { Link } from 'react-router-dom'
 import ModalRegister from './modal_register'
 import ChinChin from './chinchin'
 
@@ -19,12 +20,18 @@ export default function NavbarHome() {
                     {
                         (store.isAuthenticatedUser || store.isAuthenticatedRestorantUser) ?
                             <>
-                            <li className="nav-item">
+                            <li className="nav-item btn-group">
                                 <a
                                     className='nav-link btn btn-secondary bg-light text-danger'
                                     onClick={() => actions.Logout()}>
                                     Logout<i className="fas fa-sign-out-alt ml-3" ></i>
                                 </a>
+                                <Link
+                                    className='nav-link btn btn-primary text-white'
+                                    to="/user"
+                                    >
+                                     <i class="fas fa-cog"></i>
+                                </Link>
                             </li>
                             </>
                             :

@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function OrderInner(props) {
-
     return (
 
         <tr >

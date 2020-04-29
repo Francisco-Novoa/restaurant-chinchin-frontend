@@ -9,8 +9,8 @@ export default function RestaurantDisplay({ ...props }) {
     const { store, actions } = useContext(Context)
     useEffect(() => {
         actions.getRestaurant("http://localhost:5000/restaurantbyname/" + props.match.params.restaurantname)
-        actions.addShoppingCart("",store.shoppingCart)
         console.log(store.shoppingCart)
+        actions.addShoppingCart("",store.shoppingCart)
     }, [])
 
     return (
