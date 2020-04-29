@@ -21,24 +21,26 @@ export default function TableRowDisplay(props) {
         setLocal(newLocal)
     }
 
-    const addItem =()=>{
-        
-        let item={
-            id_product:props.elem.id_product,
-            name_product:props.elem.name_product,
-            price:props.elem.price,
-            description:props.elem.description,
-            amount:local.amount}
-        
-        actions.addShoppingCart(item,store.shoppingCart)
+    const addItem = () => {
+
+        let item = {
+            id_product: props.elem.id_product,
+            name_product: props.elem.name_product,
+            price: props.elem.price,
+            description: props.elem.description,
+            amount: local.amount
+        }
+
+        actions.addShoppingCart(item, store.shoppingCart)
     }
 
     return (
-            <div className="col-md-4 m-2">
-                <div className="card">
+        <>
+
+                <div className="card col-4">
                     {/* Titulo block */}
-                    <div className="card-header card-header-primary">                                    
-                        <h3 className="card-title">{props.elem.name_product}</h3>                          
+                    <div className="card-header card-header-primary">
+                        <h3 className="card-title">{props.elem.name_product}</h3>
                         <p className="card-category">{props.i + 1}</p>
                     </div>
                     <div className="card-body">
@@ -63,11 +65,11 @@ export default function TableRowDisplay(props) {
                             </a>
 
                         </div>
-                        <div>
+                        <div className="d-flex justify-content-end align-items-end flex-column">
                             {local.amount > 0 ?
-                                <a className="btn btn-outline-success"
-                                role="button"  
-                                onClick={() => { addItem() }}>
+                                <a className="btn btn-outline-success mt-auto"
+                                    role="button"
+                                    onClick={() => { addItem() }}>
                                     <i className="fas fa-check text-success" ></i>
                                 </a>
                                 :
@@ -77,6 +79,7 @@ export default function TableRowDisplay(props) {
                         </div>
                     </div>
                 </div >
-            </div >
+
+        </>
     )
-            }
+}

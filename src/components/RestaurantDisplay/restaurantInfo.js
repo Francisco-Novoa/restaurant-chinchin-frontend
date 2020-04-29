@@ -21,12 +21,6 @@ export default function RestaurantInfo(props) {
             {!!store.restaurant.restaurant &&
                 <div className="container-fluid">
                     <div className="row" style={{ height: "100%" }}>
-                        <div className="col  d-flex justify-content-center">
-
-                            <h1 class="display-1">{store.restaurant.restaurant.name}</h1>
-                        </div>
-                    </div>
-                    <div className="row" style={{ height: "100%" }}>
                         <div className="col  d-flex justify-content-end">
                             <small class="text-muted" onClick={() => { handleContact() }}>contact</small>
                         </div>
