@@ -12,7 +12,7 @@ export default function RestaurantCard(props) {
                         <img src="https://picsum.photos/200/200?random=1"/>
                         <div className="card-body">
                             <h5 className="card-title">{props.restaurant.name}</h5>
-                            <a className="btn btn-primary text-white">go to {props.restaurant.name} page. </a>
+                            <a className="btn btn-primary text-white"><i className="fas fa-shopping-cart"></i></a>
                         </div>
                     </div>
             </Link>

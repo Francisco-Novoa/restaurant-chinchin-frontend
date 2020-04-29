@@ -34,42 +34,49 @@ export default function TableRowDisplay(props) {
     }
 
     return (
-        <tr>
-            <th scope="row">{props.i + 1}</th>
-            <td>{props.elem.name_product}</td>
-            <td>{props.elem.price}</td>
-            <td>{props.elem.description}</td>
-            <td style={{ textAlign: "center" }}>
-                {
-                    local.amount <= 0 ?
-                        <a className="btn btn-outline-secondary disabled" role="button" >
-                            <i className="fas fa-minus" ></i>
-                        </a>
-                        :
-                        <a className="btn btn-outline-secondary" role="button" onClick={() => { handleMinus() }} >
-                            <i className="fas fa-minus" ></i>
-                        </a>
+            <div className="col-md-4 m-2">
+                <div className="card">
+                    {/* Titulo block */}
+                    <div className="card-header card-header-primary">                                    
+                        <h3 className="card-title">{props.elem.name_product}</h3>                          
+                        <p className="card-category">{props.i + 1}</p>
+                    </div>
+                    <div className="card-body">
+                        <p className="card-text">{props.elem.description}</p>
+                        <p className="card-text">{props.elem.price}</p>
+                        <div className="card-footer justify-content-between">
+                            {
+                                local.amount <= 0 ?
+                                    <a className="btn btn-outline-secondary disabled" role="button" >
+                                        <i className="fas fa-minus" ></i>
+                                    </a>
+                                    :
+                                    <a className="btn btn-outline-secondary" role="button" onClick={() => { handleMinus() }} >
+                                        <i className="fas fa-minus" ></i>
+                                    </a>
 
-                }
-                <span className="mx-2" > {local.amount} </span>
+                            }
+                            <span className="mx-2" > {local.amount} </span>
 
-                <a className="btn btn-outline-secondary mr-2" role="button" onClick={() => { handlePlus() }} >
-                    <i className="fas fa-plus" ></i>
-                </a>
+                            <a className="btn btn-outline-secondary mr-2" role="button" onClick={() => { handlePlus() }} >
+                                <i className="fas fa-plus" ></i>
+                            </a>
 
-            </td>
-            <td>
-                {local.amount > 0 ?
-                    <a className="btn btn-outline-success"
-                     role="button"  
-                     onClick={() => { addItem() }}>
-                        <i className="fas fa-check text-success" ></i>
-                    </a>
-                    :
-                    ""
-                }
+                        </div>
+                        <div>
+                            {local.amount > 0 ?
+                                <a className="btn btn-outline-success"
+                                role="button"  
+                                onClick={() => { addItem() }}>
+                                    <i className="fas fa-check text-success" ></i>
+                                </a>
+                                :
+                                ""
+                            }
 
-            </td>
-        </tr >
+                        </div>
+                    </div>
+                </div >
+            </div >
     )
             }

@@ -10,39 +10,32 @@ export default function RestaurantProducts(props) {
             contact:false,
         }
     )
-    
-
     return (
         <>
             <div className="container-fluid">
-                <div className="row bg-secondary p-3 border border-dark mb-3">
-                    <div className="col-9"><h3>Tabla de Productos</h3></div>
+                <div className= "row">
+                    <div className="col-md-12">
+                        <div className="card">
+                            <div className="card-header col-md-6 card-header-primary">
+                                <h4 className="card-title">Nombre del restaurant</h4>
+                            </div>
+                            <div className="card-body col-md-12">
+                                <div className="table-responsive">
+                                    {   
+                                    !!store.restaurant.products&&
+                                    store.restaurant.products.map((element,i)=>{
+                                        return (<>
+                                                <TableRowDisplay elem={element} i={i} key={i}/>
+                                            </>
+                                        )
+                                    })
+                                        
+                                    }
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
                 </div>
-                <table className="table">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Descripcion</th>
-                            <th scope="col" style={{textAlign:"center"}}><i className="fas fa-shopping-cart"></i></th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {   
-                         !!store.restaurant.products&&
-                         store.restaurant.products.map((element,i)=>{
-                             return (<>
-                                    <TableRowDisplay elem={element} i={i} key={i}/>
-                                 </>
-                             )
-                         })
-                            
-                        }
-                        
-                    </tbody>
-                </table>
             </div>
         </>
     )

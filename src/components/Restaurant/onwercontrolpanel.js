@@ -71,12 +71,12 @@ export default function ControlPanel(props) {
             {
                 <div className="container-fluid">
                     <div className= "row">
-                        <div class="col-md-12">
-                            <div class="card">
+                        <div className="col-md-12">
+                            <div className="card">
                                 {/* Titulo block */}
                                 <div className="card-header card-header-primary">                                    
                                     <h3 className="card-title"><i className="fas fa-user text-white"></i> Panel de Control</h3>                          
-                                    <p class="card-category">Esta pagina es para editar y actualizar los detalles de tu
+                                    <p className="card-category">Esta pagina es para editar y actualizar los detalles de tu
                                             restaurant que seran mostrados al los clientes
                                     </p>
                                 </div>
