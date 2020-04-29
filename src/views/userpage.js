@@ -23,30 +23,33 @@ export default function UserData() {
                         <UserOrders />
                     </>
                     :
-                    <div className="container-fluid">
-                        <NavbarHome/>
-                    <div className="row">
-                        <div className="col d-flex justify-content-center">
-                            <h1>para ver tus Datos de Usuario</h1>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col d-flex justify-content-center m-0">
-                            <img
-                                src={require("../resource/img/lock.png")}
-                                height="450px"
-                                alt="LOCK" />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col d-flex justify-content-center">
-                            <h1>debes hacer login</h1>
-                        </div>
-                    </div>
-                    </div>
-                   
-        }
+                    <>
+                        <NavbarHome />
+                        <div className="container-fluid">
 
+                            <div className="row">
+                                <div className="col d-flex justify-content-center">
+                                    <h1>para ver tus Datos de Usuario</h1>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col d-flex justify-content-center m-0">
+                                    <img
+                                        src={require("../resource/img/lock.png")}
+                                        height="450px"
+                                        alt="LOCK" />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col d-flex justify-content-center">
+                                    <h1>debes hacer login</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+
+            }
         </>
+
     )
 }

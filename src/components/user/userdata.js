@@ -33,7 +33,6 @@ export default function ControlPanelUser(props) {
         actions.updateCurrUser(newlocal.user, store.currentUser);
         newlocal.name = false;
         newlocal.phone = false;
-        newlocal.address = false;
         newlocal.email = false;
         setLocal(newlocal);
     };
@@ -111,21 +110,21 @@ export default function ControlPanelUser(props) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-md-4 d-flex justify-content-end ">
                                                 {local.name ?
                                                     <>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3"
                                                             role="button"
                                                             onClick={() => { handleSave() }} >
                                                             <i className="fas fa-save fa-2x" ></i>
                                                         </a>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
+                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3" role="button"
                                                             onClick={(e) => { handleEditButton("name") }} >
                                                             <i className="fas fa-minus-circle text-warning fa-2x" ></i>
                                                         </a>
                                                     </>
                                                     :
-                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3"
                                                         role="button" onClick={() => { handleEditButton("name") }} >
                                                         <i className="fas fa-edit fa-2x" ></i>
                                                     </a>
@@ -135,7 +134,7 @@ export default function ControlPanelUser(props) {
 
                                         {/* Form Group Phone */}
                                         <div className="row mb-3">
-                                            <div className="col-md-5">
+                                            <div className="col-md-8">
                                                 <div className="form-group">
                                                     <label className="bmd-label-floating text-primary">Telefono</label>
                                                     {
@@ -160,21 +159,21 @@ export default function ControlPanelUser(props) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-4 d-flex justify-content-end">
                                                 {local.phone ?
                                                     <>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3"
                                                             role="button"
                                                             onClick={() => { handleSave() }} >
                                                             <i className="fas fa-save fa-2x" ></i>
                                                         </a>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
+                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3" role="button"
                                                             onClick={(e) => { handleEditButton("phone") }} >
                                                             <i className="fas fa-minus-circle text-warning fa-2x" ></i>
                                                         </a>
                                                     </>
                                                     :
-                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3"
                                                         role="button" onClick={() => { handleEditButton("phone") }} >
                                                         <i className="fas fa-edit fa-2x" ></i>
                                                     </a>
@@ -182,62 +181,10 @@ export default function ControlPanelUser(props) {
                                             </div>
                                         </div>
 
-                                        {/* Form Group Address */}
-                                        <div className="row mb-3">
-                                            <div className="col-md-8">
-                                                <div className="form-group">
-
-                                                    <label className="bmd-label-floating text-primary">Direccion</label>
-                                                    {
-                                                        local.address ? (
-
-                                                            <input
-                                                                type="text"
-                                                                name="address"
-                                                                ref={thirdInput}
-                                                                value={local.user.address}
-                                                                className="form-control"
-                                                                onChange={(e) => {
-                                                                    handleChange(e);
-                                                                }}
-                                                                id="inputaddress"
-                                                            />
-
-                                                        ) : (
-
-                                                                <div className="form-control">
-                                                                    {local.user.address}
-                                                                </div>
-                                                            )
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="col-md-4">
-
-                                                {local.address ?
-                                                    <>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
-                                                            role="button"
-                                                            onClick={() => { handleSave() }} >
-                                                            <i className="fas fa-save fa-2x" ></i>
-                                                        </a>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
-                                                            onClick={(e) => { handleEditButton("address") }} >
-                                                            <i className="fas fa-minus-circle text-warning fa-2x" ></i>
-                                                        </a>
-                                                    </>
-                                                    :
-                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
-                                                        role="button" onClick={() => { handleEditButton("address") }} >
-                                                        <i className="fas fa-edit fa-2x" ></i>
-                                                    </a>
-                                                }
-                                            </div>
-                                        </div>
 
                                         {/* Form Group Email */}
                                         <div className="row mb-3">
-                                            <div className="col-md-7">
+                                            <div className="col-md-8">
                                                 <div className="form-group">
                                                     <label className="bmd-label-floating text-primary">Email</label>
                                                     {
@@ -264,22 +211,22 @@ export default function ControlPanelUser(props) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="col-md-5">
+                                            <div className="col-4 d-flex justify-content-end">
 
                                                 {local.email ?
                                                     <>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3 "
                                                             role="button"
                                                             onClick={() => { handleSave() }} >
                                                             <i className="fas fa-save fa-2x" ></i>
                                                         </a>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
+                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3" role="button"
                                                             onClick={(e) => { handleEditButton("email") }} >
                                                             <i className="fas fa-minus-circle text-warning fa-2x" ></i>
                                                         </a>
                                                     </>
                                                     :
-                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
+                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary pt-3 "
                                                         role="button" onClick={() => { handleEditButton("email") }} >
                                                         <i className="fas fa-edit fa-2x" ></i>
                                                     </a>

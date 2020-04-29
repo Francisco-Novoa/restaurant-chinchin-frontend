@@ -15,8 +15,9 @@ export default function RestaurantDisplay({ ...props }) {
 
     return (
         <>
+         <NavbarDisplay/>
             <div className="container fondo">
-                <NavbarDisplay/>
+               
                 <div className="row pt-3">
                     <div className="col-md-12 p-3">
                         <h5>Restaurant</h5>
