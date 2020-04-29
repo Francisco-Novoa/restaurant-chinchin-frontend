@@ -46,7 +46,7 @@ const Restaurant = (props) => {
             {store.isAuthenticatedRestaurantUser === false ? (
                 <>
                 <NavbarRest />
-                /* conditional rendering for show the consumers buttons of login and register */
+                {/* conditional rendering for show the consumers buttons of login and register */}
                 <div className="container fondo">
                     
                     <div className="row pt-3">
