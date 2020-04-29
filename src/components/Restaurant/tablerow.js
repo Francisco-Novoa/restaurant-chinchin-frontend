@@ -3,7 +3,7 @@ import { Context } from '../../../src/store/appContext'
 import ModalDelete from './modaldelete'
 
 export default function TableRow(props) {
-    const { store,actions } = useContext(Context)
+    const { actions } = useContext(Context)
     const firstInput = useRef(null)
     const secondInput = useRef(null)
     const thirdInput = useRef(null)

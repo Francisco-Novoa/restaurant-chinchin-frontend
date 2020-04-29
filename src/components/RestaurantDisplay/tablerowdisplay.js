@@ -30,7 +30,7 @@ export default function TableRowDisplay(props) {
             description:props.elem.description,
             amount:local.amount}
         
-        actions.updateShoppingCart(item,store.shoppingCart)
+        actions.addShoppingCart(item,store.shoppingCart)
     }
 
     return (

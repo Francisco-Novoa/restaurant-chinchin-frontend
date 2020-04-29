@@ -23,7 +23,8 @@ export default function getState({ getStore, getActions, setStore }) {
             allRestaurants: [],
             allProducts: [],
             shoppingCart: [],
-            restaurant:"",
+            orders: [],
+            restaurant: "",
             email_confirm_success: null,
             email_confirm_msg: null,
             email_confirm_success_res: null,
@@ -175,7 +176,7 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             registerRestaurantPost: () => {
                 const store = getStore();
-                let localname=store.name.replace(/ /g, '_')
+                let localname = store.name.replace(/ /g, '_')
                 const data = {
                     name: localname,
                     email: store.email,
@@ -198,8 +199,8 @@ export default function getState({ getStore, getActions, setStore }) {
                             console.log(getStore().errorsRegisterRestaurant)
                         }
                         else {
-                            let aux=data.restaurantuser.name.replace(/_/g, ' ')
-                            data.restaurantuser.name=aux
+                            let aux = data.restaurantuser.name.replace(/_/g, ' ')
+                            data.restaurantuser.name = aux
                             setStore({
                                 errorsRegisterRestaurant: '',
                                 password_hash: '',
@@ -238,8 +239,8 @@ export default function getState({ getStore, getActions, setStore }) {
                         }
                         else {
                             console.log(data)
-                            let aux=data.restaurantuser.name.replace(/_/g, ' ')
-                            data.restaurantuser.name=aux
+                            let aux = data.restaurantuser.name.replace(/_/g, ' ')
+                            data.restaurantuser.name = aux
                             setStore({
                                 errorsLoginRestaurant: '',
                                 password_hash: '',
@@ -350,10 +351,11 @@ export default function getState({ getStore, getActions, setStore }) {
                     if (data.msg) {
                         console.log(data.msg)
                     }
-                    let result=data.map((elem)=>{
-                    let aux=elem.name.replace(/_/g, ' ')
-                    elem.name=aux
-                    return elem})
+                    let result = data.map((elem) => {
+                        let aux = elem.name.replace(/_/g, ' ')
+                        elem.name = aux
+                        return elem
+                    })
                     setStore({
                         allRestaurants: result
                     })
@@ -424,19 +426,26 @@ export default function getState({ getStore, getActions, setStore }) {
                 setStore({ currentRestaurant: aux })
                 sessionStorage.setItem('currentRestaurant', JSON.stringify(aux))
             },
-            updateShoppingCart: (newCart, oldCart) => {
+            addShoppingCart: (newCart, oldCart) => {
                 if (newCart === "") {
                     setStore({ shoppingCart: [] })
                 }
+
                 else {
                     let aux = [...oldCart]
                     aux.push(newCart)
                     setStore({ shoppingCart: aux })
                 }
             },
-            amountShoppingCart: (newCart) => {
-                console.log(newCart)
-                setStore({ shoppingCart: newCart })
+            updateShoppingCart: (action, cart, index) => {
+                let newcart = [...cart]
+                if (action === "+") {
+                    newcart[index].amount = cart[index].amount + 1
+                }
+                if (action === "-" && newcart[index] > 0) {
+                    newcart[index].amount = cart[index].amount - 1
+                }
+                setStore({ shoppingCart: newcart })
             },
             updateProduct: async (url, body) => {
                 try {
@@ -474,9 +483,9 @@ export default function getState({ getStore, getActions, setStore }) {
                         headers: { "Content-Type": "application/json" },
                     })
                     const data = await all.json()
-                    let aux=data.restaurant.name.replace(/_/g, ' ')
-                    data.restaurant.name=aux
-                    setStore({restaurant:data})
+                    let aux = data.restaurant.name.replace(/_/g, ' ')
+                    data.restaurant.name = aux
+                    setStore({ restaurant: data })
                 }
                 catch (error) {
                     console.log(error)
@@ -625,6 +634,58 @@ export default function getState({ getStore, getActions, setStore }) {
                     })
 
             },
+            sendOrder: async (url, products, user, restaurant, comment, total) => {
+                try {
+                    let body = {
+                        product: products,
+                        user: user,
+                        restaurant: restaurant,
+                        comment: comment,
+                        total: total
+                    }
+                    const all = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(body)
+                    })
+                    const data = await all.json()
+                    console.log(data)
+                }
+                catch (error) {
+                    console.log(error)
+                }
+            },
+            getOrders: async (url) => {
+                try {
+                    const all = await fetch(url, {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    })
+                    const data = await all.json()
+                    setStore({ orders: data })
+                }
+                catch (error) {
+                    console.log(error)
+                }
+            },
+            completeOrder: async (url, i, orders) => {
+                try {
+                    const all = await fetch(url, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                    })
+                    const data = await all.json()
+                    console.log(data)
+                    if (data.msg == "ok") {
+
+                        let oldStore = [...orders]
+                        oldStore[i].done = true
+                        setStore({ orders: oldStore })
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }
     }
 }

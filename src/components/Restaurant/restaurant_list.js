@@ -3,7 +3,7 @@ import { Context } from '../../../src/store/appContext'
 import RestaurantCard from "./restaurant_card"
 
 export default function RestaurantList() {
-    const { store, actions } = useContext(Context)
+    const { store} = useContext(Context)
 
     return (
         <>

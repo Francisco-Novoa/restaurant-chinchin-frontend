@@ -19,7 +19,7 @@ export default function OwnerSideMenu(props) {
         const newlocal = { ...local }
         newlocal.user = store.currentRestaurant.restaurantuser
         setLocal(newlocal)
-        actions.getAllProductsOf("http://localhost:5000/product/from/" + newlocal.user.id)
+        actions.getAllProductsOf(store.path +"/product/from/" + newlocal.user.id)
     }, [])
 
     return (
