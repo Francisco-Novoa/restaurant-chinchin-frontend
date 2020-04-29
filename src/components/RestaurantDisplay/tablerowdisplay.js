@@ -44,9 +44,11 @@ export default function TableRowDisplay(props) {
                         <p className="card-category">{props.i + 1}</p>
                     </div>
                     <div className="card-body">
-                        <p className="card-text">{props.elem.description}</p>
-                        <p className="card-text">{props.elem.price}</p>
-                        <div className="card-footer justify-content-between">
+                        <p className="card-text d-flex justify-content-between"><span style={{ fontWeight: "bold" }}> Descripcion: </span>
+                        <span>{props.elem.description}</span></p>
+                        <p className="card-text d-flex justify-content-between"> <span style={{ fontWeight: "bold" }}> Precio: $ </span> 
+                        {props.elem.price}</p>
+                        <div className="d-flex justify-content-between">
                             {
                                 local.amount <= 0 ?
                                     <a className="btn btn-outline-secondary disabled" role="button" >
@@ -58,16 +60,16 @@ export default function TableRowDisplay(props) {
                                     </a>
 
                             }
-                            <span className="mx-2" > {local.amount} </span>
+                            <span className="mx-2 my-auto" style={{ fontWeight: "bold" }}>  {local.amount} </span>
 
                             <a className="btn btn-outline-secondary mr-2" role="button" onClick={() => { handlePlus() }} >
                                 <i className="fas fa-plus" ></i>
                             </a>
 
                         </div>
-                        <div className="d-flex justify-content-end align-items-end flex-column">
+                        <div className="d-flex justify-content-end card-footer mt-1 mr-1" style={{height:"25px"}}>
                             {local.amount > 0 ?
-                                <a className="btn btn-outline-success mt-auto"
+                                <a className="btn btn-outline-success"
                                     role="button"
                                     onClick={() => { addItem() }}>
                                     <i className="fas fa-check text-success" ></i>
