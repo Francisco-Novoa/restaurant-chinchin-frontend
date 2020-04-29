@@ -14,15 +14,15 @@ export default function TableRowShopping(props) {
         let newLocal = { ...local }
         newLocal.amount = local.amount + 1
         setLocal(newLocal)
+        actions.updateShoppingCart("+",store.shoppingCart,props.i)
     }
 
     const handleMinus = () => {
         let newLocal = { ...local }
         newLocal.amount = local.amount - 1
         setLocal(newLocal)
+        actions.updateShoppingCart("-",store.shoppingCart,props.i)
     }
-
-    useEffect(()=>{},[props.ready])
 
     return (
         <tr>

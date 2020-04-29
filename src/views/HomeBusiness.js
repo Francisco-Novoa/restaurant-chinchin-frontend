@@ -4,6 +4,7 @@ import ControlPanel from "../components/Restaurant/onwercontrolpanel";
 import OwnerSideMenu from "../components/Restaurant/ownersidemenu";
 import NavbarRest from "../components/navRest";
 import ChinChin from "../components/chinchin";
+import OwnerOrders from "../components/Restaurant/orders";
 const Restaurant = (props) => {
 
     const [local, setLocal] = useState(
@@ -37,6 +38,7 @@ const Restaurant = (props) => {
     const { store, actions } = useContext(Context);
     useEffect(() => {
         actions.isAuthenticatedRestaurantUser();
+
     }, [])
     return (
         <>
@@ -129,7 +131,7 @@ const Restaurant = (props) => {
                                                         : ""
                                                 }
                                                 {
-                                                    local.orders ? <h1>orders!!</h1> : ""
+                                                    local.orders ? <OwnerOrders/> : ""
                                                 }
                                             </>
                                         }

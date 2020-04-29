@@ -39,9 +39,6 @@ const ModalLoginRestaurant = props => {
         alert("Check your email")
     }
     useEffect(() => {
-       console.log(props)
-    }, [props])
-    useEffect(() => {
         if (firstRef !== null) {
             firstRef.current.focus()
         }
