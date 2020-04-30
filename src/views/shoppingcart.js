@@ -75,6 +75,7 @@ export default function ShoppingCart() {
                                                 <th scope="col">Precio</th>
                                                 <th scope="col">Descripcion</th>
                                                 <th scope="col" style={{ textAlign: "center" }}>Cantidad</th>
+                                                <th scope="col">Subtotal    </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -87,14 +88,22 @@ export default function ShoppingCart() {
                                                     )
                                                 })
                                             }
+                                            <tr>
+                                                <th colSpan="5"  className="text-right pr-5" >
+                                                    <span>Total: </span>
+                                                </th>
+                                                <td colSpan="1"  className="text-right pr-5">
+
+                                                    <span>{local.total}</span>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col d-flex justify-content-end">
-                                    <span>Total: </span>
-                                    <span>{local.total}</span>
+
                                 </div>
                             </div>
                             <div className="row">

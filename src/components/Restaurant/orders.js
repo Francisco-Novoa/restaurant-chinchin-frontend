@@ -8,8 +8,6 @@ export default function OwnerOrders(props) {
     const { store, actions } = useContext(Context)
     const [local, setLocal] = useState(false)
 
-
-
     useEffect(() => {
         actions.getOrders(store.path + "/orderof/" + store.currentRestaurant.restaurantuser.id)
     }, [local])

@@ -122,7 +122,6 @@ export default function getState({ getStore, getActions, setStore }) {
             handleChange: e => {
                 let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
                 setStore({ [e.target.name]: value })
-                console.log(value)
             },
             searchSpace: e => {
                 let keyword = e.target.value
@@ -699,7 +698,6 @@ export default function getState({ getStore, getActions, setStore }) {
                     const data = await all.json()
                     console.log(data)
                     if (data.msg == "ok") {
-
                         let oldStore = [...orders]
                         oldStore[i].done = true
                         setStore({ orders: oldStore })
@@ -709,7 +707,9 @@ export default function getState({ getStore, getActions, setStore }) {
                 }
             },
             enviadoCleanup:()=>{
-                setStore({enviado:false})},
+
+                setStore({enviado:false})
+            },
             getAllUsers: () =>{
                 const store = getStore();
                 fetch(store.path + '/users', {
