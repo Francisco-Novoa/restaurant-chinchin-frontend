@@ -13,6 +13,8 @@ export default function ShoppingCart() {
         comentario: "",
         total: 0
     })
+    const [recalculate,setRecalculate]=useState(0)
+
     const [sent, setSent] = useState(false)
     const handleChange = (e) => {
         const newlocal = { ...local }
@@ -51,7 +53,7 @@ export default function ShoppingCart() {
 
     useEffect(() => {
         Total()
-    }, store.shoppingCart)
+    }, [recalculate])
     return (
         <>
             <NavbarDisplay />
@@ -83,7 +85,7 @@ export default function ShoppingCart() {
                                                 !!store.shoppingCart &&
                                                 store.shoppingCart.map((element, i) => {
                                                     return (<>
-                                                        <TableRowShopping i={i} key={i} />
+                                                        <TableRowShopping i={i} key={i} reload={setRecalculate} value={recalculate} />
                                                     </>
                                                     )
                                                 })
