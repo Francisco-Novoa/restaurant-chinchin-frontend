@@ -36,7 +36,7 @@ export default function RestaurantDisplay({ ...props }) {
                 </div>
                 <div className="row">
                     <div className="col" style={{ height: "250px" }}>
-                        footer
+                       
                     </div>
                 </div>
             </div>
