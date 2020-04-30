@@ -8,7 +8,7 @@ const Home = props => {
     const { store, actions } = useContext(Context)
     useEffect(() => {
         actions.isAuthenticatedUser()
-        
+        actions.enviadoCleanup()
     }, []);
     return (
         <> 
