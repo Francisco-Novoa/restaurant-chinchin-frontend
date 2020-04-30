@@ -5,7 +5,8 @@ export default function TableRowShopping(props) {
     const { store, actions } = useContext(Context)
     const [local, setLocal] = useState(
         {
-            amount: store.shoppingCart[props.i].amount
+            amount: store.shoppingCart[props.i].amount,
+            subtotal:store.shoppingCart[props.i].price*store.shoppingCart[props.i].amount
             
         }
     )
@@ -14,15 +15,24 @@ export default function TableRowShopping(props) {
         let newLocal = { ...local }
         newLocal.amount = local.amount + 1
         setLocal(newLocal)
-        actions.updateShoppingCart("+",store.shoppingCart,props.i)
+        props.reload(props.value+1)
+        actions.updateShoppingCart("+",store.shoppingCart,props.i,local.amount)
     }
 
     const handleMinus = () => {
         let newLocal = { ...local }
         newLocal.amount = local.amount - 1
         setLocal(newLocal)
-        actions.updateShoppingCart("-",store.shoppingCart,props.i)
+        props.reload(props.value-1)
+        actions.updateShoppingCart("-",store.shoppingCart,props.i,local.amount)
     }
+
+
+    useEffect(()=>{
+        let newLocal = { ...local }
+        newLocal.subtotal = store.shoppingCart[props.i].price*store.shoppingCart[props.i].amount
+        setLocal(newLocal)
+    },[local.amount])
 
     return (
         <tr>
@@ -30,7 +40,6 @@ export default function TableRowShopping(props) {
             <td>{store.shoppingCart[props.i].name_product}</td>
             <td>$ {store.shoppingCart[props.i].price}</td>
             <td>{store.shoppingCart[props.i].description}</td>
-            <td style={{ textAlign: "center" }}>
             <td style={{ textAlign: "center" }}>
                 {
                     local.amount <= 0 ?
@@ -50,6 +59,8 @@ export default function TableRowShopping(props) {
                 </a>
 
             </td>
+            <td>
+                {local.subtotal}
             </td>
         </tr >
     )

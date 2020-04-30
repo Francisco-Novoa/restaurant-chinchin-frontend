@@ -34,7 +34,7 @@ export default function NavbarDisplay() {
                                         to="/shoppingcart"
                                         className="nav-link btn btn-primary text-white"
                                         role="button">
-                                        <i className="fas fa-shopping-cart mr-2" >{store.shoppingCart.length}</i>
+                                        <i className="fas fa-shopping-cart mr-2" ></i><span style={{fontWeight:"bold"}}>{store.shoppingCart.length}</span>
                                     </Link>
                                     <Link
                                         className='nav-link btn btn-primary text-white'
@@ -56,7 +56,7 @@ export default function NavbarDisplay() {
                                             to="/shoppingcart"
                                             className="nav-link btn btn-primary text-white disabled"
                                             role="button">
-                                            <i className="fas fa-shopping-cart mr-2" >{store.shoppingCart.length}</i>
+                                            <i className="fas fa-shopping-cart mr-2" ></i><span style={{fontWeight:"bold"}}>{store.shoppingCart.length}</span>
                                         </Link>
                                         <Link
                                             className='nav-link btn btn-primary text-white'
@@ -86,7 +86,7 @@ export default function NavbarDisplay() {
                                                 to="/shoppingcart"
                                                 className='nav-link btn btn-primary text-white'
                                                 role="button">
-                                                <i className="fas fa-shopping-cart mr-2">{store.shoppingCart.length}</i>
+                                                <i className="fas fa-shopping-cart mr-2"> </i><span style={{fontWeight: "bold" }}>{store.shoppingCart.length}</span>
                                             </Link>
                                         </li>
                                     </>

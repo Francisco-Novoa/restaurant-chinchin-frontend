@@ -32,6 +32,13 @@ export default function getState({ getStore, getActions, setStore }) {
             email_confirm_msg_res: null,
             email_confirm_success_admin: null,
             email_confirm_msg_admin: null,
+            allusers: {},
+            allproducts: {},
+            idcurrentRestaurant: '',
+            allrest: [],
+            search: null,
+            view: 0,
+            contentofRest:[],
         },
         actions: {
             //actions go here.
@@ -115,6 +122,12 @@ export default function getState({ getStore, getActions, setStore }) {
             handleChange: e => {
                 let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
                 setStore({ [e.target.name]: value })
+            },
+            searchSpace: e => {
+                let keyword = e.target.value
+                setStore({
+                    search: keyword
+                })
             },
             isAuthenticatedUser: () => {
                 if (sessionStorage.getItem('currentUser') && sessionStorage.getItem('isAuthenticatedUser')) {
@@ -440,13 +453,13 @@ export default function getState({ getStore, getActions, setStore }) {
                     setStore({ shoppingCart: aux })
                 }
             },
-            updateShoppingCart: (action, cart, index) => {
+            updateShoppingCart: (action, cart, index,amount) => {
                 let newcart = [...cart]
                 if (action === "+") {
-                    newcart[index].amount = cart[index].amount + 1
+                    newcart[index].amount = amount + 1
                 }
-                if (action === "-" && newcart[index] > 0) {
-                    newcart[index].amount = cart[index].amount - 1
+                if (action === "-" && newcart[index].amount >= 0) {
+                    newcart[index].amount = amount - 1
                 }
                 setStore({ shoppingCart: newcart })
             },
@@ -685,7 +698,6 @@ export default function getState({ getStore, getActions, setStore }) {
                     const data = await all.json()
                     console.log(data)
                     if (data.msg == "ok") {
-
                         let oldStore = [...orders]
                         oldStore[i].done = true
                         setStore({ orders: oldStore })
@@ -695,7 +707,88 @@ export default function getState({ getStore, getActions, setStore }) {
                 }
             },
             enviadoCleanup:()=>{
+
                 setStore({enviado:false})
+            },
+            getAllUsers: () =>{
+                const store = getStore();
+                fetch(store.path + '/users', {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            allusers: data
+                        })
+                        console.log(store.allusers)
+                    })
+            },
+            getAllProducts: () =>{
+                const store = getStore();
+                fetch(store.path + '/product', {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            allproducts: data
+                        })
+                        console.log(store.allproducts)
+                    })
+            },
+            deleteRestaurant: (id) => {
+                const store = getStore();
+                fetch(store.path + '/restaurantusers/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + store.currentAdmin.access_token
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        getActions().DeleteRestForAdmin()
+                    })   
+            },
+            DeleteRestForAdmin: () =>{
+                const store = getStore();
+                fetch(store.path + '/restaurantusers', {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            allrest: data
+                        })
+                        console.log(store.allrest)
+                    })
+            },
+            getAllInfoRest: (id) =>{
+                const store = getStore();
+                fetch(store.path + '/product/from/' + id, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            view: 1,
+                            contentofRest: data
+                        })
+                        console.log(data)
+                    })
             },
         }
     }

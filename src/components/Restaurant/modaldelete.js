@@ -2,7 +2,6 @@ import React from 'react'
 
 export default function ModalDelete(props) {
     return (
-
         <div 
         className="modal" 
         id={"modal_confirmation_delete_"+props.id} 

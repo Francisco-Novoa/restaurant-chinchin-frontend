@@ -1,12 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import OrderInner from "./order_inner"
 import { Context } from '../../../src/store/appContext'
 
 export default function Order(props) {
     const { store, actions } = useContext(Context)
+    const [local, setLocal] = useState(true)
     const completeOrder = () => {
         actions.completeOrder(store.path + "/finish/" + props.elem.id_order, props.i, store.orders)
     }
+
+    useEffect(() => {
+        if (local === false) {
+            setTimeout(() => { completeOrder() }, 1000);
+        }
+    }, [local])
     return (
         <>
             {(props.done === true && props.elem.done === true) ||
@@ -14,7 +21,7 @@ export default function Order(props) {
                 (props.done === false && props.elem.done === false) ?
                 <table className="table table-bordered">
                     <tr>
-                        <th colSpan="12" className="text-left" >Orden Numero {props.i + 1}
+                        <th colSpan="12" className=" text-left" >Orden Numero {props.i + 1}
                         </th>
                     </tr>
                     <tr>
@@ -23,12 +30,12 @@ export default function Order(props) {
                         <td> <span style={{ fontWeight: "bold" }} >Estado de la orden: </span>
                             {
                                 props.elem.done === true ?
-                                <span > hecho</span>
-                                :
-                                props.elem.done === null ?
-                                    <span > cancelado por usuario</span>
+                                    <span > hecho</span>
                                     :
-                                    <span> en espera</span>
+                                    props.elem.done === null ?
+                                        <span > cancelado por usuario</span>
+                                        :
+                                        <span> en espera</span>
                             }
                         </td>
                         <td>
@@ -68,20 +75,33 @@ export default function Order(props) {
                     </tr>
                     <tr>
                         <th> <span style={{ fontWeight: "bold" }}> Comentarios: </span>
-                    </th>
+                        </th>
                         <td colSpan="4">
                             {" " + props.elem.comment}
                         </td>
                     </tr>
                     <tr >
-                        <td colSpan="5" className="text-right " >
-                            <a
-                                class="btn btn-primary text-white"
-                                role="button"
-                                onClick={() => { completeOrder() }}>
-                                Completado
-                        </a>
-                        </td>
+                        {
+                            (props.done === false && props.elem.done === false && local === true) ?
+                                <td colSpan="5" className="text-right " >
+                                    <a
+                                        class="btn btn-primary text-white"
+                                        role="button"
+                                        onClick={() => { setLocal(false) }}>
+                                        Hecho
+                                    </a>
+                                </td>
+                                : props.done === false && props.elem.done === false && local === false ?
+                                    <td colSpan="5" className="text-right " >
+                                        <button
+                                            className="btn btn-primary">
+                                            <div class="spinner-border" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </button>
+                                    </td>
+                                    : ""
+                        }
                     </tr>
                 </table>
                 : ""
