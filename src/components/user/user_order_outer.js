@@ -19,9 +19,9 @@ export default function Order(props) {
             {(props.done === true && props.elem.done === true) ||
                 (props.done === null && props.elem.done === null) ||
                 (props.done === false && props.elem.done === false) ?
-                <table className="table table-bordered">
+                <table className="table mb-3 table-bordered">
                     <tr>
-                        <th colSpan="12" className="text-left" >Orden Numero {props.i + 1}
+                        <th colSpan="12" className="tabla-fondo text-left" >Orden Numero {props.i + 1}
                         </th>
                     </tr>
                     <tr>
@@ -47,7 +47,7 @@ export default function Order(props) {
                     <tr >
                         <td colSpan="12">
                             <table className="table" >
-                                <tr>
+                                <tr className="tabla-fondo1">
                                     <th>#</th>
                                     <th>Id del Producto</th>
                                     <th>Nombre Producto</th>

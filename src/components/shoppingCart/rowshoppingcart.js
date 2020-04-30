@@ -36,9 +36,9 @@ export default function TableRowShopping(props) {
 
     return (
         <tr>
-            <th scope="row">{props.i + 1}</th>
+            <th scope="row">#{props.i + 1}</th>
             <td>{store.shoppingCart[props.i].name_product}</td>
-            <td>{store.shoppingCart[props.i].price}</td>
+            <td>$ {store.shoppingCart[props.i].price}</td>
             <td>{store.shoppingCart[props.i].description}</td>
             <td style={{ textAlign: "center" }}>
                 {

@@ -10,3 +10,9 @@ body{
 .fondo{
   background: rgba(255, 255, 255, .7);
 }
+.tabla-fondo{
+  background: rgba(136, 123, 123, 0.5);
+}
+.tabla-fondo1{
+  background: rgba(189, 174, 174, 0.5);
+}

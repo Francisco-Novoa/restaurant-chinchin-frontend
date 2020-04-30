@@ -20,41 +20,20 @@ export default function RestaurantInfo(props) {
         <>
             {!!store.restaurant.restaurant &&
                 <div className="container-fluid">
-                    <div className="row" style={{ height: "100%" }}>
-                        <div className="col  d-flex justify-content-end">
-                            <small class="text-muted" onClick={() => { handleContact() }}>contact</small>
+                    <div className="row">
+                        <div className="col">
+                            <h4 class="text-white" onClick={() => { handleContact() }}><i class="fas fa-info-circle"></i></h4>
                         </div>
                     </div>
                     {local.contact ?
                         <>
-                            <div className="row d-flex justify-content-end">
-                                <div className="col-2 bg-light border-bottom">
-                                    <h6>Email</h6>
-                                </div>
-                                <div className="col-2">
-                                    <h4>{store.restaurant.restaurant.email}</h4>
-                                </div>
-                            </div>
-                            <div className="row d-flex justify-content-end">
-                                <div className="col-2 bg-light border-bottom">
-                                    <h6>Telefono</h6>
-                                </div>
-                                <div className="col-2">
-                                    <h6>{store.restaurant.restaurant.phone}</h6>
+                            <div className="row">
+                                <div className="col-md-12 d-flex d-inline card-header card-header-info">
+                                    <small className="col-md-4 text-white">Email: {store.restaurant.restaurant.email}</small>  
+                                    <small className="col-md-4 text-white">Telefon: {store.restaurant.restaurant.phone}</small>
+                                    <small className="col-md-4 text-white">Direccion: {store.restaurant.restaurant.address}</small>                                        
                                 </div>
                             </div>
-                            {
-                                !!local.user.address ?
-                                    <div className="row d-flex justify-content-end">
-                                        <div className="col-2 bg-light border-bottom">
-                                            <h6>Direccion</h6>
-                                        </div>
-                                        <div className="col-2">
-                                            <h6>{store.restaurant.restaurant.address}</h6>
-                                        </div>
-                                    </div>
-                                    : ""
-                            }
                         </>
                         : ""
                     }

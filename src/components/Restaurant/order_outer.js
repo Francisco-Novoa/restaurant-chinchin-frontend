@@ -21,7 +21,7 @@ export default function Order(props) {
                 (props.done === false && props.elem.done === false) ?
                 <table className="table table-bordered">
                     <tr>
-                        <th colSpan="12" className="text-left" >Orden Numero {props.i + 1}
+                        <th colSpan="12" className=" text-left" >Orden Numero {props.i + 1}
                         </th>
                     </tr>
                     <tr>
