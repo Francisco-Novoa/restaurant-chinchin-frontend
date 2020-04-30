@@ -1,12 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import OrderInner from "./user_order_inner"
 import { Context } from '../../../src/store/appContext'
 
 export default function Order(props) {
     const { store, actions } = useContext(Context)
+    const [local, setLocal] = useState(true)
     const completeOrder = () => {
         actions.completeOrder(store.path + "/cancel/" + props.elem.id_order, props.i, store.orders)
     }
+    useEffect(() => {
+        if (local === false) {
+            setTimeout(() => { completeOrder() }, 1000);
+        }
+    }, [local])
+
     return (
         <>
             {(props.done === true && props.elem.done === true) ||
@@ -60,10 +67,10 @@ export default function Order(props) {
                         </td>
                     </tr>
                     <tr>
-                        <th>Total:
+                        <th colSpan="4" className="text-right pr-5" >Total:
                        </th>
-                        <td colSpan="4" className="text-right pr-5" >
-                            <span>$ {props.elem.total} </span>
+                        <td className="text-center pr-5" >
+                            <span style={{ fontWeight: "bold" }}>$ {props.elem.total} </span>
                         </td>
                     </tr>
                     <tr>
@@ -74,15 +81,25 @@ export default function Order(props) {
                         </td>
                     </tr>
                     <tr >
-                        {(props.done === false && props.elem.done === false) &&
-                            <td colSpan="5" className="text-right " >
-                                <a
-                                    class="btn btn-danger text-white"
-                                    role="button"
-                                    onClick={() => { completeOrder() }}>
-                                    Cancelar
-                                </a>  
-                            </td>
+                        {(props.done === false && props.elem.done === false && local === true) ?
+                                <td colSpan="5" className="text-right " >
+                                    <a
+                                        class="btn btn-danger text-white"
+                                        role="button"
+                                        onClick={() => { setLocal(false) }}>
+                                        Cancelar
+                                    </a>
+                                </td>
+                                : props.done === false && props.elem.done === false && local === false ?
+                                    <td colSpan="5" className="text-right " >
+                                        <button
+                                            className="btn btn-danger">
+                                            <div class="spinner-border" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                        </button>
+                                    </td>
+                                    :""
                         }
 
 

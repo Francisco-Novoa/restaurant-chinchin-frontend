@@ -249,27 +249,6 @@ export default function ControlPanel(props) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="col-md-4 d-flex justify-content-end">
-
-                                                {local.email ?
-                                                    <>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
-                                                            role="button"
-                                                            onClick={() => { handleSave() }} >
-                                                            <i className="fas fa-save fa-2x mt-2" ></i>
-                                                        </a>
-                                                        <a className="btn btn-outline-secondary btn-sm mt-4 text-primary" role="button"
-                                                            onClick={(e) => { handleEditButton("email") }} >
-                                                            <i className="fas fa-minus-circle text-warning fa-2x mt-2" ></i>
-                                                        </a>
-                                                    </>
-                                                    :
-                                                    <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
-                                                        role="button" onClick={() => { handleEditButton("email") }} >
-                                                        <i className="fas fa-edit fa-2x mt-2" ></i>
-                                                    </a>
-                                                }
-                                            </div>
                                         </div>
                                     </form>
                                 </div>

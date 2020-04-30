@@ -104,11 +104,6 @@ export default function ShoppingCart() {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col d-flex justify-content-end">
-
-                                </div>
-                            </div>
-                            <div className="row">
                                 <div className="col">
                                     <div class="form-group">
                                         <label for="comentarios">Añada comentarios a su orden</label>

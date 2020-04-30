@@ -6,7 +6,7 @@ import Order from "./user_order_outer"
 
 export default function UserOrders(props) {
     const { store, actions } = useContext(Context)
-    const [local, setLocal] = useState(true)
+    const [local, setLocal] = useState(false)
 
 
 
@@ -105,6 +105,7 @@ export default function UserOrders(props) {
                                             }
                                         </tbody>
                                     </table>
+                                    <div className="row mb-5"></div>
                                 </div>
                             </div>
                         </div>
