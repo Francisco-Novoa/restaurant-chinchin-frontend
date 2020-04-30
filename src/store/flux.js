@@ -30,6 +30,13 @@ export default function getState({ getStore, getActions, setStore }) {
             email_confirm_msg_res: null,
             email_confirm_success_admin: null,
             email_confirm_msg_admin: null,
+            allusers: {},
+            allproducts: {},
+            idcurrentRestaurant: '',
+            allrest: [],
+            search: null,
+            view: 0,
+            contentofRest:[],
         },
         actions: {
             //actions go here.
@@ -113,7 +120,15 @@ export default function getState({ getStore, getActions, setStore }) {
             handleChange: e => {
                 let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
                 setStore({ [e.target.name]: value })
+                console.log(value)
             },
+            searchSpace: e => {
+                let keyword = e.target.value
+                setStore({
+                    search: keyword
+                })
+            },
+
             isAuthenticatedUser: () => {
                 if (sessionStorage.getItem('currentUser') && sessionStorage.getItem('isAuthenticatedUser')) {
                     setStore({
@@ -354,6 +369,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     let aux=elem.name.replace(/_/g, ' ')
                     elem.name=aux
                     return elem})
+                    console.log(result)
                     setStore({
                         allRestaurants: result
                     })
@@ -623,6 +639,86 @@ export default function getState({ getStore, getActions, setStore }) {
                         })
                     })
 
+            },
+            getAllUsers: () =>{
+                const store = getStore();
+                fetch(store.path + '/users', {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            allusers: data
+                        })
+                        console.log(store.allusers)
+                    })
+            },
+            getAllProducts: () =>{
+                const store = getStore();
+                fetch(store.path + '/product', {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            allproducts: data
+                        })
+                        console.log(store.allproducts)
+                    })
+            },
+            deleteRestaurant: (id) => {
+                const store = getStore();
+                fetch(store.path + '/restaurantusers/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + store.currentAdmin.access_token
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        getActions().DeleteRestForAdmin()
+                    })   
+            },
+            DeleteRestForAdmin: () =>{
+                const store = getStore();
+                fetch(store.path + '/restaurantusers', {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            allrest: data
+                        })
+                        console.log(store.allrest)
+                    })
+            },
+            getAllInfoRest: (id) =>{
+                const store = getStore();
+                fetch(store.path + '/product/from/' + id, {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        setStore({
+                            view: 1,
+                            contentofRest: data
+                        })
+                        console.log(data)
+                    })
             },
         }
     }
