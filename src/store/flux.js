@@ -130,7 +130,6 @@ export default function getState({ getStore, getActions, setStore }) {
                     search: keyword
                 })
             },
-
             isAuthenticatedUser: () => {
                 if (sessionStorage.getItem('currentUser') && sessionStorage.getItem('isAuthenticatedUser')) {
                     setStore({
@@ -710,7 +709,7 @@ export default function getState({ getStore, getActions, setStore }) {
                 }
             },
             enviadoCleanup:()=>{
-                setStore({enviado:false})
+                setStore({enviado:false})},
             getAllUsers: () =>{
                 const store = getStore();
                 fetch(store.path + '/users', {

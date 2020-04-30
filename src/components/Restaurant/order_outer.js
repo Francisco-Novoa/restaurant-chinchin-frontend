@@ -74,15 +74,19 @@ export default function Order(props) {
                         </td>
                     </tr>
                     <tr >
-                        <td colSpan="5" className="text-right " >
-                            <a
-                                class="btn btn-primary text-white"
-                                role="button"
-                                onClick={() => { completeOrder() }}>
-                                Completado
-                        </a>
-                        </td>
+                    {
+                    (props.done === false && props.elem.done === false) &&
+                            <td colSpan="5" className="text-right " >
+                                <a
+                                    class="btn btn-primary text-white"
+                                    role="button"
+                                    onClick={() => { completeOrder() }}>
+                                    Hecho
+                                </a>  
+                            </td>
+                    }
                     </tr>
+                
                 </table>
                 : ""
             }
