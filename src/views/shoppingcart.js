@@ -24,7 +24,7 @@ export default function ShoppingCart() {
     const Total = () => {
         let total = 0
         for (let i = 0; i < store.shoppingCart.length; i++) {
-            total = (total + parseInt(store.shoppingCart[i].price)) * parseInt(store.shoppingCart[i].amount)
+            total = total + ((parseInt(store.shoppingCart[i].price)) * parseInt(store.shoppingCart[i].amount))
         }
         const newlocal = { ...local }
         newlocal.total = total
