@@ -55,115 +55,119 @@ export default function ShoppingCart() {
     return (
         <>
             <NavbarDisplay />
-            <div className="container">
-                {
-                    store.isAuthenticatedUser ?
-                        <>
-                            <RestaurantInfo />
-                            <div className="row">
-                                <div className="col">
-                                    <h1>the details of your order are here</h1>
+            <div className="container fondo">
+                <div className="col-md-12">
+                    <div className="card card-plain">
+                    {
+                        store.isAuthenticatedUser ?
+                            <>
+                                <div className="card-header card-header-info text-center">                                    
+                                    <h3 className="card-title mt-0">the details of your order are here</h3>
+                                    <RestaurantInfo />                                    
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <table className="table">
-                                        <thead className="thead-dark">
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Precio</th>
-                                                <th scope="col">Descripcion</th>
-                                                <th scope="col" style={{ textAlign: "center" }}>Cantidad</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                !!store.shoppingCart &&
-                                                store.shoppingCart.map((element, i) => {
-                                                    return (<>
-                                                        <TableRowShopping i={i} key={i} />
-                                                    </>
-                                                    )
-                                                })
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col d-flex justify-content-end">
-                                    <span>Total: </span>
-                                    <span>{local.total}</span>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div class="form-group">
-                                        <label for="comentarios">Añada comentarios a su orden</label>
-                                        <textarea
-                                            ref={firstRef}
-                                            className="form-control"
-                                            id="comentarios"
-                                            name="comentario"
-                                            onChange={(e) => { handleChange(e) }}
-                                            value={local.comentario}
-                                            rows="3">
-                                        </textarea>
+                                <div className="card-body">
+                                    <div className="col">
+                                        <div className="table-responsive">
+                                        <table className="table table-hover">
+                                                <thead className="bg-secondary text-white">
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Precio</th>
+                                                        <th scope="col">Descripcion</th>
+                                                        <th scope="col" style={{ textAlign: "center" }}>Cantidad</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        !!store.shoppingCart &&
+                                                        store.shoppingCart.map((element, i) => {
+                                                            return (<>
+                                                                <TableRowShopping i={i} key={i} />
+                                                            </>
+                                                            )
+                                                        })
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="col d-flex justify-content-end">
-                                    {sent === false && store.enviado === false ?
-                                        <button
-                                            className="btn btn-primary"
-                                            onClick={() => { confirmOrder(); setSent(!sent) }}
-                                        >confirm
-                                        </button>
-                                        : sent === true && store.enviado === false ?
+                                <div className="row">
+                                    <div className="col d-flex justify-content-end">
+                                        <h4 className="text-success mr-2">Total: </h4>
+                                        <h4 className="text-success">$ {local.total}</h4>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <div className="form-group">
+                                            <label for="comentarios">Añada comentarios a su orden</label>
+                                            <textarea
+                                                ref={firstRef}
+                                                className="form-control"
+                                                id="comentarios"
+                                                name="comentario"
+                                                onChange={(e) => { handleChange(e) }}
+                                                value={local.comentario}
+                                                rows="3">
+                                            </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col d-flex justify-content-end">
+                                        {sent === false && store.enviado === false ?
                                             <button
-                                                className="btn btn-primary">
-                                                <div class="spinner-border" role="status">
-                                                    <span class="sr-only">Loading...</span>
-                                                </div>
+                                                className="btn btn-primary"
+                                                onClick={() => { confirmOrder(); setSent(!sent) }}
+                                            >confirm
                                             </button>
-                                            :
-                                            <button
-                                                className="btn btn-primary">
-                                                Orden Enviada!
-                                        </button>
-                                    }
+                                            : sent === true && store.enviado === false ?
+                                                <button
+                                                    className="btn btn-primary">
+                                                    <div className="spinner-border" role="status">
+                                                        <span className="sr-only">Loading...</span>
+                                                    </div>
+                                                </button>
+                                                :
+                                                <button
+                                                    className="btn btn-success" disabled>
+                                                    Orden Enviada!
+                                            </button>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="col" style={{ height: "250px" }}>
+                                <div className="row">
+                                    <div className="col" style={{ height: "250px" }}>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </>
-                        :
-                        <>
-                            <div className="row">
-                                <div className="col d-flex justify-content-center">
-                                    <h1>para ver tu carrito de compra</h1>
+                            </>
+                            :
+                            <>
+                                <div className="row">
+                                    <div className="col d-flex justify-content-center">
+                                        <h1>para ver tu carrito de compra</h1>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="col d-flex justify-content-center m-0">
-                                    <img
-                                        src={require("../resource/img/lock.png")}
-                                        height="450px"
-                                        alt="LOCK" />
+                                <div className="row">
+                                    <div className="col d-flex justify-content-center m-0">
+                                        <img
+                                            src={require("../resource/img/lock.png")}
+                                            height="450px"
+                                            alt="LOCK" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="col d-flex justify-content-center">
-                                    <h1>debes hacer login con una cuenta de usuario</h1>
+                                <div className="row">
+                                    <div className="col d-flex justify-content-center">
+                                        <h1>debes hacer login con una cuenta de usuario</h1>
+                                    </div>
                                 </div>
-                            </div>
-                        </>
-                }
+                            </>
+                    }
+                    </div>
+                </div>
             </div>
         </>
     )

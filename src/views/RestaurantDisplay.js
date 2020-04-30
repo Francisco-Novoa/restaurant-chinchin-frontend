@@ -20,25 +20,24 @@ export default function RestaurantDisplay({ ...props }) {
             <div className="container fondo">
                
                 <div className="row pt-3">
-                    <div className="col-md-12 p-3">
+                    <div className="col-md-8 p-3">
                         <h5>Restaurant</h5>
                         <hr></hr>
                     </div>
+                    <div className="col-md-4 p-3">
+                    </div>
+
                 </div>
                 <div className="row">
                     <div className="col-md-12">                        
-                        <RestaurantInfo />                                                
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12">                 
+                    <div className="col-md-12">                                                                 
                         <RestaurantProducts />                        
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col" style={{ height: "250px" }}>
-                       
-                    </div>
+                <div className="row mb-5">
                 </div>
             </div>
         </>
