@@ -16,7 +16,7 @@ export default function TableRowShopping(props) {
         newLocal.amount = local.amount + 1
         setLocal(newLocal)
         props.reload(props.value+1)
-        actions.updateShoppingCart("+",store.shoppingCart,props.i)
+        actions.updateShoppingCart("+",store.shoppingCart,props.i,local.amount)
     }
 
     const handleMinus = () => {
@@ -24,7 +24,7 @@ export default function TableRowShopping(props) {
         newLocal.amount = local.amount - 1
         setLocal(newLocal)
         props.reload(props.value-1)
-        actions.updateShoppingCart("-",store.shoppingCart,props.i)
+        actions.updateShoppingCart("-",store.shoppingCart,props.i,local.amount)
     }
 
 

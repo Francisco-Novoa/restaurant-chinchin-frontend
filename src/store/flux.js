@@ -453,13 +453,13 @@ export default function getState({ getStore, getActions, setStore }) {
                     setStore({ shoppingCart: aux })
                 }
             },
-            updateShoppingCart: (action, cart, index) => {
+            updateShoppingCart: (action, cart, index,amount) => {
                 let newcart = [...cart]
                 if (action === "+") {
-                    newcart[index].amount = cart[index].amount + 1
+                    newcart[index].amount = amount + 1
                 }
-                if (action === "-" && newcart[index] > 0) {
-                    newcart[index].amount = cart[index].amount - 1
+                if (action === "-" && newcart[index].amount >= 0) {
+                    newcart[index].amount = amount - 1
                 }
                 setStore({ shoppingCart: newcart })
             },

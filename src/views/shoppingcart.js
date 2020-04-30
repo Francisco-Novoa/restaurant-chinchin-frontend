@@ -94,7 +94,7 @@ export default function ShoppingCart() {
                                                 <th colSpan="5"  className="text-right pr-5" >
                                                     <span>Total: </span>
                                                 </th>
-                                                <td colSpan="1"  className="text-right pr-5">
+                                                <td>
 
                                                     <span>{local.total}</span>
                                                 </td>
