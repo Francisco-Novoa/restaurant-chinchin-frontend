@@ -24,7 +24,7 @@ export default function getState({ getStore, getActions, setStore }) {
             allProducts: [],
             shoppingCart: [],
             orders: [],
-            enviado:false,
+            enviado: false,
             restaurant: "",
             email_confirm_success: null,
             email_confirm_msg: null,
@@ -38,7 +38,7 @@ export default function getState({ getStore, getActions, setStore }) {
             allrest: [],
             search: null,
             view: 0,
-            contentofRest:[],
+            contentofRest: [],
         },
         actions: {
             //actions go here.
@@ -379,8 +379,8 @@ export default function getState({ getStore, getActions, setStore }) {
                 }
             },
             updateUser: async (url, body) => {
-                let newbody={...body}
-                newbody.name=body.name.replace(/ /g, '_')
+                let newbody = { ...body }
+                newbody.name = body.name.replace(/ /g, '_')
                 try {
                     const all = await fetch(url, {
                         method: "PUT",
@@ -453,7 +453,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     setStore({ shoppingCart: aux })
                 }
             },
-            updateShoppingCart: (action, cart, index,amount) => {
+            updateShoppingCart: (action, cart, index, amount) => {
                 let newcart = [...cart]
                 if (action === "+") {
                     newcart[index].amount = amount + 1
@@ -665,11 +665,11 @@ export default function getState({ getStore, getActions, setStore }) {
                         body: JSON.stringify(body)
                     })
                     const data = await all.json()
-                    if (data.msg){
+                    if (data.msg) {
                         alert(data.msg)
                     }
-                    else{
-                        setStore({enviado:true})
+                    else {
+                        setStore({ enviado: true })
                     }
                 }
                 catch (error) {
@@ -696,21 +696,28 @@ export default function getState({ getStore, getActions, setStore }) {
                         headers: { "Content-Type": "application/json" },
                     })
                     const data = await all.json()
-                    console.log(data)
-                    if (data.msg == "ok") {
+                    if (data.msg==="completada"||
+                        data.msg==="rechazada"||
+                        data.msg==="cancelada") {
+                        console.log(data.msg)
                         let oldStore = [...orders]
-                        oldStore[i].done = true
+                        oldStore[i].done = data.msg
+                        oldStore[i]["date_finalization"] = data.date
                         setStore({ orders: oldStore })
+                        }
+                    else{
+                        console.log(data.msg)
                     }
+                    
                 } catch (error) {
                     console.log(error)
                 }
             },
-            enviadoCleanup:()=>{
+            enviadoCleanup: () => {
 
-                setStore({enviado:false})
+                setStore({ enviado: false })
             },
-            getAllUsers: () =>{
+            getAllUsers: () => {
                 const store = getStore();
                 fetch(store.path + '/users', {
                     method: "GET",
@@ -726,7 +733,7 @@ export default function getState({ getStore, getActions, setStore }) {
                         console.log(store.allusers)
                     })
             },
-            getAllProducts: () =>{
+            getAllProducts: () => {
                 const store = getStore();
                 fetch(store.path + '/product', {
                     method: "GET",
@@ -755,9 +762,9 @@ export default function getState({ getStore, getActions, setStore }) {
                     .then(data => {
                         console.log(data)
                         getActions().DeleteRestForAdmin()
-                    })   
+                    })
             },
-            DeleteRestForAdmin: () =>{
+            DeleteRestForAdmin: () => {
                 const store = getStore();
                 fetch(store.path + '/restaurantusers', {
                     method: "GET",
@@ -773,7 +780,7 @@ export default function getState({ getStore, getActions, setStore }) {
                         console.log(store.allrest)
                     })
             },
-            getAllInfoRest: (id) =>{
+            getAllInfoRest: (id) => {
                 const store = getStore();
                 fetch(store.path + '/product/from/' + id, {
                     method: "GET",

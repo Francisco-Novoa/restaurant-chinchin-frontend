@@ -4,21 +4,33 @@ import { Context } from '../../../src/store/appContext'
 
 export default function Order(props) {
     const { store, actions } = useContext(Context)
-    const [local, setLocal] = useState(true)
+    const [completing, setCompleting] = useState(false)
+    const [rejecting, setRejecting]= useState(false)
     const completeOrder = () => {
         actions.completeOrder(store.path + "/finish/" + props.elem.id_order, props.i, store.orders)
     }
 
+    const rejectOrder = () => {
+        actions.completeOrder(store.path + "/reject/" + props.elem.id_order, props.i, store.orders)
+    }
+
     useEffect(() => {
-        if (local === false) {
+        if (completing === true) {
             setTimeout(() => { completeOrder() }, 1000);
         }
-    }, [local])
+    }, [completing])
+
+    useEffect(() => {
+        if (rejecting === true) {
+            setTimeout(() => { rejectOrder() }, 1000);
+        }
+    }, [rejecting])
     return (
         <>
-            {(props.done === true && props.elem.done === true) ||
-                (props.done === null && props.elem.done === null) ||
-                (props.done === false && props.elem.done === false) ?
+            {(props.done === "en espera" && props.elem.done === "en espera") ||
+                (props.done === "completada" && props.elem.done === "completada") ||
+                (props.done === "rechazada" && props.elem.done === "rechazada")||
+                (props.done === "cancelada" && props.elem.done === "cancelada") ?
                 <table className="table table-bordered">
                     <tr>
                         <th colSpan="12" className=" text-left" >Orden Numero {props.i + 1}
@@ -38,11 +50,8 @@ export default function Order(props) {
                                         <span> en espera</span>
                             }
                         </td>
-                        <td>
-                            {
-                                props.elem.date
-                            }
-                        </td>
+                        <td> <span style={{ fontWeight: "bold" }} >fecha de creacion</span>: {props.elem.date_creation}</td>
+                        <td> <span style={{ fontWeight: "bold" }} >fecha de finalizacion</span>: {props.elem.date_finalization}</td>
                     </tr>
                     <tr >
                         <td colSpan="12">
@@ -80,28 +89,52 @@ export default function Order(props) {
                             {" " + props.elem.comment}
                         </td>
                     </tr>
-                    <tr >
-                        {
-                            (props.done === false && props.elem.done === false && local === true) ?
-                                <td colSpan="5" className="text-right " >
+                    <tr>
+                    <td colSpan="5" className="text-right " >
+                        <div className="btn-group">                        {
+                            (props.done === "en espera" && props.elem.done === "en espera" && completing === false) ?
+                                
                                     <a
-                                        class="btn btn-primary text-white"
+                                        class="btn btn-success text-white"
                                         role="button"
-                                        onClick={() => { setLocal(false) }}>
-                                        Hecho
+                                        onClick={() => { setCompleting(true) }}>
+                                        Completar
                                     </a>
-                                </td>
-                                : props.done === false && props.elem.done === false && local === false ?
-                                    <td colSpan="5" className="text-right " >
-                                        <button
-                                            className="btn btn-primary">
+                             
+                                : props.done === "en espera" && props.elem.done === "en espera" && completing === true ?
+                                   
+                                        <a
+                                            className="btn btn-success">
                                             <div class="spinner-border" role="status">
                                                 <span class="sr-only">Loading...</span>
                                             </div>
-                                        </button>
-                                    </td>
+                                        </a>
+                           
                                     : ""
                         }
+                        {
+                            (props.done === "en espera" && props.elem.done === "en espera" && rejecting === false) ?
+
+                                <a
+                                    class="btn btn-danger text-white"
+                                    role="button"
+                                    onClick={() => { setRejecting(true) }}>
+                                    Rechazar
+                                </a>
+
+                            : props.done === "en espera" && props.elem.done === "en espera" && rejecting === true ?
+ 
+                                    <a
+                                        className="btn btn-danger">
+                                        <div class="spinner-border" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </a>
+
+                                : ""
+                        }
+                        </div>
+                        </td>
                     </tr>
                 </table>
                 : ""

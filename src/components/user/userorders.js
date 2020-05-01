@@ -6,7 +6,7 @@ import Order from "./user_order_outer"
 
 export default function UserOrders(props) {
     const { store, actions } = useContext(Context)
-    const [local, setLocal] = useState(false)
+    const [local, setLocal] = useState("en espera")
 
 
 
@@ -37,7 +37,7 @@ export default function UserOrders(props) {
                                             <th scope="col">Ordenes</th>
                                         </thead>
                                         {
-                                            local === false ?
+                                            local === "en espera" ?
                                                 <div className="btn-group" role="group">
                                                     <a className="btn btn-primary text-white disabled"
                                                         role="button">
@@ -45,57 +45,97 @@ export default function UserOrders(props) {
                                                     </a>
                                                     <a className="btn btn-primary text-white"
                                                         role="button"
-                                                        onClick={() => { setLocal(null) }} >
+                                                        onClick={() => { setLocal("rechazada") }} >
+                                                        Ordenes rechazadas
+                                                    </a>
+                                                    <a className="btn btn-primary text-white"
+                                                        role="button"
+                                                        onClick={() => { setLocal("cancelada") }} >
                                                         Ordenes canceladas
                                                     </a>
                                                     <a className="btn btn-primary text-white "
                                                         role="button"
-                                                        onClick={() => { setLocal(true) }}>
+                                                        onClick={() => { setLocal("completada") }}>
                                                         Ordenes completadas
                                                     </a>
                                                 </div>
-                                                : local === null ?
-                                                    <div className="button-group">
-                                                        <a className="btn btn-primary text-white "
-                                                            role="button"
-                                                            onClick={() => { setLocal(false) }}  >
+                                                :
+                                                local === "completada" ?
+                                                    <div className="btn-group" role="group">
+                                                        <a className="btn btn-primary text-white"
+                                                            onClick={() => { setLocal("en espera") }}
+                                                            role="button">
                                                             Ordenes en espera
                                                         </a>
-                                                        <a className="btn btn-primary text-white disabled"
-                                                            role="button">
+                                                        <a className="btn btn-primary text-white"
+                                                            role="button"
+                                                            onClick={() => { setLocal("rechazada") }} >
+                                                            Ordenes rechazadas
+                                                        </a>
+                                                        <a className="btn btn-primary text-white"
+                                                            role="button"
+                                                            onClick={() => { setLocal("cancelada") }} >
                                                             Ordenes canceladas
                                                         </a>
-                                                        <a className="btn btn-primary text-white "
-                                                            role="button"
-                                                            onClick={() => { setLocal(true) }}>
+                                                        <a className="btn btn-primary text-white disabled "
+                                                            role="button">
                                                             Ordenes completadas
                                                         </a>
                                                     </div>
-                                                :
-                                                <div className="button-group">
-                                                    <a className="btn btn-primary text-white"
-                                                        role="button"
-                                                        onClick={() => { setLocal(false) }} >
-                                                        Ordenes en espera
-                                                    </a>
-                                                    <a className="btn btn-primary text-white"
-                                                        role="button"
-                                                        onClick={() => { setLocal(null) }} >
-                                                        Ordenes canceladas
-                                                    </a>
-                                                    <a className="btn btn-primary text-white disabled "
-                                                        role="button">
-                                                        Ordenes completadas
-                                                    </a>
-                                                </div>
-
+                                                    :
+                                                    local === "rechazada" ?
+                                                        <div className="btn-group" role="group">
+                                                            <a className="btn btn-primary text-white"
+                                                                onClick={() => { setLocal("en espera") }}
+                                                                role="button">
+                                                                Ordenes en espera
+                                                            </a>
+                                                            <a className="btn btn-primary text-white disabled"
+                                                                role="button">
+                                                                Ordenes rechazadas
+                                                            </a>
+                                                            <a className="btn btn-primary text-white"
+                                                                role="button"
+                                                                onClick={() => { setLocal("cancelada") }} >
+                                                                Ordenes canceladas
+                                                            </a>
+                                                            <a className="btn btn-primary text-white"
+                                                                onClick={() => { setLocal("completada") }}
+                                                                role="button">
+                                                                Ordenes completadas
+                                                            </a>
+                                                        </div>
+                                                        :
+                                                        local === "cancelada" ?
+                                                            <div className="btn-group" role="group">
+                                                                <a className="btn btn-primary text-white"
+                                                                    onClick={() => { setLocal("en espera") }}
+                                                                    role="button">
+                                                                    Ordenes en espera
+                                                                </a>
+                                                                <a className="btn btn-primary text-white"
+                                                                    role="button"
+                                                                    onClick={() => { setLocal("rechazada") }}>
+                                                                    Ordenes rechazadas
+                                                                </a>
+                                                                <a className="btn btn-primary text-white disabled"
+                                                                    role="button">
+                                                                    Ordenes canceladas
+                                                                </a>
+                                                                <a className="btn btn-primary text-white"
+                                                                    onClick={() => { setLocal("completada") }}
+                                                                    role="button">
+                                                                    Ordenes completadas
+                                                                </a>
+                                                            </div>
+                                                            :""
                                             }
 
                                         {/* Body */}
                                         <tbody>
                                             {
                                                 !!store.orders.length > 0 &&
-                                                store.orders.map((element, i) => {
+                                                store.orders.slice(0).reverse().map((element, i) => {
                                                     return (<>
                                                         <Order elem={element} i={i} key={i} done={local} />
 

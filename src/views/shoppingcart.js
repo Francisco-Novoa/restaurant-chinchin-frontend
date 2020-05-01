@@ -57,67 +57,6 @@ export default function ShoppingCart() {
     return (
         <>
             <NavbarDisplay />
-<<<<<<< HEAD
-            <div className="container">
-                {
-                    store.isAuthenticatedUser ?
-                        <>
-                            <RestaurantInfo />
-                            <div className="row">
-                                <div className="col">
-                                    <h1>the details of your order are here</h1>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <table className="table">
-                                        <thead className="thead-dark">
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Precio</th>
-                                                <th scope="col">Descripcion</th>
-                                                <th scope="col" style={{ textAlign: "center" }}>Cantidad</th>
-                                                <th scope="col">Subtotal    </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                !!store.shoppingCart &&
-                                                store.shoppingCart.map((element, i) => {
-                                                    return (<>
-                                                        <TableRowShopping i={i} key={i} reload={setRecalculate} value={recalculate} />
-                                                    </>
-                                                    )
-                                                })
-                                            }
-                                            <tr>
-                                                <th colSpan="5"  className="text-right pr-5" >
-                                                    <span>Total: </span>
-                                                </th>
-                                                <td>
-
-                                                    <span>{local.total}</span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col">
-                                    <div class="form-group">
-                                        <label for="comentarios">Añada comentarios a su orden</label>
-                                        <textarea
-                                            ref={firstRef}
-                                            className="form-control"
-                                            id="comentarios"
-                                            name="comentario"
-                                            onChange={(e) => { handleChange(e) }}
-                                            value={local.comentario}
-                                            rows="3">
-                                        </textarea>
-=======
             <div className="container fondo">
                 <div className="col-md-12">
                     <div className="card card-plain">
@@ -165,7 +104,6 @@ export default function ShoppingCart() {
                                                 </table>
                                             </div>
                                         </div>
->>>>>>> 8c5ad0eb723ebb936037aa555ece5c9600aa0451
                                     </div>
                                         <div className="row">
                                             <div className="col">

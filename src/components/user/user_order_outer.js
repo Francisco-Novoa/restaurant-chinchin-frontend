@@ -4,21 +4,22 @@ import { Context } from '../../../src/store/appContext'
 
 export default function Order(props) {
     const { store, actions } = useContext(Context)
-    const [local, setLocal] = useState(true)
+    const [loading,setLoading] = useState(false)
     const completeOrder = () => {
-        actions.completeOrder(store.path + "/cancel/" + props.elem.id_order, props.i, store.orders)
+        actions.completeOrder(store.path + "/cancel/" + props.elem.id_order, props.i, store.orders,null)
     }
     useEffect(() => {
-        if (local === false) {
+        if (loading === true) {
             setTimeout(() => { completeOrder() }, 1000);
         }
-    }, [local])
+    }, [loading])
 
     return (
         <>
-            {(props.done === true && props.elem.done === true) ||
-                (props.done === null && props.elem.done === null) ||
-                (props.done === false && props.elem.done === false) ?
+            {(props.done === "en espera" && props.elem.done === "en espera") ||
+                (props.done === "completada" && props.elem.done === "completada") ||
+                (props.done === "rechazada" && props.elem.done === "rechazada")||
+                (props.done === "cancelada" && props.elem.done === "cancelada") ?
                 <table className="table mb-3 table-bordered">
                     <tr>
                         <th colSpan="12" className="tabla-fondo text-left" >Orden Numero {props.i + 1}
@@ -29,20 +30,20 @@ export default function Order(props) {
                         <td> <span style={{ fontWeight: "bold" }} >Telefono: </span> {props.elem.user_phone} </td>
                         <td> <span style={{ fontWeight: "bold" }} >Estado de la orden: </span>
                             {
-                                props.elem.done === true ?
-                                    <span > hecho</span>
+                                props.elem.done === "cancelado" ?
+                                    <span > Cancelado por usuario</span>
                                     :
-                                    props.elem.done === null ?
-                                        <span > cancelado por usuario</span>
+                                    props.elem.done === "rechazado" ?
+                                        <span > Cancelado por restoran</span>
                                         :
-                                        <span> en espera</span>
+                                        props.elem.done === "completada" ?
+                                        <span> Completado</span>
+                                        :
+                                        <span> En espera</span>
                             }
                         </td>
-                        <td>
-                            {
-                                props.elem.date
-                            }
-                        </td>
+                        <td> <span style={{ fontWeight: "bold" }} >fecha de creacion</span>: {props.elem.date_creation}</td>
+                        <td> <span style={{ fontWeight: "bold" }} >fecha de finalizacion</span>: {props.elem.date_finalization}</td>
                     </tr>
                     <tr >
                         <td colSpan="12">
@@ -81,16 +82,16 @@ export default function Order(props) {
                         </td>
                     </tr>
                     <tr >
-                        {(props.done === false && props.elem.done === false && local === true) ?
+                        {(props.done === "en espera" && props.elem.done === "en espera" && loading === false) ?
                                 <td colSpan="5" className="text-right " >
                                     <a
                                         class="btn btn-danger text-white"
                                         role="button"
-                                        onClick={() => { setLocal(false) }}>
+                                        onClick={() => { setLoading(true) }}>
                                         Cancelar
                                     </a>
                                 </td>
-                                : props.done === false && props.elem.done === false && local === false ?
+                                : props.done === "en espera" && props.elem.done === "en espera" && loading === true ?
                                     <td colSpan="5" className="text-right " >
                                         <button
                                             className="btn btn-danger">
@@ -101,8 +102,6 @@ export default function Order(props) {
                                     </td>
                                     :""
                         }
-
-
                     </tr>
                 </table>
                 : ""
