@@ -31,8 +31,9 @@ const Admin = (props) => {
                     <td>{data.phone}</td>
                     <td>{data.address}</td>
                     <td>
-                        <button id={data.id} onClick={(e) => { if (window.confirm('Are you sure you want to delete this restaurant?')) actions.deleteRestaurant(e.target.id) }}>Delete</button>
-                        <button id={data.id} onClick={(e) => actions.getAllInfoRest(e.target.id)}>More</button>
+                        <button className="btn btn-danger btn-sm" id={data.id} onClick={(e) => { if (window.confirm('Are you sure you want to delete this restaurant?')) actions.deleteRestaurant(e.target.id) }}><i className="far fa-trash-alt"></i></button>
+                        <button className="btn btn-info btn-sm" id={data.id} onClick={(e) => actions.getAllInfoRest(e.target.id)}>
+                            <i className="fas fa-info-circle" id={data.id} onClick={(e) => actions.getAllInfoRest(e.target.id)}></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -174,7 +175,7 @@ const Admin = (props) => {
                                                         <li className="nav-item" onClick={() => actions.LogoutRestaurant()}>
                                                             <a className="nav-link" href="" onClick={() => actions.Logout()}>
                                                                 Logout
-                                            <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.LogoutRestaurant()}></i>
+                                                            <i className="fas fa-sign-out-alt ml-3" onClick={() => actions.LogoutRestaurant()}></i>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -188,51 +189,74 @@ const Admin = (props) => {
                                                         <>
                                                             {local.user &&
                                                                 <div className="container-fluid">
-                                                                    <table className="table table-bordered table-light">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>id</th>
-                                                                                <th>Name</th>
-                                                                                <th>Email</th>
-                                                                                <th>Phone</th>
-                                                                                <th>Address</th>
-                                                                                <th>Delete</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        {items}
-                                                                    </table>
+                                                                    <div className="col-md-12 fondo">
+                                                                        <div className="card card-plain ">
+                                                                            <div className="card-header card-header-success">
+                                                                                <h4 className="card-title mt-0"><i className="fas fa-home"></i> Lista de Restaurantes</h4>
+                                                                                <p className="card-category">Total de Restaurantes: {items.length}</p>
+                                                                            </div>
+                                                                            <div className="card-body">
+                                                                                <div className="table-responsive">
+                                                                                    <table className="table table-hover">
+                                                                                        <thead>
+                                                                                            <tr className="bg-dark text-white">
+                                                                                                <th>ID </th>
+                                                                                                <th>Name</th>
+                                                                                                <th>Email</th>
+                                                                                                <th>Phone</th>
+                                                                                                <th>Address</th>
+                                                                                                <th>Options</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        {items}
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             }
 
                                                         </>
                                                         :
-                                                            <>
-                                                        <h1>Info About Restaurant</h1>
-                                                        <div className="container-fluid">
-                                                            <table className="table table-bordered table-light">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Description</th>
-                                                                        <th>Name of product</th>
-                                                                        <th>Price</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                {store.contentofRest.length > 0 &&
-                                                                    store.contentofRest.map((item, i) => {
-                                                                        return (
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td>{item.description}</td>
-                                                                                    <td>{item.name_product}</td>
-                                                                                    <td>{item.price}</td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </table>
-                                                        </div>
-                                                      </>          
+                                                        <>
+
+                                                            <div className="container-fluid">
+                                                                <div className="col-md-12 fondo">
+                                                                    <div className="card card-plain ">
+                                                                        <div className="card-header card-header-success">
+                                                                            <h4 className="card-title mt-0"><i className="fas fa-home"></i> Info About Restaurant</h4>
+                                                                        </div>
+                                                                        <div className="card-body">
+                                                                            <div className="table-responsive">
+                                                                                <table className="table table-hover text-center">
+                                                                                    <thead>
+                                                                                        <tr className="bg-dark text-white">
+                                                                                            <th>Description</th>
+                                                                                            <th>Name of product</th>
+                                                                                            <th>Price</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    {store.contentofRest.length > 0 &&
+                                                                                        store.contentofRest.map((item, i) => {
+                                                                                            return (
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td>{item.description}</td>
+                                                                                                        <td>{item.name_product}</td>
+                                                                                                        <td className="text-success">$ {item.price}</td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            )
+                                                                                        })
+                                                                                    }
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </>
                                                 }
 
 
@@ -240,33 +264,45 @@ const Admin = (props) => {
                                                     local.product ?
                                                         <>
                                                             <div className="container-fluid">
-                                                                <table className="table table-bordered table-light">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>id</th>
-                                                                            <th>Name</th>
-                                                                            <th>Descriprion</th>
-                                                                            <th>Price</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    {
-                                                                        store.allproducts.length > 0 &&
-                                                                        store.allproducts.map((item, i) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td>{item.id_product}</td>
-                                                                                            <td>{item.name_product}</td>
-                                                                                            <td>{item.description}</td>
-                                                                                            <td>{item.price}</td>
+                                                                <div className="col-md-12 fondo">
+                                                                    <div className="card card-plain ">
+                                                                        <div className="card-header card-header-info">
+                                                                            <h4 className="card-title mt-0"><i className="fas fa-boxes"></i> Lista de Productos</h4>
+                                                                            <p className="card-category">Total de Productos: {store.allproducts.length}</p>
+                                                                        </div>
+                                                                        <div className="card-body">
+                                                                            <div className="table-responsive">
+                                                                                <table className="table table-hover">
+                                                                                    <thead>
+                                                                                        <tr className="bg-dark text-white">
+                                                                                            <th>id</th>
+                                                                                            <th>Name</th>
+                                                                                            <th>Descriprion</th>
+                                                                                            <th>Price</th>
                                                                                         </tr>
-                                                                                    </tbody>
-                                                                                </>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                </table>
+                                                                                    </thead>
+                                                                                    {
+                                                                                        store.allproducts.length > 0 &&
+                                                                                        store.allproducts.map((item, i) => {
+                                                                                            return (
+                                                                                                <>
+                                                                                                    <tbody>
+                                                                                                        <tr>
+                                                                                                            <td>{item.id_product}</td>
+                                                                                                            <td>{item.name_product}</td>
+                                                                                                            <td>{item.description}</td>
+                                                                                                            <td>$ {item.price}</td>
+                                                                                                        </tr>
+                                                                                                    </tbody>
+                                                                                                </>
+                                                                                            )
+                                                                                        })
+                                                                                    }
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </>
                                                         : ""
@@ -275,33 +311,45 @@ const Admin = (props) => {
                                                     local.orders ?
                                                         <>
                                                             <div className="container-fluid">
-                                                                <table className="table table-bordered table-light">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>id</th>
-                                                                            <th>Name</th>
-                                                                            <th>Email</th>
-                                                                            <th>Phone</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    {
-                                                                        store.allusers.length > 0 &&
-                                                                        store.allusers.map((item, i) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td>{item.id}</td>
-                                                                                            <td>{item.name}</td>
-                                                                                            <td>{item.email}</td>
-                                                                                            <td>{item.phone}</td>
+                                                                <div className="col-md-12 fondo">
+                                                                    <div className="card card-plain ">
+                                                                        <div className="card-header card-header-warning">
+                                                                            <h4 className="card-title mt-0"><i className="fas fa-boxes"></i> Lista de Usuarios</h4>
+                                                                            <p className="card-category">Total de Usuarios: {store.allusers.length}</p>
+                                                                        </div>
+                                                                        <div className="card-body">
+                                                                            <div className="table-responsive">
+                                                                                <table className="table table-hover">
+                                                                                    <thead>
+                                                                                        <tr className="bg-dark text-white">
+                                                                                            <th>id</th>
+                                                                                            <th>Name</th>
+                                                                                            <th>Email</th>
+                                                                                            <th>Phone</th>
                                                                                         </tr>
-                                                                                    </tbody>
-                                                                                </>
-                                                                            )
-                                                                        })
-                                                                    }
-                                                                </table>
+                                                                                    </thead>
+                                                                                    {
+                                                                                        store.allusers.length > 0 &&
+                                                                                        store.allusers.map((item, i) => {
+                                                                                            return (
+                                                                                                <>
+                                                                                                    <tbody>
+                                                                                                        <tr>
+                                                                                                            <td>{item.id}</td>
+                                                                                                            <td>{item.name}</td>
+                                                                                                            <td>{item.email}</td>
+                                                                                                            <td>{item.phone}</td>
+                                                                                                        </tr>
+                                                                                                    </tbody>
+                                                                                                </>
+                                                                                            )
+                                                                                        })
+                                                                                    }
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </>
                                                         : ""

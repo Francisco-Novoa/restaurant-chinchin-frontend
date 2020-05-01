@@ -30,7 +30,7 @@ export default function NavbarRest() {
                             <>
                                 <li className="nav-item">
                                     <a
-                                        className='nav-link btn btn-primary text-white-50'
+                                        className='nav-link btn btn-primary text-white'
                                         data-toggle="modal"
                                         data-target="#modal_login_restaurant"
                                         onClick={()=>{setLogin(!login)}}
@@ -41,7 +41,7 @@ export default function NavbarRest() {
                                 <li className="nav-item">
                                     
                                     <a
-                                        className='nav-link btn btn-primary text-white-50'
+                                        className='nav-link btn btn-primary text-white'
                                         data-toggle="modal"
                                         data-target="#modal_register_restaurant"
                                         onClick={()=>{setRegister(!register)}}>
