@@ -16,10 +16,10 @@ export default function OwnerSideMenu(props) {
     const [modal,setModal]=useState(false)
 
     useEffect(() => {
-        const newlocal = { ...local }
+        if(trigger===true){const newlocal = { ...local }
         newlocal.user = store.currentRestaurant.restaurantuser
         setLocal(newlocal)
-        actions.getAllProductsOf(store.path +"/product/from/" + newlocal.user.id)
+        actions.getAllProductsOf(store.path +"/product/from/" + newlocal.user.id)}
     }, [trigger])
 
     return (
