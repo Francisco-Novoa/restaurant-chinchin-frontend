@@ -39,6 +39,7 @@ export default function getState({ getStore, getActions, setStore }) {
             search: null,
             view: 0,
             contentofRest: [],
+            file: ""
         },
         actions: {
             //actions go here.
@@ -696,19 +697,19 @@ export default function getState({ getStore, getActions, setStore }) {
                         headers: { "Content-Type": "application/json" },
                     })
                     const data = await all.json()
-                    if (data.msg==="completada"||
-                        data.msg==="rechazada"||
-                        data.msg==="cancelada") {
+                    if (data.msg === "completada" ||
+                        data.msg === "rechazada" ||
+                        data.msg === "cancelada") {
                         console.log(data.msg)
                         let oldStore = [...orders]
                         oldStore[i].done = data.msg
                         oldStore[i]["date_finalization"] = data.date
                         setStore({ orders: oldStore })
-                        }
-                    else{
+                    }
+                    else {
                         console.log(data.msg)
                     }
-                    
+
                 } catch (error) {
                     console.log(error)
                 }
@@ -796,6 +797,24 @@ export default function getState({ getStore, getActions, setStore }) {
                         })
                         console.log(data)
                     })
+            },
+            uploadFile: async (url, file,ready) => {
+                try {
+                    let formData = new FormData()
+                    formData.append("photo", file)
+                    const all = await fetch(url, {
+                        method: "PUT",
+                        body: formData
+                    })
+                    const data = await all.json()
+                    if (data.msg=="ok"){
+                        ready(true)
+                    }
+                    setStore({ orders: data })
+
+                } catch (error) {
+                    console.log(error)
+                }
             },
         }
     }

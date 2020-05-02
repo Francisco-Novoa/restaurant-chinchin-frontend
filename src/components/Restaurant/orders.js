@@ -28,10 +28,9 @@ export default function OwnerOrders(props) {
                                 <div className="table-responsive">
 
                                     {/* Product Table */}
-                                    <table className="table table-hover text-center">
-
+                                    <table className="table table-hover">
                                         {/* Header */}
-                                        <thead className="text-primary">
+                                        <thead className="text-primary text-justify">
                                             <th scope="col">Ordenes</th>
                                         </thead>
                                         {
@@ -130,7 +129,7 @@ export default function OwnerOrders(props) {
                                         }
 
                                         {/* Body */}
-                                        <tbody>
+                                      
                                             {
                                                 !!store.orders.length > 0 &&
                                                 store.orders.slice(0).reverse().map((element, i) => {
@@ -141,7 +140,6 @@ export default function OwnerOrders(props) {
                                                     )
                                                 })
                                             }
-                                        </tbody>
                                     </table>
                                 </div>
                             </div>

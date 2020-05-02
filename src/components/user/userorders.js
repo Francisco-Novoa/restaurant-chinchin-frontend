@@ -133,6 +133,7 @@ export default function UserOrders(props) {
 
                                         {/* Body */}
                                         <tbody>
+                                            <tr>
                                             {
                                                 !!store.orders.length > 0 &&
                                                 store.orders.slice(0).reverse().map((element, i) => {
@@ -143,6 +144,7 @@ export default function UserOrders(props) {
                                                     )
                                                 })
                                             }
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <div className="row mb-5"></div>

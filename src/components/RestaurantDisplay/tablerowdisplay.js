@@ -5,7 +5,8 @@ export default function TableRowDisplay(props) {
     const { store, actions } = useContext(Context)
     const [local, setLocal] = useState(
         {
-            amount: 0
+            amount: 0,
+            path:"http://localhost:5000/product/img/"+props.elem.photo
         }
     )
 
@@ -34,6 +35,8 @@ export default function TableRowDisplay(props) {
         actions.addShoppingCart(item, store.shoppingCart)
     }
 
+
+
     return (
         <>
 
@@ -43,6 +46,11 @@ export default function TableRowDisplay(props) {
                         <h3 className="card-title">{props.elem.name_product}</h3>
                     </div>
                     <div className="card-body">
+                        <img src={local.path}
+                             height="250px"
+                             width="250px"
+                             alt={props.elem.description} />
+                        
                         <p className="card-text d-flex justify-content-between"><span style={{ fontWeight: "bold" }}> Descripcion: </span>
                         <span>{props.elem.description}</span></p>
                         <p className="card-text d-flex justify-content-between"> <span style={{ fontWeight: "bold" }}> Precio: $ </span> 

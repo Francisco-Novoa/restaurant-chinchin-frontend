@@ -13,7 +13,7 @@ export default function Order(props) {
             setTimeout(() => { completeOrder() }, 1000);
         }
     }, [loading])
-
+    useEffect(()=>{console.log(props.elem)},[])
     return (
         <>
             {(props.done === "en espera" && props.elem.done === "en espera") ||
@@ -30,16 +30,18 @@ export default function Order(props) {
                         <td> <span style={{ fontWeight: "bold" }} >Telefono: </span> {props.elem.user_phone} </td>
                         <td> <span style={{ fontWeight: "bold" }} >Estado de la orden: </span>
                             {
-                                props.elem.done === "cancelado" ?
+                                props.elem.done === "cancelada" ?
                                     <span > Cancelado por usuario</span>
                                     :
-                                    props.elem.done === "rechazado" ?
+                                    props.elem.done === "rechazada" ?
                                         <span > Cancelado por restoran</span>
                                         :
                                         props.elem.done === "completada" ?
                                         <span> Completado</span>
                                         :
+                                        props.elem.done === "en espera"?
                                         <span> En espera</span>
+                                        :""
                             }
                         </td>
                         <td> <span style={{ fontWeight: "bold" }} >fecha de creacion</span>: {props.elem.date_creation}</td>

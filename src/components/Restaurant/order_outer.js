@@ -41,13 +41,19 @@ export default function Order(props) {
                         <td> <span style={{ fontWeight: "bold" }} >Telefono: </span> {props.elem.user_phone} </td>
                         <td> <span style={{ fontWeight: "bold" }} >Estado de la orden: </span>
                             {
-                                props.elem.done === true ?
-                                    <span > hecho</span>
-                                    :
-                                    props.elem.done === null ?
-                                        <span > cancelado por usuario</span>
-                                        :
-                                        <span> en espera</span>
+                               
+                               props.elem.done === "cancelada" ?
+                               <span > Cancelado por usuario</span>
+                               :
+                               props.elem.done === "rechazada" ?
+                                   <span > Cancelado por restoran</span>
+                                   :
+                                   props.elem.done === "completada" ?
+                                   <span> Completado</span>
+                                   :
+                                   props.elem.done === "en espera"?
+                                   <span> En espera</span>
+                                   :""
                             }
                         </td>
                         <td> <span style={{ fontWeight: "bold" }} >fecha de creacion</span>: {props.elem.date_creation}</td>
@@ -56,6 +62,7 @@ export default function Order(props) {
                     <tr >
                         <td colSpan="12">
                             <table className="table" >
+                                <tbody> 
                                 <tr>
                                     <th>#</th>
                                     <th>Id del Producto</th>
@@ -72,6 +79,7 @@ export default function Order(props) {
                                         )
                                     })
                                 }
+                                </tbody>
                             </table>
                         </td>
                     </tr>

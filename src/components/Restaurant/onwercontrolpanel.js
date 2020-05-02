@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Context } from "../../../src/store/appContext";
+import UploadButton from "./upload_file_button";
+import RestaurantCard from "./restaurant_card";
 
 export default function ControlPanel(props) {
     const { store, actions } = useContext(Context);
@@ -12,6 +14,7 @@ export default function ControlPanel(props) {
         address: false,
         email: false,
         user: {},
+        path: "http://localhost:5000/restaurant/img/" + store.currentRestaurant.restaurantuser.logo
     });
 
     const handleEditButton = (nombre, ref) => {
@@ -107,11 +110,11 @@ export default function ControlPanel(props) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="col-md-4 d-flex justify-content-end" > 
+                                            <div className="col-md-4 d-flex justify-content-end" >
                                                 {local.name ?
                                                     <>
                                                         <a className="btn btn-outline-secondary btn-sm mt-4 text-primary "
-                                                        
+
                                                             role="button"
                                                             onClick={() => { handleSave() }} >
                                                             <i className="fas fa-save fa-2x mt-2" ></i>
@@ -250,6 +253,20 @@ export default function ControlPanel(props) {
                                                 </div>
                                             </div>
                                         </div>
+                                        {/* Form Group Logo */}
+                                        <div className="row mb-3">
+                                            <div className="col-md-4">
+                                                <label className="bmd-label-floating text-primary mb-3">Logo Corporativo</label>
+                                                <p>esto es un preview</p>
+                                                <small>puede que necesites hacer un logout para ver los efectos</small> </div>
+                                            <div className="col-md-4 border bg-light">
+                                                <RestaurantCard restaurant={store.currentRestaurant.restaurantuser} />
+                                            </div>
+                                            <div className="col-md-4 d-flex justify-content-start align-items-end">
+                                                <UploadButton id={store.currentRestaurant.restaurantuser.id} mode={"restaurant"} />
+                                            </div>
+                                        </div>
+
                                     </form>
                                 </div>
                             </div>

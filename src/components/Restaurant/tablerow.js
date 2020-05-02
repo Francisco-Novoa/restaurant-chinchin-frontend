@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
 import { Context } from '../../../src/store/appContext'
 import ModalDelete from './modaldelete'
+import UploadButton from './upload_file_button'
 
 export default function TableRow(props) {
     const { actions } = useContext(Context)
@@ -82,16 +83,19 @@ export default function TableRow(props) {
                             <td scope="col">
                                 <a className="btn btn-outline-secondary py-1 px-2"
                                     role="button"
-                                    onClick={() => { handleSaveButton() }} >
-                                    <i className="fas fa-save fa-2x" ></i>
+                                    onClick={() => { handleEditButton() }} >
+                                    <i className="fas fa-minus-circle text-warning fa-2x" ></i>
                                 </a>
                             </td>
                             <td scope="col">
                                 <a className="btn btn-outline-secondary py-1 px-2"
                                     role="button"
-                                    onClick={() => { handleEditButton() }} >
-                                    <i className="fas fa-minus-circle text-warning fa-2x" ></i>
+                                    onClick={() => { handleSaveButton() }} >
+                                    <i className="fas fa-save fa-2x" ></i>
                                 </a>
+                            </td>
+                            <td scope="col">
+                                <UploadButton id={props.elem.id_product} mode={"product"}/>
                             </td>
                             <td scope="col">
                                 <a className="btn btn-outline-secondary py-1 px-2"
