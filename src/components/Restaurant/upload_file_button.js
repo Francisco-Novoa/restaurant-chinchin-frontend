@@ -20,8 +20,14 @@ export default function UploadButton(props) {
 
     useEffect(()=>{
         if (ready===true){
-            props.setTrigger(true)
+            if (props.mode == "restaurant"){
+                props.setTrigger(true)
             setTimeout(() => { setReady(null);props.setTrigger(false) }, 1000);
+            }
+            if (props.mode == "product"){
+                props.setTrigger(true)
+                setTimeout(() => { setReady(null);props.setTrigger(false) }, 1000);
+            }
         }
     },[ready])
 

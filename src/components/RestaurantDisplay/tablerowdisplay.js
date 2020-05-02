@@ -51,8 +51,8 @@ export default function TableRowDisplay(props) {
                              width="250px"
                              alt={props.elem.description} />
                         
-                        <p className="card-text d-flex justify-content-between"><span style={{ fontWeight: "bold" }}> Descripcion: </span>
-                        <span>{props.elem.description}</span></p>
+                        <p className="card-text d-flex justify-content-between"><span style={{ fontWeight: "bold", marginRight: "3px" }}> Descripcion: </span>
+                        <span>{props.elem.description} </span></p>
                         <p className="card-text d-flex justify-content-between"> <span style={{ fontWeight: "bold" }}> Precio: $ </span> 
                         {props.elem.price}</p>
                         <div className="d-flex justify-content-between">

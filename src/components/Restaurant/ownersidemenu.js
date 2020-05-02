@@ -7,6 +7,7 @@ import NewProduct from '../modal_new_product'
 
 export default function OwnerSideMenu(props) {
     const { store, actions } = useContext(Context)
+    const [trigger,setTrigger] = useState(false)
     const [local, setLocal] = useState(
         {
             user: false,
@@ -14,13 +15,12 @@ export default function OwnerSideMenu(props) {
     )
     const [modal,setModal]=useState(false)
 
-
     useEffect(() => {
         const newlocal = { ...local }
         newlocal.user = store.currentRestaurant.restaurantuser
         setLocal(newlocal)
         actions.getAllProductsOf(store.path +"/product/from/" + newlocal.user.id)
-    }, [])
+    }, [trigger])
 
     return (
         <>
@@ -43,6 +43,7 @@ export default function OwnerSideMenu(props) {
                                     {/* Header */}
                                     <thead className="text-primary">
                                         <th scope="col">#</th>
+                                        <th scope="col">Preview</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Precio</th>
                                         <th scope="col">Descripcion</th>
@@ -54,7 +55,7 @@ export default function OwnerSideMenu(props) {
                                             !!store.allProducts &&
                                             store.allProducts.map((element, i) => {
                                                 return (<>
-                                                    <TableRow elem={element} i={i} key={i} />
+                                                    <TableRow elem={element} i={i} key={i} setTrigger={setTrigger} />
 
                                                 </>
                                                 )

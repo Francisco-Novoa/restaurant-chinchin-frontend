@@ -395,7 +395,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-            newProduct: async (url, body) => {
+            newProduct: async (url, body,allProducts,url2) => {
                 try {
                     const all = await fetch(url, {
                         method: "POST",
@@ -403,8 +403,10 @@ export default function getState({ getStore, getActions, setStore }) {
                         body: JSON.stringify(body)
                     })
                     const result = await all.json()
-                    console.log(result)
-                    return result
+                    if(result.msg==="producto registrado"){
+                        allProducts(url2)
+                    }
+                    return result.msg
                 }
                 catch (error) {
                     console.log(error)

@@ -26,8 +26,12 @@ export default function NewProduct(props) {
         setLocal(newlocal)
     }
     const handleSubmit = () => {
-        actions.newProduct("http://localhost:5000/product", local.body)
-        actions.getAllProductsOf("http://localhost:5000/product/from/" + local.body.id_restaurant)
+        actions.newProduct("http://localhost:5000/product",
+        local.body,
+        actions.getAllProductsOf,
+        "http://localhost:5000/product/from/" + local.body.id_restaurant)
+
+
         const newlocal = {
             body: {
                 name_product: "",

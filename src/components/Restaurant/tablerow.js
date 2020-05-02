@@ -12,6 +12,7 @@ export default function TableRow(props) {
         {
             edit: false,
             user: props.elem,
+            small: true
         }
     )
     const handleChange = (e) => {
@@ -22,6 +23,12 @@ export default function TableRow(props) {
     const handleEditButton = () => {
         const newlocal = { ...local }
         newlocal.edit = !local.edit
+        newlocal.user = { ...props.elem }
+        setLocal(newlocal)
+    }
+    const handleSmall = () => {
+        const newlocal = { ...local }
+        newlocal.small = !local.small
         newlocal.user = { ...props.elem }
         setLocal(newlocal)
     }
@@ -53,10 +60,27 @@ export default function TableRow(props) {
     return (
         <>
             <tr>
+
                 {
                     local.edit ?
                         <>
                             <th scope="row" key={props.i}>{props.i + 1}</th>
+                            <td>
+                                {local.small ?
+                                    <img src={"http://localhost:5000/product/img/" + props.elem.photo}
+                                        height="50px"
+                                        width="50px"
+                                        onClick={() => { handleSmall() }}
+                                        alt={props.elem.description} />
+                                    :
+                                    <img src={"http://localhost:5000/product/img/" + props.elem.photo}
+                                        height="200px"
+                                        width="200px"
+                                        onClick={() => { handleSmall() }}
+                                        alt={props.elem.description} />
+
+                                }
+                            </td>
                             <td><input type="text"
                                 name="name_product"
                                 value={local.user.name_product}
@@ -95,13 +119,13 @@ export default function TableRow(props) {
                                 </a>
                             </td>
                             <td scope="col">
-                                <UploadButton id={props.elem.id_product} mode={"product"}/>
+                                <UploadButton id={props.elem.id_product} mode={"product"} setTrigger={props.setTrigger}/>
                             </td>
                             <td scope="col">
                                 <a className="btn btn-outline-secondary py-1 px-2"
                                     role="button"
                                     data-toggle="modal"
-                                    data-target={"#modal_confirmation_delete_"+local.user.id_product}
+                                    data-target={"#modal_confirmation_delete_" + local.user.id_product}
                                     onClick={(e) => { handleDeleteButton() }}>
                                     <i className="fas fa-trash text-danger fa-2x" ></i>
                                 </a>
@@ -110,6 +134,22 @@ export default function TableRow(props) {
                         :
                         <>
                             <th scope="row">{props.i + 1}</th>
+                            <td>
+                                {local.small ?
+                                    <img src={"http://localhost:5000/product/img/" + props.elem.photo}
+                                        height="50px"
+                                        width="50px"
+                                        onClick={() => { handleSmall() }}
+                                        alt={props.elem.description} />
+                                    :
+                                    <img src={"http://localhost:5000/product/img/" + props.elem.photo}
+                                        height="200px"
+                                        width="200px"
+                                        onClick={() => { handleSmall() }}
+                                        alt={props.elem.description} />
+
+                                }
+                            </td>
                             <td>{local.user.name_product}</td>
                             <td>{local.user.price}</td>
                             <td>{local.user.description}</td>
