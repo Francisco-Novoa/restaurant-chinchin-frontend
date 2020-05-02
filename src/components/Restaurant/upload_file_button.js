@@ -18,6 +18,12 @@ export default function UploadButton(props) {
         }
     }, [local])
 
+    useEffect(()=>{
+        if (ready===true){
+            props.setTrigger(true)
+            setTimeout(() => { setReady(null);props.setTrigger(false) }, 1000);
+        }
+    },[ready])
 
     return (
 

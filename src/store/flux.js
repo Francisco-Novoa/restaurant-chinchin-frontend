@@ -810,9 +810,26 @@ export default function getState({ getStore, getActions, setStore }) {
                     if (data.msg=="ok"){
                         ready(true)
                     }
-                    setStore({ orders: data })
+
 
                 } catch (error) {
+                    console.log(error)
+                }
+            },
+            getCurrentRestaurant: async () => {
+                let currentRestaurant= JSON.parse(sessionStorage.getItem('currentRestaurant'))
+                let url="http://localhost:5000/restaurantusers/"+currentRestaurant.restaurantuser.id
+                try {
+                    const all = await fetch(url, {
+                        method: "GET",
+                        headers: { "Content-Type": "application/json" },
+                    })
+                    const data = await all.json()
+                    currentRestaurant.restaurantuser.logo=data.logo
+                    sessionStorage.setItem('currentRestaurant', JSON.stringify(currentRestaurant))
+                    setStore({currentRestaurant:currentRestaurant})
+                }
+                catch (error) {
                     console.log(error)
                 }
             },

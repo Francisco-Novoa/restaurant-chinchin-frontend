@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function RestaurantCard(props) {
@@ -7,6 +7,7 @@ export default function RestaurantCard(props) {
             path: "http://localhost:5000/restaurant/img/" + props.restaurant.logo
         }
     )
+
     return (
         <>
             <Link to={"/restaurant/" + props.restaurant.name.replace(/\s+/g, '_')}>

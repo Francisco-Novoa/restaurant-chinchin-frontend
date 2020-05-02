@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Context } from "../../../src/store/appContext";
 import UploadButton from "./upload_file_button";
-import RestaurantCard from "./restaurant_card";
+import RestaurantCard_cp from "./restaurant_card_cp";
 
 export default function ControlPanel(props) {
     const { store, actions } = useContext(Context);
+    const [trigger, setTrigger] = useState(false)
     const firstInput = useRef(null)
     const secondInput = useRef(null)
     const thirdInput = useRef(null)
@@ -14,7 +15,6 @@ export default function ControlPanel(props) {
         address: false,
         email: false,
         user: {},
-        path: "http://localhost:5000/restaurant/img/" + store.currentRestaurant.restaurantuser.logo
     });
 
     const handleEditButton = (nombre, ref) => {
@@ -89,7 +89,7 @@ export default function ControlPanel(props) {
                                             <div className="col-md-8 ">
                                                 <div className="form-group">
                                                     <label className="bmd-label-floating text-primary">Compañia</label>
-                                                    {
+                                                    {!!local.name&&
                                                         local.name ? (
                                                             <input
                                                                 type="text"
@@ -111,7 +111,8 @@ export default function ControlPanel(props) {
                                                 </div>
                                             </div>
                                             <div className="col-md-4 d-flex justify-content-end" >
-                                                {local.name ?
+                                                {!!local.name&&
+                                                local.name ?
                                                     <>
                                                         <a className="btn btn-outline-secondary btn-sm mt-4 text-primary "
 
@@ -137,7 +138,7 @@ export default function ControlPanel(props) {
                                             <div className="col-md-8">
                                                 <div className="form-group">
                                                     <label className="bmd-label-floating text-primary">Telefono</label>
-                                                    {
+                                                    {!!local.phone&&
                                                         local.phone ? (
                                                             <input
                                                                 type="text"
@@ -159,7 +160,8 @@ export default function ControlPanel(props) {
                                                 </div>
                                             </div>
                                             <div className="col-md-4 d-flex justify-content-end">
-                                                {local.phone ?
+                                                {!!local.phone&&
+                                                local.phone ?
                                                     <>
                                                         <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
                                                             role="button"
@@ -184,7 +186,7 @@ export default function ControlPanel(props) {
                                             <div className="col-md-8">
                                                 <div className="form-group">
                                                     <label className="bmd-label-floating text-primary">Direccion</label>
-                                                    {
+                                                    {!!local.address&&
                                                         local.address ? (
                                                             <input
                                                                 type="text"
@@ -206,7 +208,8 @@ export default function ControlPanel(props) {
                                                 </div>
                                             </div>
                                             <div className="col-md-4 d-flex justify-content-end">
-                                                {local.address ?
+                                                {!!local.address&&
+                                                local.address ?
                                                     <>
                                                         <a className="btn btn-outline-secondary btn-sm mt-4 text-primary"
                                                             role="button"
@@ -231,7 +234,7 @@ export default function ControlPanel(props) {
                                             <div className="col-md-8">
                                                 <div className="form-group">
                                                     <label className="bmd-label-floating text-primary">Email</label>
-                                                    {
+                                                    {!!local.email&&
                                                         local.email ? (
                                                             <input
                                                                 type="text"
@@ -258,12 +261,18 @@ export default function ControlPanel(props) {
                                             <div className="col-md-4">
                                                 <label className="bmd-label-floating text-primary mb-3">Logo Corporativo</label>
                                                 <p>esto es un preview</p>
-                                                <small>puede que necesites hacer un logout para ver los efectos</small> </div>
+                                             </div>
                                             <div className="col-md-4 border bg-light">
-                                                <RestaurantCard restaurant={store.currentRestaurant.restaurantuser} />
+                                                {!!store.currentRestaurant.restaurantuser&&
+                                                <RestaurantCard_cp restaurant={store.currentRestaurant.restaurantuser} trigger={trigger} />
+
+                                                }
                                             </div>
                                             <div className="col-md-4 d-flex justify-content-start align-items-end">
-                                                <UploadButton id={store.currentRestaurant.restaurantuser.id} mode={"restaurant"} />
+                                                {!!store.currentRestaurant.restaurantuser&&
+                                                <UploadButton id={store.currentRestaurant.restaurantuser.id} mode={"restaurant"} setTrigger={setTrigger} />
+
+                                                }
                                             </div>
                                         </div>
 
