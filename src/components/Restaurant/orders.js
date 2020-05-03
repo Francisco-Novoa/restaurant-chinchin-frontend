@@ -129,9 +129,18 @@ export default function OwnerOrders(props) {
                                         }
 
                                         {/* Body */}
-                                      
-                                            {
-                                                !!store.orders.length > 0 &&
+
+                                        {
+                                            !!store.orders.length > 0 &&
+                                                local === "en espera" ?
+                                                store.orders.map((element, i) => {
+                                                    return (<>
+                                                        <Order elem={element} i={i} key={i} done={local} />
+
+                                                    </>
+                                                    )
+                                                })
+                                                :
                                                 store.orders.slice(0).reverse().map((element, i) => {
                                                     return (<>
                                                         <Order elem={element} i={i} key={i} done={local} />
@@ -139,7 +148,7 @@ export default function OwnerOrders(props) {
                                                     </>
                                                     )
                                                 })
-                                            }
+                                        }
                                     </table>
                                 </div>
                             </div>

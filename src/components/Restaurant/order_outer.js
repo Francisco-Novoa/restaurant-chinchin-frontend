@@ -7,11 +7,11 @@ export default function Order(props) {
     const [completing, setCompleting] = useState(false)
     const [rejecting, setRejecting] = useState(false)
     const completeOrder = () => {
-        actions.completeOrder(store.path + "/finish/" + props.elem.id_order, props.i, store.orders)
+        actions.completeOrder(store.path + "/finish/" + props.elem.id_order)
     }
 
     const rejectOrder = () => {
-        actions.completeOrder(store.path + "/reject/" + props.elem.id_order, props.i, store.orders)
+        actions.completeOrder(store.path + "/reject/" + props.elem.id_order)
     }
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export default function Order(props) {
                 (props.done === "cancelada" && props.elem.done === "cancelada") ?
                 <table className="table table-bordered">
                     <tr>
-                        <th colSpan="12" className=" text-left" >Orden Numero {props.i + 1}
+                        <th colSpan="12" className=" text-left" >Orden Numero {props.elem.order_number}
                         </th>
                     </tr>
                     <tr>

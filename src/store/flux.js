@@ -692,7 +692,7 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
-            completeOrder: async (url, i, orders) => {
+            completeOrder: async (url) => {
                 try {
                     const all = await fetch(url, {
                         method: "PUT",
@@ -702,11 +702,14 @@ export default function getState({ getStore, getActions, setStore }) {
                     if (data.msg === "completada" ||
                         data.msg === "rechazada" ||
                         data.msg === "cancelada") {
-                        console.log(data.msg)
-                        let oldStore = [...orders]
-                        oldStore[i].done = data.msg
-                        oldStore[i]["date_finalization"] = data.date
-                        setStore({ orders: oldStore })
+                        let actions=getActions()
+                        let store=getStore()
+                        try {
+                            actions.getOrders(store.path + "/orderof/" + store.currentRestaurant.restaurantuser.id)
+                        } catch (error) {
+                            actions.getOrders(store.path + "/orderby/" + store.currentUser.user.id)
+                        }
+                        
                     }
                     else {
                         console.log(data.msg)
