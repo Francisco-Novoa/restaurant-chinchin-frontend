@@ -12,12 +12,9 @@ export default function RestaurantCard(props) {
         <>
             <Link to={"/restaurant/" + props.restaurant.name.replace(/\s+/g, '_')}>
                 <div className="card">
+                    <img src={local.path} alt={props.restaurant.name} />
                     <div className="card-body">
-                    <img src={local.path}
-                        height="200px"
-                        width="200px"
-                        alt={props.restaurant.name} />
-                        <h5 className="card-title">{props.restaurant.name}</h5>
+                        <h5 className="card-title font-italic " style={{fontWeight: "bold"}}>{props.restaurant.name}</h5>
                         <a className="btn btn-primary text-white"><i className="fas fa-shopping-cart"></i></a>
                     </div>
                 </div>

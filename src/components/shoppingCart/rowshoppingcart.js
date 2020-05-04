@@ -59,7 +59,7 @@ export default function TableRowShopping(props) {
                 </a>
 
             </td>
-            <td>
+            <td className="text-info">
                 {local.subtotal}
             </td>
         </tr >

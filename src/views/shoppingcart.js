@@ -91,7 +91,7 @@ export default function ShoppingCart() {
                                                                 )
                                                             })
                                                         }
-                                                        <tr>
+                                                        <tr className=" text-success" style={{fontWeight:"bold", fontSize:"18px"}}>
                                                         <th colSpan="5" className="text-right pr-5" >
                                                             <span>Total: </span>
                                                         </th>

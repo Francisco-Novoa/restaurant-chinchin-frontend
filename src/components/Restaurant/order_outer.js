@@ -33,10 +33,10 @@ export default function Order(props) {
                 (props.done === "cancelada" && props.elem.done === "cancelada") ?
                 <table className="table table-bordered">
                     <tr>
-                        <th colSpan="12" className=" text-left" >Orden Numero {props.elem.order_number}
+                        <th colSpan="12" className="tabla-fondo text-left" >Orden Numero {props.elem.order_number}
                         </th>
                     </tr>
-                    <tr>
+                    <tr className="text-center">
                         <td> <span style={{ fontWeight: "bold" }} >Usuario</span>: {props.elem.user_name}</td>
                         <td> <span style={{ fontWeight: "bold" }} >Telefono: </span> {props.elem.user_phone} </td>
                         <td> <span style={{ fontWeight: "bold" }} >Estado de la orden: </span>
@@ -66,7 +66,7 @@ export default function Order(props) {
                         <td colSpan="12">
                             <table className="table" >
                                 <tbody>
-                                    <tr>
+                                    <tr className="tabla-fondo1 text-center">
                                         <th>#</th>
                                         <th>Id del Producto</th>
                                         <th>Nombre Producto</th>
@@ -90,7 +90,7 @@ export default function Order(props) {
                         <th>Total:
                        </th>
                         <td colSpan="4" className="text-right pr-5" >
-                            <span>$ {props.elem.total} </span>
+                            <span className="text-success">$ {props.elem.total} </span>
                         </td>
                     </tr>
                     <tr>
