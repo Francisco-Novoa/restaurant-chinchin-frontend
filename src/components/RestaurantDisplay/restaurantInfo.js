@@ -30,7 +30,7 @@ export default function RestaurantInfo(props) {
                             <div className="row">
                                 <div className="col-md-12 d-flex d-inline card-header card-header-info">
                                     <small className="col-md-4 text-white">Email: {store.restaurant.restaurant.email}</small>  
-                                    <small className="col-md-4 text-white">Telefon: {store.restaurant.restaurant.phone}</small>
+                                    <small className="col-md-4 text-white">Telefono: {store.restaurant.restaurant.phone}</small>
                                     <small className="col-md-4 text-white">Direccion: {store.restaurant.restaurant.address}</small>                                        
                                 </div>
                             </div>

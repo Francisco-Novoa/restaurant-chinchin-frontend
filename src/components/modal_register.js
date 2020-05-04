@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useRef} from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Context } from '../store/appContext'
 
 const ModalRegister = props => {
-    const { store,actions } = useContext(Context)
+    const { store, actions } = useContext(Context)
     const firstRef = useRef(null)
     const secondRef = useRef(null)
     const thirdRef = useRef(null)
@@ -10,36 +10,43 @@ const ModalRegister = props => {
     const fifthRef = useRef(null)
 
     const firstRefFocus = (e) => {
-        if(e.key==="Enter"){
+        if (e.key === "Enter") {
             secondRef.current.focus()
         }
     }
     const secondRefFocus = (e) => {
-        if(e.key==="Enter"){
+        if (e.key === "Enter") {
             thirdRef.current.focus()
         }
     }
     const thirdRefFocus = (e) => {
-        if(e.key==="Enter"){
+        if (e.key === "Enter") {
             fourthRef.current.focus()
         }
     }
     const fourthRefFocus = (e) => {
-        if(e.key==="Enter"){
+        if (e.key === "Enter") {
             fifthRef.current.focus()
         }
     }
-    useEffect(()=>{
-        if (firstRef!==null){
-        firstRef.current.focus()
+    useEffect(() => {
+        if (firstRef !== null) {
+            firstRef.current.focus()
         }
-    },[props.register])
+    }, [props.register])
 
     return (
         <div className="modal" id="modal_register" tabIndex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
+                    {store.errorsRegisterUser!==""?
+                     <div class="alert alert-danger" role="alert">
+                        {store.errorsRegisterUser.msg}
+                    </div>   
+                    :""
+                    }
+                    
                     <div className="modal-header">
                         Register
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
@@ -98,7 +105,8 @@ const ModalRegister = props => {
                         </div>
                     </div>
                     <div className="modal-footer d-flex justify-content-end">
-                        <button
+                        {
+                            <button
                             ref={fifthRef}
                             type="button"
                             className="btn btn-primary mr-1"
@@ -106,6 +114,7 @@ const ModalRegister = props => {
                             onClick={() => actions.registerUserPost()}>
                             Register
                         </button>
+                        }
                         <button type="button" className="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
