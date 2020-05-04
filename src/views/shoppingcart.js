@@ -63,7 +63,7 @@ export default function ShoppingCart() {
                         {
                             store.isAuthenticatedUser ?
                                 <>
-                                    <div className="card-header card-header-info text-center">
+                                    <div className="card-header card-header-primary text-center">
                                         <h3 className="card-title mt-0">the details of your order are here</h3>
                                         <RestaurantInfo />
                                     </div>

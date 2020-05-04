@@ -44,8 +44,8 @@ export default function Order(props) {
                                         :""
                             }
                         </td>
-                        <td> <span style={{ fontWeight: "bold" }} >fecha de creacion</span>: {props.elem.date_creation}</td>
-                        <td> <span style={{ fontWeight: "bold" }} >fecha de finalizacion</span>: {props.elem.date_finalization !== null ?
+                        <td> <span style={{ fontWeight: "bold" }} >Fecha de Creacion</span>: {props.elem.date_creation}</td>
+                        <td> <span style={{ fontWeight: "bold" }} >Fecha de Finalizacion</span>: {props.elem.date_finalization !== null ?
                                 props.elem.date_finalization
                                 : "en espera"}</td>
                     </tr>
