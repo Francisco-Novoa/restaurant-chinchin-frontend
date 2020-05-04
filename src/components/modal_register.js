@@ -1,8 +1,11 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Context } from '../store/appContext'
 
 const ModalRegister = props => {
     const { store, actions } = useContext(Context)
+    const [local, setLocal] = useState({
+        email: null,
+    })
     const firstRef = useRef(null)
     const secondRef = useRef(null)
     const thirdRef = useRef(null)
@@ -35,18 +38,36 @@ const ModalRegister = props => {
         }
     }, [props.register])
 
+    const validEmail = (e) => {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(e.target.value)) {
+            let oldLocal = { ...local }
+            oldLocal["email"] = true
+            setLocal(oldLocal)
+        }
+        else {
+            let oldLocal = { ...local }
+            oldLocal["email"] = false
+            setLocal(oldLocal)
+        }
+    }
+
     return (
         <div className="modal" id="modal_register" tabIndex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
-                    {store.errorsRegisterUser!==""?
-                     <div class="alert alert-danger" role="alert">
-                        {store.errorsRegisterUser.msg}
-                    </div>   
-                    :""
+                    {
+                        local.email !== null ?
+                            local.email == false ?
+                                <div class="alert alert-danger" role="alert">
+                                    Ingrese email valido
+                        </div>
+                                :
+                                ""
+                            :
+                            ""
                     }
-                    
+
                     <div className="modal-header">
                         Register
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
@@ -89,7 +110,10 @@ const ModalRegister = props => {
                                 name="email"
                                 className="form-control"
                                 onKeyDown={(e) => { thirdRefFocus(e) }}
-                                onChange={e => actions.handleChange(e)}>
+                                onChange={e => {
+                                    actions.handleChange(e)
+                                    validEmail(e)
+                                }}>
                             </input>
                         </div>
                         <div className="form-group">
@@ -102,18 +126,38 @@ const ModalRegister = props => {
                                 className="form-control"
                                 onKeyDown={(e) => { fourthRefFocus(e) }}
                                 onChange={e => actions.handleChange(e)}></input>
+                            <small>la contraseña necesita al menos 8 caracteres</small>
                         </div>
                     </div>
                     <div className="modal-footer d-flex justify-content-end">
                         {
-                            <button
-                            ref={fifthRef}
-                            type="button"
-                            className="btn btn-primary mr-1"
-                            data-dismiss="modal"
-                            onClick={() => actions.registerUserPost()}>
-                            Register
-                        </button>
+                            local.email !== null ?
+                                local.email === true &&
+                                    store.name !== "" &&
+                                    store.password_hash !== "" &&
+                                    store.password_hash.length > 7 &&
+                                    store.phone !== "" ?
+                                    <button
+                                        ref={fifthRef}
+                                        type="button"
+                                        className="btn btn-primary mr-1"
+                                        data-dismiss="modal"
+                                        onClick={() => actions.registerUserPost()}>
+                                        Register
+                                    </button>
+                                    : <button
+                                        ref={fifthRef}
+                                        type="button"
+                                        className="btn btn-primary mr-1 disabled">
+                                        Register
+                                    </button>
+                                :
+                                <button
+                                    ref={fifthRef}
+                                    type="button"
+                                    className="btn btn-primary mr-1 disabled">
+                                    Register
+                                </button>
                         }
                         <button type="button" className="btn btn-danger" data-dismiss="modal">Cancel</button>
                     </div>

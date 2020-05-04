@@ -125,7 +125,9 @@ export default function NewProduct(props) {
                                             <i class="far fa-paper-plane fa-2x"></i>
                                         </button>
                                         :
-                                        < button className="btn btn-primary disabled"onClick={(e) => { e.preventDefault()}}>
+                                        < button className="btn btn-primary disabled"
+                                            ref={fourthRef}
+                                            onClick={(e) => { e.preventDefault()}}>
                                             <i class="far fa-paper-plane fa-2x"></i>
                                         </button>
                                     }

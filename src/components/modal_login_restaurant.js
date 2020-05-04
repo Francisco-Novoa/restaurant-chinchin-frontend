@@ -6,6 +6,7 @@ const ModalLoginRestaurant = props => {
     const [state, setState] = useState({
         view: 1
     })
+    const [local, setLocal] =useState({email:null})
     const firstRef = useRef(null)
     const secondRef = useRef(null)
     const thirdRef = useRef(null)
@@ -49,6 +50,19 @@ const ModalLoginRestaurant = props => {
         }
     }, [state.view])
 
+    const validEmail = (e) => {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(e.target.value)) {
+            let oldLocal = { ...local }
+            oldLocal["email"] = true
+            setLocal(oldLocal)
+        }
+        else {
+            let oldLocal = { ...local }
+            oldLocal["email"] = false
+            setLocal(oldLocal)
+        }
+    }
+
     return (
 
         <div className="modal" id="modal_login_restaurant" tabIndex="-1" role="dialog"
@@ -57,6 +71,18 @@ const ModalLoginRestaurant = props => {
                 <div className="modal-content">
                     {state.view === 1 && (
                         <>
+                        {
+                                local.email !== null ?
+                                    local.email == false ?
+                                        <div class="alert alert-danger" role="alert">
+                                            Ingrese email valido
+                                        </div>
+                                        :
+                                        ""
+                                    :
+                                    ""
+                            }
+
                             <div className="modal-header">
                                 Login
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => BackToLogin()}>
@@ -74,7 +100,11 @@ const ModalLoginRestaurant = props => {
                                         className="form-control"
                                         value={store.email}
                                         onKeyDown={(e) => { firstRefFocus(e) }}
-                                        onChange={e => actions.handleChange(e)}>
+                                        onChange={e => {
+                                            actions.handleChange(e)
+                                            validEmail(e)
+                                        }}>
+
 
                                     </input>
                                 </div>
@@ -94,14 +124,34 @@ const ModalLoginRestaurant = props => {
                                     <small className='text-muted border-bottom' onClick={() => ForgotPassword()}>forgot password</small>
                                 </div>
                                 <div className="modal-footer d-flex justify-content-end">
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary mr-1"
-                                        data-dismiss="modal"
-                                        ref={thirdRef}
-                                        onClick={() => actions.loginRestaurantPost()}>
-                                        Access
-                                    </button>
+                                {
+                                        local.email !== null ?
+                                            local.email === true ?
+
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary mr-1"
+                                                    data-dismiss="modal"
+                                                    ref={thirdRef}
+                                                    onClick={() => actions.loginRestaurantPost()}>
+                                                    Access
+                                                </button>
+                                                : <button
+                                                    type="button"
+                                                    className="btn btn-primary mr-1 disabled"
+                                                    ref={thirdRef}>
+
+                                                    Access
+                                                </button>
+                                            :
+                                            <button
+                                                type="button"
+                                                className="btn btn-primary mr-1 disabled"
+                                                ref={thirdRef}>
+
+                                                Access
+                                            </button>
+                                    }
                                     <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={() => BackToLogin()}>Cancel</button>
                                 </div>
                             </div>
@@ -109,6 +159,17 @@ const ModalLoginRestaurant = props => {
                     )}
                     {state.view === 2 && (
                         <>
+                        {
+                                local.email !== null ?
+                                    local.email == false ?
+                                        <div class="alert alert-danger" role="alert">
+                                            Ingrese email valido
+                                        </div>
+                                        :
+                                        ""
+                                    :
+                                    ""
+                            }
                             <div className="modal-header">
                                 Login
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={() => BackToLogin()}>
@@ -124,19 +185,41 @@ const ModalLoginRestaurant = props => {
                                     id="LoginConsumerEmail"
                                     onKeyDown={(e) => { fourthRefFocus(e) }}
                                     value={store.email}
-                                    onChange={e => actions.handleChange(e)}
+                                    onChange={e => {
+                                        actions.handleChange(e)
+                                        validEmail(e)
+                                    }}
                                     className="form-control">
                                 </input>
                             </div>
                             <div className="modal-footer d-flex justify-content-end">
-                                <button
-                                    ref={fifthRef}
-                                    type="button"
-                                    className="btn btn-primary mr-1"
-                                    data-dismiss="modal"
-                                    onClick={() => Confirmation()}>
-                                    Send
-                                    </button>
+                            {
+                                    local.email !== null ?
+                                        local.email === true ?
+
+                                            <button
+                                                ref={fifthRef}
+                                                type="button"
+                                                className="btn btn-primary mr-1"
+                                                data-dismiss="modal"
+                                                onClick={() => actions.getConfirmationRestaurant()}>
+                                                Send
+                                            </button>
+                                            :
+                                            <button
+                                                ref={fifthRef}
+                                                type="button"
+                                                className="btn btn-primary mr-1 disabled">
+                                                Send
+                                            </button>
+                                        :
+                                        <button
+                                            ref={fifthRef}
+                                            type="button"
+                                            className="btn btn-primary mr-1 disabled">
+                                            Send
+                                        </button>
+                                }
                                 <button type="button" className="btn btn-danger mr-1" data-dismiss="modal" onClick={() => BackToLogin()}>Cancel</button>
                             </div>
                         </>
