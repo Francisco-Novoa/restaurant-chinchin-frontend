@@ -128,32 +128,32 @@ export default function UserOrders(props) {
                                                                     Ordenes completadas
                                                                 </a>
                                                             </div>
-                                                            :""
-                                            }
+                                                            : ""
+                                        }
 
                                         {/* Body */}
                                         <tbody>
                                             <tr>
-                                            {   
+                                                {
 
-                                                !!store.orders.length > 0 &&
-                                                local === "en espera"?
-                                                store.orders.map((element, i) => {
-                                                    return (<>
-                                                        <Order elem={element} i={i} key={i} done={local} />
+                                                    !!store.orders.length > 0 &&
+                                                        local === "en espera" ?
+                                                        store.orders.map((element, i) => {
+                                                            return (<>
+                                                                <Order elem={element} i={i} key={i} done={local} />
 
-                                                    </>
-                                                    )
-                                                })
-                                                :
-                                                store.orders.slice(0).reverse().map((element, i) => {
-                                                    return (<>
-                                                        <Order elem={element} i={i} key={i} done={local} />
+                                                            </>
+                                                            )
+                                                        })
+                                                        :
+                                                        store.orders.slice(0).reverse().map((element, i) => {
+                                                            return (<>
+                                                                <Order elem={element} i={i} key={i} done={local} />
 
-                                                    </>
-                                                    )
-                                                })
-                                            }
+                                                            </>
+                                                            )
+                                                        })
+                                                }
                                             </tr>
                                         </tbody>
                                     </table>

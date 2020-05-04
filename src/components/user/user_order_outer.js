@@ -22,7 +22,7 @@ export default function Order(props) {
                 (props.done === "cancelada" && props.elem.done === "cancelada") ?
                 <table className="table mb-3 table-bordered">
                     <tr>
-                        <th colSpan="12" className="tabla-fondo text-left" >Orden Numero {props.i + 1}
+                        <th colSpan="12" className="tabla-fondo text-left" >Orden Numero {props.elem.order_number}
                         </th>
                     </tr>
                     <tr>
@@ -61,6 +61,8 @@ export default function Order(props) {
                                     <th>Subtotal</th>
                                 </tr>
                                 {
+
+                                    
                                     !!props.elem.order_details &&
                                     props.elem.order_details.map((elem, i) => {
                                         return (
