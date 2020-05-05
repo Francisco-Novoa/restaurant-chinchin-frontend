@@ -721,7 +721,8 @@ export default function getState({ getStore, getActions, setStore }) {
             },
             enviadoCleanup: () => {
 
-                setStore({ enviado: false })
+                setStore({ enviado: false,
+                            restaurant:"" })
             },
             getAllUsers: () => {
                 const store = getStore();

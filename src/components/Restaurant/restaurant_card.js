@@ -10,12 +10,16 @@ export default function RestaurantCard(props) {
 
     return (
         <>
-            <Link to={"/restaurant/" + props.restaurant.name.replace(/\s+/g, '_')}>
-                <div className="card">
-                    <img src={local.path} alt={props.restaurant.name} />
-                    <div className="card-body">
+            <Link to={"/restaurant/" + props.restaurant.name.replace(/\s+/g, '_')} >
+                <div className="card" style={{height:"350px", paddingBottom:"10px"}}>
+                    <img src={local.path} alt={props.restaurant.name} style={{height:"75%"}}/>
+                    <div className="card-body bg-light" style={{height:"25%"}}>
                         <h5 className="card-title font-italic " style={{fontWeight: "bold"}}>{props.restaurant.name}</h5>
-                        <a className="btn btn-primary text-white"><i className="fas fa-shopping-cart"></i></a>
+                        <div className="d-flex justify-content-end">
+                        <button className="btn btn-primary text-white"><i className="fas fa-shopping-cart"></i>
+                        </button>
+                        </div>
+                        
                     </div>
                 </div>
             </Link>
