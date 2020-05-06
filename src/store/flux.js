@@ -839,6 +839,13 @@ export default function getState({ getStore, getActions, setStore }) {
                     console.log(error)
                 }
             },
+            inputsCleanup: ()=>{
+                setStore({ name: '',
+                email: '',
+                phone: '',
+                password_hash: '',
+                })
+            }
         }
     }
 }

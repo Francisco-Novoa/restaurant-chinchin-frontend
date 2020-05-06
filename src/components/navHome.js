@@ -40,7 +40,8 @@ export default function NavbarHome() {
                                     <a  className='nav-link btn btn-primary text-white'
                                         data-toggle="modal"
                                         data-target="#modal_login"
-                                        onClick={() => { setLogin(!login) }}
+                                        onClick={() => { setLogin(!login) ;
+                                            actions.inputsCleanup() }}
                                     >
                                         Login
                                     </a>
@@ -49,7 +50,8 @@ export default function NavbarHome() {
                                     <a  className='nav-link btn btn-primary text-white'
                                         data-toggle="modal"
                                         data-target="#modal_register"
-                                        onClick={() => { setRegister(!register) }}>
+                                        onClick={() => { setRegister(!register) ;
+                                            actions.inputsCleanup() }}>
                                         Register
                                     </a>
                                 </li>

@@ -33,7 +33,8 @@ export default function NavbarRest() {
                                         className='nav-link btn btn-primary text-white'
                                         data-toggle="modal"
                                         data-target="#modal_login_restaurant"
-                                        onClick={()=>{setLogin(!login)}}
+                                        onClick={()=>{setLogin(!login);
+                                            actions.inputsCleanup() }}
                                         >
                                         Login
                                     </a>
@@ -44,7 +45,8 @@ export default function NavbarRest() {
                                         className='nav-link btn btn-primary text-white'
                                         data-toggle="modal"
                                         data-target="#modal_register_restaurant"
-                                        onClick={()=>{setRegister(!register)}}>
+                                        onClick={()=>{setRegister(!register);
+                                            actions.inputsCleanup() }}>
                                         Register
                                     </a>
                                 </li>

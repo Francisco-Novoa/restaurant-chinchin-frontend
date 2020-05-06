@@ -73,13 +73,15 @@ export default function NavbarDisplay() {
                                             <a className='nav-link btn btn-primary text-white'
                                                 data-toggle="modal"
                                                 data-target="#modal_login"
-                                                onClick={() => { setLogin(!login) }}>
+                                                onClick={() => { setLogin(!login);
+                                                actions.inputsCleanup() }}>
                                                 Login
                                         </a>
                                             <a className='nav-link btn btn-primary text-white'
                                                 data-toggle="modal"
                                                 data-target="#modal_register"
-                                                onClick={() => { setRegister(!register) }}>
+                                                onClick={() => { setRegister(!register) ;
+                                                    actions.inputsCleanup() }}>
                                                 Register
                                          </a>
                                             <Link
@@ -96,13 +98,15 @@ export default function NavbarDisplay() {
                                             <a className='nav-link btn btn-primary text-white'
                                                 data-toggle="modal"
                                                 data-target="#modal_login"
-                                                onClick={() => { setLogin(!login) }}>
+                                                onClick={() => { setLogin(!login) ;
+                                                    actions.inputsCleanup() }}>
                                                 Login
                                         </a>
                                             <a className='nav-link btn btn-primary text-white'
                                                 data-toggle="modal"
                                                 data-target="#modal_register"
-                                                onClick={() => { setRegister(!register) }}>
+                                                onClick={() => { setRegister(!register) ;
+                                                    actions.inputsCleanup() }}>
                                                 Register
                                         </a>
                                             <a className='nav-link btn btn-primary text-white disabled'>

@@ -40,9 +40,10 @@ const ModalRegister = props => {
 
     const validEmail = (e) => {
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(e.target.value)) {
+            if (local.email!==true){
             let oldLocal = { ...local }
             oldLocal["email"] = true
-            setLocal(oldLocal)
+            setLocal(oldLocal)}
         }
         else {
             let oldLocal = { ...local }

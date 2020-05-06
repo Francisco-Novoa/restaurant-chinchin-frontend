@@ -29,9 +29,9 @@ export default function UserOrders(props) {
                             <div className="card-body">
                                 <div className="table-responsive">
                                     {/* Product Table */}
-                                    <table className="table table-hover">
+                                    <table className="table table-hover align-middle text-center">
                                         {/* Header */}
-                                        <thead className="text-primary text-justify">
+                                        <thead className="text-primary align-middle">
                                             <th scope="col">Ordenes</th>
                                         </thead>
                                         {

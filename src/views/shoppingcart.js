@@ -37,7 +37,6 @@ export default function ShoppingCart() {
             firstRef.current.focus()
         }
         Total()
-        actions.enviadoCleanup()
     }, [])
 
     const confirmOrder = () => {
