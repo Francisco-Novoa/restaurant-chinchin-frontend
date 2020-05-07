@@ -38,9 +38,9 @@ export default function TableRowDisplay(props) {
 
 
     return (
-        <>
 
-                <div className="card col-4">
+            <div className="col-lg-4 col-md-6 col-sm-8"> 
+            <div className="card" >
                     {/* Titulo block */}
                     <div className="card-header card-header-primary">
                         <h3 className="card-title">{props.elem.name_product}</h3>
@@ -51,11 +51,11 @@ export default function TableRowDisplay(props) {
                              width="250px"
                              alt={props.elem.description} />
                         
-                        <p className="card-text d-flex justify-content-between"><span style={{ fontWeight: "bold", marginRight: "3px" }}> Descripcion: </span>
+                        <p className="card-text d-flex justify-content-between"><span style={{ fontWeight: "bold", marginRight: "3px", height:"75px" }}> Descripcion: </span>
                         <span>{props.elem.description} </span></p>
                         <p className="card-text d-flex justify-content-between"> <span style={{ fontWeight: "bold" }}> Precio: $ </span> 
                         {props.elem.price}</p>
-                        <div className="d-flex justify-content-between">
+                        <div className="d-flex justify-content-between" style={{ Height: "100px" }}>
                             {
                                 local.amount <= 0 ?
                                     <a className="btn btn-outline-secondary disabled" role="button" >
@@ -89,6 +89,7 @@ export default function TableRowDisplay(props) {
                     </div>
                 </div >
 
-        </>
+            </div>
+
     )
 }

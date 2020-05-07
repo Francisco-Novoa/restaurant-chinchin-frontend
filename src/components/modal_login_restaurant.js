@@ -51,7 +51,7 @@ const ModalLoginRestaurant = props => {
     }, [state.view])
 
     const validEmail = (e) => {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(e.target.value)) {
+        if (/.+\@.+\..+/.test(e.target.value)) {
             let oldLocal = { ...local }
             oldLocal["email"] = true
             setLocal(oldLocal)

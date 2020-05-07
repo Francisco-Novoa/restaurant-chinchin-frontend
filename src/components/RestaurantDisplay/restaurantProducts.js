@@ -19,27 +19,30 @@ export default function RestaurantProducts(props) {
                         <div className="card">
                             <div className="card-header col-md-8 card-header-primary">
                                 <div className="col-8">
-                                <h4 className="card-title">{!!store.restaurant.products && store.restaurant.restaurant.name}</h4>
+                                    <h4 className="card-title">{!!store.restaurant.products && store.restaurant.restaurant.name}</h4>
                                 </div>
                                 <div className="col-12">
-                                    <RestaurantInfo /> 
+                                    <RestaurantInfo />
                                 </div>
                             </div>
                             <div className="container-fluid">
-                                <div className="card-body row card-column">
+                                <div className="row">
+                                    <div className="card-body card-deck " >
 
-                                    {
-                                        !!store.restaurant.products &&
-                                        store.restaurant.products.map((element, i) => {
-                                            return (<>
-                                                <TableRowDisplay elem={element} i={i} key={i} />
-                                            </>
-                                            )
-                                        })
+                                        {
+                                            !!store.restaurant.products &&
+                                            store.restaurant.products.map((element, i) => {
+                                                return (<>
+                                                    <TableRowDisplay elem={element} i={i} key={i} />
+                                                </>
+                                                )
+                                            })
 
-                                    }
+                                        }
 
+                                    </div>
                                 </div>
+
                             </div>
 
                         </div>

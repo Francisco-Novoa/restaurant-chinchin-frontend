@@ -13,7 +13,7 @@ export default function RestaurantList() {
                         !!store.allRestaurants&&
                             store.allRestaurants.map((element,i)=>{
                                 return (
-                                    <div className="col-4 my-1 px-1" key={i}> <RestaurantCard restaurant={element}/> </div>
+                                    <div className="col-lg-4 col-md-6 col-sm-12 my-1 px-1" key={i}> <RestaurantCard restaurant={element}/> </div>
                                     
                                 )
                             })

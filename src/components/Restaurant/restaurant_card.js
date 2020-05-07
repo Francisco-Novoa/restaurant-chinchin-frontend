@@ -10,8 +10,9 @@ export default function RestaurantCard(props) {
 
     return (
         <>
+        
             <Link to={"/restaurant/" + props.restaurant.name.replace(/\s+/g, '_')} >
-                <div className="card" style={{height:"350px", paddingBottom:"10px"}}>
+                <div className="card" style={{height:"350px", width:"250", paddingBottom:"10px"}}>
                     <img src={local.path} alt={props.restaurant.name} style={{height:"75%"}}/>
                     <div className="card-body bg-light" style={{height:"25%"}}>
                         <h5 className="card-title font-italic " style={{fontWeight: "bold"}}>{props.restaurant.name}</h5>

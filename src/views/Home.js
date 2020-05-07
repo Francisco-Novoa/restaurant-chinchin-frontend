@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
 import RestaurantList from '../components/Restaurant/restaurant_list'
+
 import Navbar from '../components/navHome'
 
 const Home = props => {
@@ -10,6 +11,8 @@ const Home = props => {
         actions.isAuthenticatedUser()
         actions.enviadoCleanup()
     }, []);
+
+    
     return (
         <> 
          <Navbar />

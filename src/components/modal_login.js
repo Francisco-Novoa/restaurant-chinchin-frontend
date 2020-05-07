@@ -6,7 +6,7 @@ const ModalLogin = props => {
     const [state, setState] = useState({
         view: 1,
     })
-    const [local, setLocal] =useState({email:null})
+    const [local, setLocal] =useState(null)
     const firstRef = useRef(null)
     const secondRef = useRef(null)
     const thirdRef = useRef(null)
@@ -52,15 +52,11 @@ const ModalLogin = props => {
     }, [state.view])
 
     const validEmail = (e) => {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(e.target.value)) {
-            let oldLocal = { ...local }
-            oldLocal["email"] = true
-            setLocal(oldLocal)
+        if (/.+\@.+\..+/.test(e.target.value)) {
+        setLocal(true)
         }
         else {
-            let oldLocal = { ...local }
-            oldLocal["email"] = false
-            setLocal(oldLocal)
+           setLocal(false)
         }
     }
 
@@ -73,8 +69,8 @@ const ModalLogin = props => {
                     {state.view === 1 && (
                         <>
                             {
-                                local.email !== null ?
-                                    local.email == false ?
+                                local !== null ?
+                                    local == false ?
                                         <div class="alert alert-danger" role="alert">
                                             Ingrese email valido
                                         </div>
@@ -125,8 +121,8 @@ const ModalLogin = props => {
                                 <div className="modal-footer d-flex justify-content-end">
 
                                     {
-                                        local.email !== null ?
-                                            local.email === true ?
+                                        local !== null ?
+                                            local === true ?
 
                                                 <button
                                                     type="button"
